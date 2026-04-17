@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232E3142'/><text x='16' y='22' font-size='18' font-weight='bold' text-anchor='middle' fill='%234A8A8F' font-family='sans-serif'>D</text></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>딥택트러닝 × SK플래닛 | 바이브코딩 교육 제안서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #2E3142;
+  --accent: #3C6D71;
+  --accent-light: #4A8A8F;
+  --surface: #F2F1EF;
+  --text: #1A1A1A;
+  --text-sub: #555;
+  --text-light: #999;
+  --border: #D9D9D9;
+  --white: #FFFFFF;
+  --dark-alt: #284A63;
+  --slate: #515C78;
+  --charcoal: #45494C;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #E8E6E1;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.65;
+}
+
+/* ═══ SLIDE SYSTEM ═══ */
+.slide {
+  width: 960px; height: 540px;
+  margin: 40px auto;
+  background: var(--white);
+  border-radius: 6px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
+  overflow: hidden;
+  position: relative;
+}
+.section-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; }
+.section-head .num { font-family:'Plus Jakarta Sans',sans-serif; font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); }
+.section-head h2 { font-size:22px; font-weight:700; letter-spacing:-0.3px; }
+.content-slide { padding: 40px 52px; display: flex; flex-direction: column; height:100%; }
+
+/* ═══ COVER ═══ */
+.cover {
+  background: linear-gradient(135deg, #2E3142 0%, #284A63 60%, #3C6D71 100%);
+  color:#FFF; display:flex; flex-direction:column; justify-content:center;
+  padding:60px 70px; position:relative;
+}
+.cover::before { content:''; position:absolute; top:-120px; right:-120px; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle, rgba(60,109,113,0.15) 0%, transparent 70%); }
+.cover::after { content:''; position:absolute; bottom:0; left:0; right:0; height:4px; background:linear-gradient(90deg, var(--accent), var(--accent-light), transparent); }
+.cover-badge { font-family:'Plus Jakarta Sans',sans-serif; font-size:11px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--accent-light); margin-bottom:28px; }
+.cover-client { font-size:14px; font-weight:500; color:rgba(255,255,255,0.45); letter-spacing:1px; margin-bottom:12px; }
+.cover-client strong { font-size:28px; font-weight:900; color:rgba(255,255,255,0.85); letter-spacing:-0.5px; display:block; margin-top:4px; }
+.cover h1 { font-size:36px; font-weight:900; line-height:1.25; margin-bottom:12px; letter-spacing:-0.5px; }
+.cover h1 em { font-style:normal; color:var(--accent-light); }
+.cover .subtitle { font-size:16px; font-weight:300; color:rgba(255,255,255,0.65); margin-bottom:48px; }
+.cover-meta { display:flex; gap:32px; font-size:13px; color:rgba(255,255,255,0.5); }
+.cover-meta span { display:flex; align-items:center; gap:6px; }
+.cover-meta .dot { width:6px; height:6px; background:var(--accent); border-radius:50%; display:inline-block; }
+.cover-logo { position:absolute; top:40px; right:60px; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:14px; letter-spacing:-0.3px; color:rgba(255,255,255,0.35); }
+
+/* ═══ PROBLEM ═══ */
+.split-left { display:grid; grid-template-columns:340px 1fr; height:100%; }
+.split-left .left-panel { background:var(--primary); color:#FFF; padding:48px 36px; display:flex; flex-direction:column; justify-content:center; position:relative; }
+.split-left .left-panel::after { content:''; position:absolute; top:0;right:0;bottom:0; width:3px; background:linear-gradient(180deg, var(--accent), transparent); }
+.slide-number { font-family:'Plus Jakarta Sans',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; color:var(--accent-light); margin-bottom:16px; }
+.left-panel h2 { font-size:22px; font-weight:700; line-height:1.35; margin-bottom:14px; }
+.left-panel p { font-size:13px; color:rgba(255,255,255,0.55); line-height:1.7; }
+.right-panel { padding:44px 40px; display:flex; flex-direction:column; justify-content:center; gap:16px; }
+.pain-card { background:var(--surface); border-radius:8px; padding:18px 22px; border-left:3px solid var(--accent); }
+.pain-card .label { font-size:11px; font-weight:600; color:var(--accent); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
+.pain-card .desc { font-size:13.5px; color:var(--text); font-weight:400; line-height:1.55; }
+
+/* ═══ SOLUTION — 2단 ═══ */
+.sol-hero { background:var(--primary); border-radius:10px; padding:24px 32px; margin-bottom:20px; display:flex; align-items:center; gap:20px; }
+.sol-hero-icon { width:48px; height:48px; border-radius:50%; flex-shrink:0; background:linear-gradient(135deg,var(--accent),var(--accent-light)); display:flex; align-items:center; justify-content:center; font-size:22px; color:#FFF; }
+.sol-hero-text { color:#FFF; }
+.sol-hero-text h3 { font-size:16px; font-weight:700; margin-bottom:4px; }
+.sol-hero-text p { font-size:12.5px; color:rgba(255,255,255,0.6); line-height:1.5; }
+.solution-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; flex:1; }
+.sol-card { background:var(--surface); border-radius:10px; padding:22px 20px; display:flex; flex-direction:column; position:relative; overflow:hidden; }
+.sol-icon { width:36px; height:36px; background:linear-gradient(135deg,var(--accent),var(--accent-light)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; margin-bottom:12px; color:#FFF; }
+.sol-card h3 { font-size:14px; font-weight:700; margin-bottom:6px; }
+.sol-card p { font-size:12px; color:var(--text-sub); line-height:1.55; }
+.sol-ba { margin-top:auto; padding-top:12px; border-top:1px dashed var(--border); font-size:11px; line-height:1.5; }
+.sol-ba .ba-row { display:flex; align-items:flex-start; gap:6px; margin-bottom:3px; }
+.sol-ba .ba-label { font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:9px; letter-spacing:0.5px; padding:2px 6px; border-radius:3px; flex-shrink:0; margin-top:1px; }
+.sol-ba .ba-before .ba-label { background:#EEE; color:var(--text-light); }
+.sol-ba .ba-after .ba-label { background:var(--accent); color:#FFF; }
+.sol-ba .ba-text { color:var(--text-sub); }
+.sol-ba .ba-after .ba-text { color:var(--text); font-weight:500; }
+
+/* ═══ OBJECTIVES + OUTCOMES ═══ */
+.obj-out-layout { display:grid; grid-template-columns:1fr 1fr; gap:36px; flex:1; }
+.obj-box, .out-box { display:flex; flex-direction:column; }
+.box-title { font-size:14px; font-weight:700; color:var(--accent); letter-spacing:0.5px; margin-bottom:14px; padding-bottom:10px; border-bottom:2px solid var(--accent); }
+.obj-card { background:var(--surface); border-radius:8px; padding:14px 18px; margin-bottom:10px; display:flex; align-items:flex-start; gap:14px; flex:1; }
+.obj-card:last-child { margin-bottom:0; }
+.obj-num { font-family:'Plus Jakarta Sans',sans-serif; font-size:20px; font-weight:800; color:var(--accent); opacity:0.3; min-width:28px; line-height:1.2; flex-shrink:0; }
+.obj-card h4 { font-size:13px; font-weight:700; margin-bottom:2px; }
+.obj-card p { font-size:11.5px; color:var(--text-sub); line-height:1.45; }
+.out-card { background:var(--surface); border-radius:8px; padding:14px 18px; margin-bottom:10px; display:flex; align-items:center; gap:14px; flex:1; }
+.out-card:last-child { margin-bottom:0; }
+.out-icon { width:36px; height:36px; border-radius:8px; flex-shrink:0; background:linear-gradient(135deg,var(--accent),var(--accent-light)); display:flex; align-items:center; justify-content:center; font-size:15px; color:#FFF; }
+.out-card h4 { font-size:13px; font-weight:700; margin-bottom:2px; }
+.out-card p { font-size:11.5px; color:var(--text-sub); line-height:1.45; }
+
+/* ═══ FLOW — 세로 타임라인 ═══ */
+.vtl-container { display:flex; flex:1; gap:0; position:relative; padding-left:36px; }
+.vtl-line { position:absolute; left:54px; top:0; bottom:0; width:2px; background:linear-gradient(180deg, var(--accent), var(--border)); }
+.vtl-list { display:flex; flex-direction:column; justify-content:space-between; flex:1; gap:6px; }
+.vtl-item { display:flex; align-items:flex-start; gap:18px; position:relative; }
+.vtl-dot { width:38px; height:38px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:16px; z-index:2; position:relative; }
+.vtl-item:nth-child(1) .vtl-dot { background:linear-gradient(135deg,#2E3142,#45494C); color:#FFF; }
+.vtl-item:nth-child(2) .vtl-dot { background:linear-gradient(135deg,#284A63,#515C78); color:#FFF; }
+.vtl-item:nth-child(3) .vtl-dot { background:linear-gradient(135deg,var(--accent),var(--accent-light)); color:#FFF; }
+.vtl-item:nth-child(4) .vtl-dot { background:linear-gradient(135deg,#2E3142,#45494C); color:#FFF; }
+.vtl-body { flex:1; padding-bottom:8px; }
+.vtl-top { display:flex; align-items:baseline; gap:10px; margin-bottom:4px; }
+.vtl-body h4 { font-size:14px; font-weight:700; }
+.vtl-time { font-family:'Plus Jakarta Sans',sans-serif; font-size:11px; font-weight:700; color:var(--accent); background:rgba(60,109,113,0.08); padding:2px 8px; border-radius:3px; }
+.vtl-body .vtl-desc { font-size:12px; color:var(--text-sub); line-height:1.5; margin-bottom:6px; }
+.vtl-tags { display:flex; gap:6px; flex-wrap:wrap; }
+.vtl-tag { display:inline-flex; align-items:center; gap:4px; background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:3px 10px; font-size:10.5px; font-weight:600; color:var(--accent); }
+.vtl-tag-out { background:var(--primary); border-color:var(--primary); color:#FFF; }
+
+/* ═══ CURRICULUM TABLE ═══ */
+.cur-table-wrap { flex:1; display:flex; flex-direction:column; }
+.cur-table { width:100%; border-collapse:collapse; font-size:11.5px; }
+.cur-table thead th { background:var(--primary); color:#FFF; font-weight:600; font-size:11px; padding:8px 10px; text-align:center; letter-spacing:0.5px; }
+.cur-table thead th:nth-child(2) { text-align:left; }
+.cur-table tbody td { padding:12px 12px; border-bottom:1px solid #EEEDEA; vertical-align:top; }
+.cur-table tbody tr:last-child td { border-bottom:none; }
+.cur-table .col-module { text-align:center; font-weight:700; font-size:12px; background:var(--surface); width:115px; line-height:1.4; }
+.cur-table .col-content { line-height:1.5; }
+.cur-table .col-time { text-align:center; font-weight:600; width:50px; font-size:12.5px; color:var(--accent); }
+.cur-table .col-method { text-align:center; width:85px; font-size:11px; color:var(--text-sub); line-height:1.45; }
+.cur-table .module-goal { font-weight:700; font-size:12px; margin-bottom:6px; color:var(--text); }
+.cur-table .sub-section { font-weight:600; margin-top:5px; margin-bottom:1px; color:var(--text); font-size:11.5px; }
+.cur-table .detail-item { padding-left:10px; position:relative; color:var(--text-sub); line-height:1.45; margin:1px 0; font-size:11px; }
+.cur-table .detail-item::before { content:'-'; position:absolute; left:0; color:var(--text-light); }
+
+/* ═══ OVERVIEW (교육 개요) ═══ */
+.overview-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; flex:1; }
+.ov-left, .ov-right { display:flex; flex-direction:column; gap:0; }
+.ov-item { display:flex; border-bottom:1px solid #F0EFEC; padding:13px 0; }
+.ov-item:last-child { border-bottom:none; }
+.ov-label { width:100px; flex-shrink:0; font-size:12px; font-weight:700; color:var(--accent); }
+.ov-value { font-size:13px; color:var(--text); line-height:1.5; }
+.ov-note { margin-top:auto; background:var(--surface); border-radius:8px; padding:16px 20px; font-size:11.5px; color:var(--text-sub); line-height:1.55; }
+.ov-note strong { color:var(--text); font-weight:600; }
+
+/* ═══ QUOTE (견적) ═══ */
+.quote-table-wrap { flex:1; display:flex; flex-direction:column; }
+.quote-table { width:100%; border-collapse:collapse; font-size:12.5px; }
+.quote-table thead th { background:var(--primary); color:#FFF; font-weight:600; font-size:11.5px; padding:10px 14px; text-align:center; }
+.quote-table thead th:first-child { text-align:left; }
+.quote-table tbody td { padding:14px 14px; border-bottom:1px solid #EEEDEA; vertical-align:middle; }
+.quote-table tbody tr:last-child td { border-bottom:none; }
+.quote-table .qt-item { font-weight:600; }
+.quote-table .qt-desc { font-size:11px; color:var(--text-sub); }
+.quote-table .qt-num { text-align:center; }
+.quote-table .qt-price { text-align:right; font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; }
+.quote-total { display:flex; justify-content:flex-end; align-items:baseline; gap:12px; margin-top:20px; padding:16px 20px; background:var(--primary); border-radius:8px; }
+.quote-total .qt-label { font-size:14px; color:rgba(255,255,255,0.6); }
+.quote-total .qt-amount { font-family:'Plus Jakarta Sans',sans-serif; font-size:28px; font-weight:800; color:#FFF; }
+.quote-total .qt-vat { font-size:11px; color:rgba(255,255,255,0.4); }
+.quote-note { margin-top:12px; font-size:11px; color:var(--text-light); line-height:1.5; }
+
+/* ═══ TRAINER ═══ */
+.profile-layout { display:grid; grid-template-columns:280px 1fr; height:100%; }
+.profile-left { background:linear-gradient(180deg,#2E3142,#284A63); color:#FFF; padding:44px 32px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+.profile-avatar { width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-light)); display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:900; color:#FFF; margin-bottom:18px; font-family:'Plus Jakarta Sans',sans-serif; }
+.profile-left h3 { font-size:20px; font-weight:700; margin-bottom:4px; }
+.profile-left .role { font-size:13px; color:rgba(255,255,255,0.5); margin-bottom:20px; }
+.profile-tag { display:inline-block; background:rgba(60,109,113,0.15); color:var(--accent-light); font-size:11px; font-weight:600; padding:4px 12px; border-radius:20px; margin:3px; }
+.profile-right { padding:40px 36px; display:flex; flex-direction:column; justify-content:center; gap:16px; }
+.profile-section h4 { font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:8px; }
+.profile-section p, .profile-section li { font-size:13px; color:var(--text-sub); line-height:1.6; }
+.profile-section ul { list-style:none; padding:0; }
+.profile-section li { padding-left:14px; position:relative; margin-bottom:3px; }
+.profile-section li::before { content:''; position:absolute; left:0; top:9px; width:5px; height:5px; background:var(--accent); border-radius:50%; }
+
+/* ═══ CLOSING ═══ */
+.closing { background:linear-gradient(135deg,#2E3142,#284A63); color:#FFF; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:60px; position:relative; }
+.closing::before { content:''; position:absolute; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle, rgba(60,109,113,0.08), transparent 70%); top:50%; left:50%; transform:translate(-50%,-50%); }
+.closing h2 { font-size:30px; font-weight:900; line-height:1.35; margin-bottom:16px; position:relative; }
+.closing h2 em { font-style:normal; color:var(--accent-light); }
+.closing p { font-size:15px; color:rgba(255,255,255,0.55); margin-bottom:40px; position:relative; }
+.contact-row { display:flex; gap:40px; position:relative; }
+.contact-item { text-align:center; }
+.contact-item .cl { font-size:11px; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:4px; }
+.contact-item .cv { font-size:14px; font-weight:500; color:#FFF; }
+
+.nav-hint { text-align:center; padding:20px; color:var(--text-light); font-size:12px; }
+
+/* ════════════════════════════════
+   PRINT — A4 Landscape
+   ════════════════════════════════ */
+@media print {
+  @page { size: A4 landscape; margin: 0; }
+  body { background:#FFF; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  .nav-hint { display:none !important; }
+  .slide { width:297mm; height:210mm; margin:0; border-radius:0; box-shadow:none; page-break-after:always; page-break-inside:avoid; }
+  .slide:last-child { page-break-after:auto; }
+
+  /* ── 인쇄 라이트 모드: 다크 배경 → 밝은 배경 ── */
+  .cover { background:#FFFFFF !important; color:var(--text) !important; }
+  .cover::before { background:radial-gradient(circle, rgba(60,109,113,0.06) 0%, transparent 70%) !important; }
+  .cover::after { background:linear-gradient(90deg, var(--accent), var(--accent-light), transparent) !important; }
+  .cover h1 { color:var(--text) !important; }
+  .cover-client { color:var(--text-light) !important; }
+  .cover-client strong { color:var(--text) !important; }
+  .cover h1 em { color:var(--accent) !important; }
+  .cover .subtitle { color:var(--text-sub) !important; }
+  .cover-meta { color:var(--text-light) !important; }
+  .cover-logo { color:var(--text-light) !important; }
+  .cover-badge { color:var(--accent) !important; }
+
+  .split-left .left-panel { background:var(--surface) !important; color:var(--text) !important; }
+  .split-left .left-panel::after { background:linear-gradient(180deg, var(--accent), transparent) !important; }
+  .slide-number { color:var(--accent) !important; }
+  .left-panel h2 { color:var(--text) !important; }
+  .left-panel p { color:var(--text-sub) !important; }
+
+  .sol-hero { background:var(--surface) !important; }
+  .sol-hero-text { color:var(--text) !important; }
+  .sol-hero-text h3 { color:var(--text) !important; }
+  .sol-hero-text p { color:var(--text-sub) !important; }
+
+  .vtl-item .vtl-dot { background:var(--surface) !important; color:var(--text) !important; border:2px solid var(--accent); }
+  .vtl-item:nth-child(3) .vtl-dot { background:var(--accent) !important; color:#FFF !important; border-color:var(--accent); }
+  .vtl-tag-out { background:var(--accent) !important; border-color:var(--accent) !important; }
+
+  .cur-table thead th { background:var(--text) !important; }
+
+  .quote-table thead th { background:var(--text) !important; }
+  .quote-total { background:var(--surface) !important; border:2px solid var(--accent); }
+  .quote-total .qt-label { color:var(--text-sub) !important; }
+  .quote-total .qt-amount { color:var(--accent) !important; }
+
+  .profile-left { background:var(--surface) !important; color:var(--text) !important; }
+  .profile-left h3 { color:var(--text) !important; }
+  .profile-left .role { color:var(--text-sub) !important; }
+  .profile-avatar { background:linear-gradient(135deg,var(--accent),var(--accent-light)) !important; }
+  .profile-tag { background:rgba(60,109,113,0.1) !important; color:var(--accent) !important; }
+
+  .closing { background:#FFFFFF !important; color:var(--text) !important; }
+  .closing::before { background:radial-gradient(circle, rgba(60,109,113,0.04), transparent 70%) !important; }
+  .closing h2 { color:var(--text) !important; }
+  .closing h2 em { color:var(--accent) !important; }
+  .closing p { color:var(--text-sub) !important; }
+  .contact-item .cl { color:var(--text-light) !important; }
+  .contact-item .cv { color:var(--text) !important; }
+
+  /* ── 인쇄 스케일업 ── */
+  .cover { padding:80px 100px; }
+  .cover-badge { font-size:13px; margin-bottom:36px; }
+  .cover-client { font-size:17px; margin-bottom:16px; }
+  .cover-client strong { font-size:38px; }
+  .cover h1 { font-size:48px; }
+  .cover .subtitle { font-size:20px; margin-bottom:60px; }
+  .cover-meta { font-size:16px; gap:40px; }
+  .cover-logo { font-size:17px; top:50px; right:80px; }
+
+  .split-left { grid-template-columns:42% 1fr; }
+  .split-left .left-panel { padding:60px 48px; }
+  .slide-number { font-size:13px; }
+  .left-panel h2 { font-size:28px; }
+  .left-panel p { font-size:16px; }
+  .right-panel { padding:56px 52px; gap:20px; }
+  .pain-card { padding:22px 28px; }
+  .pain-card .label { font-size:12px; }
+  .pain-card .desc { font-size:16px; }
+
+  .content-slide { padding:56px 72px; }
+  .section-head { margin-bottom:32px; }
+  .section-head .num { font-size:12px; }
+  .section-head h2 { font-size:28px; }
+
+  .sol-hero { padding:30px 40px; margin-bottom:28px; }
+  .sol-hero-icon { width:60px; height:60px; font-size:28px; }
+  .sol-hero-text h3 { font-size:20px; }
+  .sol-hero-text p { font-size:15px; }
+  .solution-grid { gap:24px; }
+  .sol-card { padding:28px 26px; }
+  .sol-icon { width:48px; height:48px; font-size:20px; margin-bottom:16px; }
+  .sol-card h3 { font-size:17px; margin-bottom:8px; }
+  .sol-card p { font-size:14px; }
+  .sol-ba { padding-top:16px; }
+  .sol-ba .ba-label { font-size:10px; padding:3px 8px; }
+  .sol-ba .ba-text { font-size:13px; }
+
+  .box-title { font-size:17px; margin-bottom:18px; padding-bottom:12px; }
+  .obj-card, .out-card { padding:18px 22px; margin-bottom:14px; }
+  .obj-num { font-size:26px; min-width:36px; }
+  .obj-card h4, .out-card h4 { font-size:16px; margin-bottom:3px; }
+  .obj-card p, .out-card p { font-size:14px; }
+  .out-icon { width:44px; height:44px; font-size:18px; }
+
+  .vtl-container { padding-left:48px; }
+  .vtl-line { left:72px; }
+  .vtl-dot { width:48px; height:48px; font-size:20px; }
+  .vtl-body h4 { font-size:18px; }
+  .vtl-time { font-size:13px; padding:3px 10px; }
+  .vtl-body .vtl-desc { font-size:15px; }
+  .vtl-tag { font-size:12px; padding:4px 12px; }
+  .vtl-list { gap:10px; }
+
+  .cur-table { font-size:14px; }
+  .cur-table thead th { padding:12px 16px; font-size:13px; }
+  .cur-table tbody td { padding:16px 16px; }
+  .cur-table .col-module { font-size:15px; width:150px; }
+  .cur-table .col-time { font-size:16px; width:70px; }
+  .cur-table .col-method { font-size:13px; width:110px; }
+  .cur-table .module-goal { font-size:15px; margin-bottom:8px; }
+  .cur-table .sub-section { font-size:14px; margin-top:7px; }
+  .cur-table .detail-item { font-size:13px; }
+
+  .ov-label { font-size:14px; width:120px; }
+  .ov-value { font-size:16px; }
+  .ov-note { font-size:14px; padding:20px 24px; }
+  .overview-grid { gap:40px; }
+
+  .quote-table { font-size:15px; }
+  .quote-table thead th { padding:14px 18px; font-size:14px; }
+  .quote-table tbody td { padding:18px 18px; }
+  .quote-total .qt-amount { font-size:36px; }
+  .quote-total .qt-label { font-size:17px; }
+  .quote-note { font-size:13px; }
+
+  .profile-layout { grid-template-columns:36% 1fr; }
+  .profile-left { padding:60px 44px; }
+  .profile-avatar { width:110px; height:110px; font-size:40px; margin-bottom:24px; }
+  .profile-left h3 { font-size:26px; }
+  .profile-left .role { font-size:16px; margin-bottom:24px; }
+  .profile-tag { font-size:13px; padding:6px 16px; }
+  .profile-right { padding:56px 48px; gap:22px; }
+  .profile-section h4 { font-size:14px; margin-bottom:10px; }
+  .profile-section p, .profile-section li { font-size:16px; }
+
+  .closing { padding:80px; }
+  .closing h2 { font-size:40px; }
+  .closing p { font-size:19px; margin-bottom:52px; }
+  .contact-item .cl { font-size:13px; }
+  .contact-item .cv { font-size:18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="nav-hint">스크롤하여 슬라이드를 확인하세요 · 인쇄 시 A4 가로(Landscape)로 설정해주세요</div>
+
+<!-- ═══ 1. COVER ═══ -->
+<div class="slide cover">
+  <div class="cover-logo">DEEPTACT LEARNING</div>
+  <div class="cover-client">Prepared for<strong>SK플래닛</strong></div>
+  <h1>팀 리더를 위한<br><em>바이브코딩</em> 마스터클래스</h1>
+  <p class="subtitle">AI와 대화하며 팀 관리 도구를 직접 만드는 90분의 경험</p>
+  <div class="cover-meta">
+    <span><span class="dot"></span>딥택트러닝</span>
+    <span><span class="dot"></span>2026.03.28</span>
+  </div>
+</div>
+
+<!-- ═══ 2. PROBLEM ═══ -->
+<div class="slide">
+  <div class="split-left">
+    <div class="left-panel">
+      <div class="slide-number">01 — 현재 과제</div>
+      <h2>팀 리더가 직면한<br>현실적 문제</h2>
+      <p>팀 업무 현황 파악에 쓰는 시간이 실제 의사결정보다 많습니다. 도구가 문제를 해결해야 할 때입니다.</p>
+    </div>
+    <div class="right-panel">
+      <div class="pain-card">
+        <div class="label">Pain Point 01</div>
+        <div class="desc">엑셀 주간보고서가 쌓이지만, 전체 현황을 한눈에 파악하기 어려움</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">Pain Point 02</div>
+        <div class="desc">업무 리스크를 사전에 감지하지 못해 후속 대응에 시간을 소모</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">Pain Point 03</div>
+        <div class="desc">원하는 팀 관리 도구가 있지만 개발팀에 요청하기엔 우선순위가 낮음</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">Pain Point 04</div>
+        <div class="desc">AI를 업무에 활용하고 싶지만, 프롬프트 대화 이상의 가치를 못 느끼는 상태</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 3. SOLUTION ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">02 — 솔루션</span>
+    <h2>바이브코딩이라는 새로운 접근</h2>
+  </div>
+  <div class="sol-hero">
+    <div class="sol-hero-icon">⚡</div>
+    <div class="sol-hero-text">
+      <h3>"코딩을 배우는 것이 아닙니다. AI에게 '설계'하는 법을 배웁니다."</h3>
+      <p>자연어로 요구사항을 전달하면 AI가 즉시 작동하는 도구를 만들어주는 시대. 리더에게 필요한 건 코드가 아니라 '무엇을 만들지' 정의하는 역량입니다.</p>
+    </div>
+  </div>
+  <div class="solution-grid">
+    <div class="sol-card">
+      <div class="sol-icon">💬</div>
+      <h3>대화로 만드는 코드</h3>
+      <p>코딩 경험 없이 AI에게 자연어로 요구사항을 전달하면 즉시 웹 앱이 생성됩니다.</p>
+      <div class="sol-ba">
+        <div class="ba-row ba-before"><span class="ba-label">BEFORE</span><span class="ba-text">개발팀에 요청 → 2주 대기</span></div>
+        <div class="ba-row ba-after"><span class="ba-label">AFTER</span><span class="ba-text">AI에게 설명 → 10분 내 완성</span></div>
+      </div>
+    </div>
+    <div class="sol-card">
+      <div class="sol-icon">📊</div>
+      <h3>실전 시나리오 기반</h3>
+      <p>실제 팀 주간보고 엑셀을 칸반 대시보드로 변환. 리스크 신호등까지 자동 생성.</p>
+      <div class="sol-ba">
+        <div class="ba-row ba-before"><span class="ba-label">BEFORE</span><span class="ba-text">엑셀 수동 취합 · 현황 파악 30분+</span></div>
+        <div class="ba-row ba-after"><span class="ba-label">AFTER</span><span class="ba-text">업로드 → 대시보드 즉시 시각화</span></div>
+      </div>
+    </div>
+    <div class="sol-card">
+      <div class="sol-icon">🚀</div>
+      <h3>90분 완성 프로젝트</h3>
+      <p>교육 종료 시 나만의 대시보드가 완성. 다음 주 팀 회의에 바로 적용 가능.</p>
+      <div class="sol-ba">
+        <div class="ba-row ba-before"><span class="ba-label">BEFORE</span><span class="ba-text">AI = 검색·요약 도구</span></div>
+        <div class="ba-row ba-after"><span class="ba-label">AFTER</span><span class="ba-text">AI = 나의 개발자</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 4. OBJECTIVES + OUTCOMES ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">03 — 목표 및 효과</span>
+    <h2>학습 목표 및 기대 효과</h2>
+  </div>
+  <div class="obj-out-layout">
+    <div class="obj-box">
+      <div class="box-title">학습 목표</div>
+      <div class="obj-card">
+        <span class="obj-num">01</span>
+        <div>
+          <h4>바이브코딩 개념 이해</h4>
+          <p>바이브코딩의 원리와 업무 적용 가능성을 이해하고 설명할 수 있다.</p>
+        </div>
+      </div>
+      <div class="obj-card">
+        <span class="obj-num">02</span>
+        <div>
+          <h4>PRD 작성 역량 확보</h4>
+          <p>AI가 이해할 수 있는 요구사항 정의서(PRD)를 직접 작성할 수 있다.</p>
+        </div>
+      </div>
+      <div class="obj-card">
+        <span class="obj-num">03</span>
+        <div>
+          <h4>대시보드 직접 제작</h4>
+          <p>실제 업무 데이터를 활용하여 팀 관리 대시보드를 직접 만들 수 있다.</p>
+        </div>
+      </div>
+      <div class="obj-card">
+        <span class="obj-num">04</span>
+        <div>
+          <h4>AI 활용 단계 확장</h4>
+          <p>단순 질의응답 수준을 넘어 AI로 도구를 직접 설계하는 역량을 갖춘다.</p>
+        </div>
+      </div>
+    </div>
+    <div class="out-box">
+      <div class="box-title">기대 효과</div>
+      <div class="out-card">
+        <div class="out-icon">⚡</div>
+        <div>
+          <h4>즉시 적용 가능한 산출물</h4>
+          <p>교육 당일 완성된 대시보드를 다음 주 팀 회의에 바로 활용</p>
+        </div>
+      </div>
+      <div class="out-card">
+        <div class="out-icon">🔓</div>
+        <div>
+          <h4>개발팀 의존도 탈피</h4>
+          <p>필요한 업무 도구를 리더 스스로 만들 수 있는 자립 역량 확보</p>
+        </div>
+      </div>
+      <div class="out-card">
+        <div class="out-icon">📈</div>
+        <div>
+          <h4>AI 리터러시 수준 도약</h4>
+          <p>조직 전체 AI 활용 성숙도를 한 단계 끌어올리는 계기</p>
+        </div>
+      </div>
+      <div class="out-card">
+        <div class="out-icon">🔄</div>
+        <div>
+          <h4>조직 내 확산 기반</h4>
+          <p>팀 리더의 경험이 팀원으로 전파되는 AI 활용 문화 기반 조성</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 5. FLOW — 세로 타임라인 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">04 — 교육 흐름</span>
+    <h2>교육의 흐름</h2>
+  </div>
+  <div class="vtl-container">
+    <div class="vtl-line"></div>
+    <div class="vtl-list">
+      <div class="vtl-item">
+        <div class="vtl-dot">🎯</div>
+        <div class="vtl-body">
+          <div class="vtl-top"><h4>Opening & Demo</h4><span class="vtl-time">15분</span></div>
+          <p class="vtl-desc">바이브코딩 개념 소개 및 완성 데모를 시연하여 참가자의 기대감과 동기를 점화합니다.</p>
+          <div class="vtl-tags">
+            <span class="vtl-tag">강의</span>
+            <span class="vtl-tag">라이브 데모</span>
+            <span class="vtl-tag vtl-tag-out">💡 "나도 만들 수 있겠다" 체감</span>
+          </div>
+        </div>
+      </div>
+      <div class="vtl-item">
+        <div class="vtl-dot">📝</div>
+        <div class="vtl-body">
+          <div class="vtl-top"><h4>PRD 설계 실습</h4><span class="vtl-time">20분</span></div>
+          <p class="vtl-desc">AI가 이해할 수 있는 요구사항 정의서(PRD)를 나의 팀 상황에 맞춰 직접 작성합니다.</p>
+          <div class="vtl-tags">
+            <span class="vtl-tag">개인실습</span>
+            <span class="vtl-tag">동료 리뷰</span>
+            <span class="vtl-tag vtl-tag-out">📄 산출물: 나의 팀 맞춤 PRD</span>
+          </div>
+        </div>
+      </div>
+      <div class="vtl-item">
+        <div class="vtl-dot">🔨</div>
+        <div class="vtl-body">
+          <div class="vtl-top"><h4>대시보드 Build</h4><span class="vtl-time">35분</span></div>
+          <p class="vtl-desc">PRD를 기반으로 AI와 대화하며 칸반 대시보드를 직접 제작하고, 엑셀 데이터를 연동합니다.</p>
+          <div class="vtl-tags">
+            <span class="vtl-tag">개인실습</span>
+            <span class="vtl-tag">강사 코칭</span>
+            <span class="vtl-tag vtl-tag-out">🖥️ 산출물: 작동하는 대시보드</span>
+          </div>
+        </div>
+      </div>
+      <div class="vtl-item">
+        <div class="vtl-dot">🚀</div>
+        <div class="vtl-body">
+          <div class="vtl-top"><h4>Share & Wrap-up</h4><span class="vtl-time">20분</span></div>
+          <p class="vtl-desc">팀별 결과물을 공유하고, 실무 적용 시나리오를 논의하며 확장 로드맵을 수립합니다.</p>
+          <div class="vtl-tags">
+            <span class="vtl-tag">발표</span>
+            <span class="vtl-tag">토론</span>
+            <span class="vtl-tag vtl-tag-out">🗺️ 산출물: 실무 적용 계획</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 6. CURRICULUM — 모듈 1~2 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">05 — 커리큘럼</span>
+    <h2>교육 세부 내용 (1/2)</h2>
+  </div>
+  <div class="cur-table-wrap">
+    <table class="cur-table">
+      <thead><tr><th>모듈</th><th>주요 내용</th><th>시간</th><th>방법</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="col-module">모듈 1.<br>오프닝 &<br>바이브코딩 이해</td>
+          <td class="col-content">
+            <div class="module-goal">코딩 없이 AI와 대화로 도구를 만드는 '바이브코딩'을 체감한다.</div>
+            <div class="sub-section">(1) 바이브코딩 개념 소개</div>
+            <div class="detail-item">AI 시대 리더의 새로운 역량: 지시가 아닌 '설계'</div>
+            <div class="detail-item">바이브코딩이란? 자연어 → 코드 변환의 원리</div>
+            <div class="sub-section">(2) 완성 데모 시연</div>
+            <div class="detail-item">엑셀 주간보고 → 칸반 대시보드 실시간 변환</div>
+            <div class="detail-item">리스크 신호등 지표 자동 생성 과정 시연</div>
+          </td>
+          <td class="col-time">15분</td>
+          <td class="col-method">강의<br>라이브 데모</td>
+        </tr>
+        <tr>
+          <td class="col-module">모듈 2.<br>PRD 작성 실습</td>
+          <td class="col-content">
+            <div class="module-goal">AI가 정확히 이해하는 요구사항 정의서(PRD)를 직접 작성한다.</div>
+            <div class="sub-section">(1) PRD의 구조와 작성법</div>
+            <div class="detail-item">좋은 PRD vs 나쁜 PRD 비교 사례</div>
+            <div class="detail-item">핵심 구성요소: 목적, 기능, 데이터, UI 요구사항</div>
+            <div class="sub-section">(2) 나의 팀에 맞는 PRD 작성</div>
+            <div class="detail-item">팀 업무 특성에 맞는 대시보드 요구사항 정의</div>
+            <div class="detail-item">동료 리뷰 및 피드백</div>
+          </td>
+          <td class="col-time">20분</td>
+          <td class="col-method">강의<br>개인실습<br>동료 리뷰</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 7. CURRICULUM — 모듈 3~4 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">05 — 커리큘럼</span>
+    <h2>교육 세부 내용 (2/2)</h2>
+  </div>
+  <div class="cur-table-wrap">
+    <table class="cur-table">
+      <thead><tr><th>모듈</th><th>주요 내용</th><th>시간</th><th>방법</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="col-module">모듈 3.<br>대시보드<br>빌드 실습</td>
+          <td class="col-content">
+            <div class="module-goal">PRD를 기반으로 AI와 대화하며 실제 작동하는 대시보드를 완성한다.</div>
+            <div class="sub-section">(1) AI와 대화하며 대시보드 생성</div>
+            <div class="detail-item">PRD를 AI에 전달하고 초기 결과물 생성</div>
+            <div class="detail-item">반복 대화를 통한 기능 추가 및 수정 (칸반, 차트, 필터)</div>
+            <div class="sub-section">(2) 엑셀 데이터 연동 및 커스터마이징</div>
+            <div class="detail-item">실제 팀 데이터(샘플) 업로드 및 시각화</div>
+            <div class="detail-item">리스크 신호등 기준값 설정 및 UI 조정</div>
+          </td>
+          <td class="col-time">35분</td>
+          <td class="col-method">개인실습<br>강사 코칭</td>
+        </tr>
+        <tr>
+          <td class="col-module">모듈 4.<br>공유 & 랩업</td>
+          <td class="col-content">
+            <div class="module-goal">결과물을 공유하고 실무 적용 계획을 수립한다.</div>
+            <div class="sub-section">(1) 팀별 결과물 발표</div>
+            <div class="detail-item">각자 만든 대시보드 시연 및 상호 피드백</div>
+            <div class="detail-item">우수 사례 분석 및 응용 포인트 토론</div>
+            <div class="sub-section">(2) 실무 적용 로드맵</div>
+            <div class="detail-item">바이브코딩 활용 가능한 추가 업무 도구 아이디어</div>
+            <div class="detail-item">지속 학습을 위한 리소스 및 커뮤니티 안내</div>
+          </td>
+          <td class="col-time">20분</td>
+          <td class="col-method">발표<br>토론<br>Q&A</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 8. TRAINER ═══ -->
+<div class="slide">
+  <div class="profile-layout">
+    <div class="profile-left">
+      <div class="profile-avatar">JH</div>
+      <h3>박재현</h3>
+      <p class="role">딥택트러닝 소장</p>
+      <div>
+        <span class="profile-tag">AI 교육설계</span>
+        <span class="profile-tag">리더십 개발</span>
+        <span class="profile-tag">바이브코딩</span>
+        <span class="profile-tag">HRD 컨설팅</span>
+      </div>
+    </div>
+    <div class="profile-right">
+      <div class="profile-section">
+        <h4>전문 분야</h4>
+        <p>기업 리더십 개발과 AI 활용 교육을 결합한 프로그램 설계 전문가. 성인학습 원리에 기반한 체험 중심 교육과정 개발.</p>
+      </div>
+      <div class="profile-section">
+        <h4>최근 프로젝트</h4>
+        <ul>
+          <li>대상주식회사 — 팀장급 리더십 & AI 활용 교육 (11개 차수, 200명+)</li>
+          <li>한화시스템즈 — 전략적 사고 & 1장 보고서 작성 과정</li>
+          <li>클린팩토메이션 — 임원급 AI 활용 리더십 과정</li>
+          <li>KIRD 연구기관 — AI 활용 업무혁신 교육</li>
+        </ul>
+      </div>
+      <div class="profile-section">
+        <h4>교육 철학</h4>
+        <p>"기술을 가르치는 것이 아니라 '아하 모먼트'를 설계합니다. AI와 함께 일하는 방법을 체득하는 순간이 진짜 변화의 시작입니다."</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 9. 교육 개요 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">06 — 교육 개요</span>
+    <h2>교육 운영 정보</h2>
+  </div>
+  <div class="overview-grid">
+    <div class="ov-left">
+      <div class="ov-item"><span class="ov-label">교육명</span><span class="ov-value">팀 리더를 위한 바이브코딩 마스터클래스</span></div>
+      <div class="ov-item"><span class="ov-label">대상</span><span class="ov-value">SK플래닛 팀 리더 (팀장급)</span></div>
+      <div class="ov-item"><span class="ov-label">인원</span><span class="ov-value">1회차 당 최대 25명 (실습 품질 유지 기준)</span></div>
+      <div class="ov-item"><span class="ov-label">시간</span><span class="ov-value">90분 (1.5시간)</span></div>
+      <div class="ov-item"><span class="ov-label">일시</span><span class="ov-value">협의 후 확정</span></div>
+      <div class="ov-item"><span class="ov-label">장소</span><span class="ov-value">SK플래닛 사내 교육장 또는 지정 장소</span></div>
+    </div>
+    <div class="ov-right">
+      <div class="ov-item"><span class="ov-label">강사</span><span class="ov-value">박재현 소장 (딥택트러닝)</span></div>
+      <div class="ov-item"><span class="ov-label">교재</span><span class="ov-value">실습 가이드 PDF + 샘플 엑셀 데이터</span></div>
+      <div class="ov-item"><span class="ov-label">산출물</span><span class="ov-value">개인별 팀 관리 대시보드 (웹앱), PRD 문서</span></div>
+      <div class="ov-note">
+        <strong>사전 준비 요건</strong><br>
+        · 개인 노트북 지참 (Wi-Fi 접속 가능)<br>
+        · AI 도구 계정 사전 생성 (안내 메일 별도 발송)<br>
+        · 팀 주간보고 엑셀 1부 지참 권장 (샘플 데이터 제공)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 10. 견적 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">07 — 견적</span>
+    <h2>교육 비용 안내</h2>
+  </div>
+  <div class="quote-table-wrap">
+    <table class="quote-table">
+      <thead>
+        <tr><th>항목</th><th>내용</th><th>수량</th><th>단가</th><th>금액</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="qt-item">강사비</span><br><span class="qt-desc">교육 설계 · 강의 · 실습 코칭</span></td>
+          <td>90분 × 1회차</td>
+          <td class="qt-num">1</td>
+          <td class="qt-price">0,000,000원</td>
+          <td class="qt-price">0,000,000원</td>
+        </tr>
+        <tr>
+          <td><span class="qt-item">교재 제작비</span><br><span class="qt-desc">실습 가이드 PDF · 샘플 데이터</span></td>
+          <td>25명 기준</td>
+          <td class="qt-num">1식</td>
+          <td class="qt-price">000,000원</td>
+          <td class="qt-price">000,000원</td>
+        </tr>
+        <tr>
+          <td><span class="qt-item">사전 컨설팅</span><br><span class="qt-desc">교육 니즈 파악 · 맞춤 시나리오 설계</span></td>
+          <td>온라인 미팅 1~2회</td>
+          <td class="qt-num">1식</td>
+          <td class="qt-price">포함</td>
+          <td class="qt-price">포함</td>
+        </tr>
+        <tr>
+          <td><span class="qt-item">사후 지원</span><br><span class="qt-desc">교육 후 2주간 Q&A 지원</span></td>
+          <td>이메일 / 메신저</td>
+          <td class="qt-num">1식</td>
+          <td class="qt-price">포함</td>
+          <td class="qt-price">포함</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="quote-total">
+      <span class="qt-label">합계 (VAT 별도)</span>
+      <span class="qt-amount">0,000,000원</span>
+    </div>
+    <p class="quote-note">* 2회차 이상 진행 시 별도 할인 협의 가능 · 교통비/숙박비 별도 · 견적 유효기간: 발행일로부터 30일</p>
+  </div>
+</div>
+
+<!-- ═══ 11. CLOSING ═══ -->
+<div class="slide closing">
+  <h2>코딩이 아닌 <em>대화</em>로<br>팀의 도구를 만드는 시대</h2>
+  <p>SK플래닛 팀 리더들의 새로운 역량을 함께 설계하겠습니다.</p>
+  <div class="contact-row">
+    <div class="contact-item">
+      <div class="cl">Contact</div>
+      <div class="cv">박재현 소장</div>
+    </div>
+    <div class="contact-item">
+      <div class="cl">Company</div>
+      <div class="cv">딥택트러닝</div>
+    </div>
+    <div class="contact-item">
+      <div class="cl">Email</div>
+      <div class="cv">matt@deeptactlearning.com</div>
+    </div>
+    <div class="contact-item">
+      <div class="cl">Tel</div>
+      <div class="cv">010-6651-6268</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 12. PRINT BUTTON (화면 전용) ═══ -->
+<div class="print-page">
+  <div class="print-inner">
+    <p class="print-msg">제안서를 PDF로 저장하거나 인쇄하세요</p>
+    <button class="print-btn" onclick="window.print()">🖨️ 출력하기</button>
+    <p class="print-tip">인쇄 설정에서 <strong>가로(Landscape)</strong> · <strong>여백 없음</strong>을 선택해주세요</p>
+  </div>
+</div>
+
+<style>
+.print-page {
+  width:960px; margin:40px auto; padding:100px 0;
+  display:flex; align-items:center; justify-content:center;
+}
+.print-inner { text-align:center; }
+.print-msg { font-size:16px; color:var(--text-sub); margin-bottom:24px; }
+.print-btn {
+  display:inline-block; padding:16px 48px; font-size:18px; font-weight:700;
+  font-family:'Noto Sans KR',sans-serif;
+  background:linear-gradient(135deg, var(--accent), var(--accent-light));
+  color:#FFF; border:none; border-radius:10px; cursor:pointer;
+  box-shadow:0 4px 16px rgba(60,109,113,0.3);
+  transition:transform 0.2s, box-shadow 0.2s;
+}
+.print-btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(60,109,113,0.4); }
+.print-btn:active { transform:translateY(0); }
+.print-tip { font-size:13px; color:var(--text-light); margin-top:16px; }
+.print-tip strong { color:var(--text-sub); }
+
+@media print {
+  .print-page { display:none !important; }
+}
+</style>
+
+<div class="nav-hint">© 2025 딥택트러닝. All rights reserved.</div>
+
+</body>
+</html>

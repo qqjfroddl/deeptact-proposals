@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232E3142'/><text x='16' y='22' font-size='18' font-weight='bold' text-anchor='middle' fill='%234A8A8F' font-family='sans-serif'>D</text></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>딥택트러닝 | AI 활용 능력 레벨 기반 5단계 교육 시리즈</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #2E3142;
+  --accent: #3C6D71;
+  --accent-light: #4A8A8F;
+  --surface: #F2F1EF;
+  --text: #1A1A1A;
+  --text-sub: #555;
+  --text-light: #999;
+  --border: #D9D9D9;
+  --white: #FFFFFF;
+  --dark-alt: #284A63;
+  --slate: #515C78;
+  --charcoal: #45494C;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #E8E6E1;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.65;
+}
+
+/* ═══ SLIDE SYSTEM ═══ */
+.slide {
+  width: 960px; height: 540px;
+  margin: 40px auto;
+  background: var(--white);
+  border-radius: 6px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
+  overflow: hidden;
+  position: relative;
+}
+.section-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; }
+.section-head .num { font-family:'Plus Jakarta Sans',sans-serif; font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); }
+.section-head h2 { font-size:22px; font-weight:700; letter-spacing:-0.3px; }
+.content-slide { padding: 40px 52px; display: flex; flex-direction: column; height:100%; }
+
+/* ═══ COVER ═══ */
+.cover {
+  background: linear-gradient(135deg, #2E3142 0%, #284A63 60%, #3C6D71 100%);
+  color:#FFF; display:flex; flex-direction:column; justify-content:center;
+  padding:60px 70px; position:relative;
+}
+.cover::before { content:''; position:absolute; top:-120px; right:-120px; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle, rgba(60,109,113,0.15) 0%, transparent 70%); }
+.cover::after { content:''; position:absolute; bottom:0; left:0; right:0; height:4px; background:linear-gradient(90deg, var(--accent), var(--accent-light), transparent); }
+.cover-badge { font-family:'Plus Jakarta Sans',sans-serif; font-size:11px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--accent-light); margin-bottom:28px; }
+.cover-client { font-size:14px; font-weight:500; color:rgba(255,255,255,0.45); letter-spacing:1px; margin-bottom:12px; }
+.cover-client strong { font-size:28px; font-weight:900; color:rgba(255,255,255,0.85); letter-spacing:-0.5px; display:block; margin-top:4px; }
+.cover h1 { font-size:36px; font-weight:900; line-height:1.25; margin-bottom:12px; letter-spacing:-0.5px; }
+.cover h1 em { font-style:normal; color:var(--accent-light); }
+.cover .subtitle { font-size:16px; font-weight:300; color:rgba(255,255,255,0.65); margin-bottom:48px; }
+.cover-meta { display:flex; gap:32px; font-size:13px; color:rgba(255,255,255,0.5); }
+.cover-meta span { display:flex; align-items:center; gap:6px; }
+.cover-meta .dot { width:6px; height:6px; background:var(--accent); border-radius:50%; display:inline-block; }
+.cover-logo { position:absolute; top:40px; right:60px; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:14px; letter-spacing:-0.3px; color:rgba(255,255,255,0.35); }
+
+/* ═══ PROBLEM / SPLIT-LEFT ═══ */
+.split-left { display:grid; grid-template-columns:340px 1fr; height:100%; }
+.split-left .left-panel { background:var(--primary); color:#FFF; padding:48px 36px; display:flex; flex-direction:column; justify-content:center; position:relative; }
+.split-left .left-panel::after { content:''; position:absolute; top:0;right:0;bottom:0; width:3px; background:linear-gradient(180deg, var(--accent), transparent); }
+.slide-number { font-family:'Plus Jakarta Sans',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; color:var(--accent-light); margin-bottom:16px; }
+.left-panel h2 { font-size:22px; font-weight:700; line-height:1.35; margin-bottom:14px; }
+.left-panel p { font-size:13px; color:rgba(255,255,255,0.55); line-height:1.7; }
+.right-panel { padding:44px 40px; display:flex; flex-direction:column; justify-content:center; gap:16px; }
+.pain-card { background:var(--surface); border-radius:8px; padding:18px 22px; border-left:3px solid var(--accent); }
+.pain-card .label { font-size:11px; font-weight:600; color:var(--accent); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
+.pain-card .desc { font-size:13.5px; color:var(--text); font-weight:400; line-height:1.55; }
+
+/* ═══ SOLUTION — 2단 ═══ */
+.sol-hero { background:var(--primary); border-radius:10px; padding:24px 32px; margin-bottom:20px; display:flex; align-items:center; gap:20px; }
+.sol-hero-icon { width:48px; height:48px; border-radius:50%; flex-shrink:0; background:linear-gradient(135deg,var(--accent),var(--accent-light)); display:flex; align-items:center; justify-content:center; font-size:22px; color:#FFF; }
+.sol-hero-text { color:#FFF; }
+.sol-hero-text h3 { font-size:16px; font-weight:700; margin-bottom:4px; }
+.sol-hero-text p { font-size:12.5px; color:rgba(255,255,255,0.6); line-height:1.5; }
+.solution-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; flex:1; }
+.sol-card { background:var(--surface); border-radius:10px; padding:22px 20px; display:flex; flex-direction:column; position:relative; overflow:hidden; }
+.sol-icon { width:36px; height:36px; background:linear-gradient(135deg,var(--accent),var(--accent-light)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; margin-bottom:12px; color:#FFF; }
+.sol-card h3 { font-size:14px; font-weight:700; margin-bottom:6px; }
+.sol-card p { font-size:12px; color:var(--text-sub); line-height:1.55; }
+
+/* ═══ OBJECTIVES + OUTCOMES ═══ */
+.obj-out-layout { display:grid; grid-template-columns:1fr 1fr; gap:36px; flex:1; }
+.obj-box, .out-box { display:flex; flex-direction:column; }
+.box-title { font-size:14px; font-weight:700; color:var(--accent); letter-spacing:0.5px; margin-bottom:14px; padding-bottom:10px; border-bottom:2px solid var(--accent); }
+.obj-card { background:var(--surface); border-radius:8px; padding:14px 18px; margin-bottom:10px; display:flex; align-items:flex-start; gap:14px; flex:1; }
+.obj-card:last-child { margin-bottom:0; }
+.obj-num { font-family:'Plus Jakarta Sans',sans-serif; font-size:20px; font-weight:800; color:var(--accent); opacity:0.3; min-width:28px; line-height:1.2; flex-shrink:0; }
+.obj-card h4 { font-size:13px; font-weight:700; margin-bottom:2px; }
+.obj-card p { font-size:11.5px; color:var(--text-sub); line-height:1.45; }
+.out-card { background:var(--surface); border-radius:8px; padding:14px 18px; margin-bottom:10px; display:flex; align-items:center; gap:14px; flex:1; }
+.out-card:last-child { margin-bottom:0; }
+.out-icon { width:36px; height:36px; border-radius:8px; flex-shrink:0; background:linear-gradient(135deg,var(--accent),var(--accent-light)); display:flex; align-items:center; justify-content:center; font-size:15px; color:#FFF; }
+.out-card h4 { font-size:13px; font-weight:700; margin-bottom:2px; }
+.out-card p { font-size:11.5px; color:var(--text-sub); line-height:1.45; }
+
+/* ═══ FLOW — 세로 타임라인 ═══ */
+.vtl-container { display:flex; flex:1; gap:0; position:relative; padding-left:36px; }
+.vtl-line { position:absolute; left:54px; top:0; bottom:0; width:2px; background:linear-gradient(180deg, var(--accent), var(--border)); }
+.vtl-list { display:flex; flex-direction:column; justify-content:space-between; flex:1; gap:6px; }
+.vtl-item { display:flex; align-items:flex-start; gap:18px; position:relative; }
+.vtl-dot { width:38px; height:38px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:16px; z-index:2; position:relative; }
+.vtl-item:nth-child(1) .vtl-dot { background:linear-gradient(135deg,#2E3142,#45494C); color:#FFF; }
+.vtl-item:nth-child(2) .vtl-dot { background:linear-gradient(135deg,#284A63,#515C78); color:#FFF; }
+.vtl-item:nth-child(3) .vtl-dot { background:linear-gradient(135deg,var(--accent),var(--accent-light)); color:#FFF; }
+.vtl-item:nth-child(4) .vtl-dot { background:linear-gradient(135deg,#2E3142,#45494C); color:#FFF; }
+.vtl-item:nth-child(5) .vtl-dot { background:linear-gradient(135deg,#284A63,#515C78); color:#FFF; }
+.vtl-body { flex:1; padding-bottom:8px; }
+.vtl-top { display:flex; align-items:baseline; gap:10px; margin-bottom:4px; }
+.vtl-body h4 { font-size:14px; font-weight:700; }
+.vtl-time { font-family:'Plus Jakarta Sans',sans-serif; font-size:11px; font-weight:700; color:var(--accent); background:rgba(60,109,113,0.08); padding:2px 8px; border-radius:3px; }
+.vtl-body .vtl-desc { font-size:12px; color:var(--text-sub); line-height:1.5; margin-bottom:6px; }
+.vtl-tags { display:flex; gap:6px; flex-wrap:wrap; }
+.vtl-tag { display:inline-flex; align-items:center; gap:4px; background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:3px 10px; font-size:10.5px; font-weight:600; color:var(--accent); }
+.vtl-tag-out { background:var(--primary); border-color:var(--primary); color:#FFF; }
+
+/* ═══ CURRICULUM TABLE ═══ */
+.cur-table-wrap { flex:1; display:flex; flex-direction:column; }
+.cur-table { width:100%; border-collapse:collapse; font-size:11.5px; }
+.cur-table thead th { background:var(--primary); color:#FFF; font-weight:600; font-size:11px; padding:8px 10px; text-align:center; letter-spacing:0.5px; }
+.cur-table thead th:nth-child(2) { text-align:left; }
+.cur-table tbody td { padding:12px 12px; border-bottom:1px solid #EEEDEA; vertical-align:top; }
+.cur-table tbody tr:last-child td { border-bottom:none; }
+.cur-table .col-module { text-align:center; font-weight:700; font-size:12px; background:var(--surface); width:115px; line-height:1.4; }
+.cur-table .col-content { line-height:1.5; }
+.cur-table .col-time { text-align:center; font-weight:600; width:50px; font-size:12.5px; color:var(--accent); }
+.cur-table .col-method { text-align:center; width:85px; font-size:11px; color:var(--text-sub); line-height:1.45; }
+.cur-table .module-goal { font-weight:700; font-size:12px; margin-bottom:6px; color:var(--text); }
+.cur-table .sub-section { font-weight:600; margin-top:5px; margin-bottom:1px; color:var(--text); font-size:11.5px; }
+.cur-table .detail-item { padding-left:10px; position:relative; color:var(--text-sub); line-height:1.45; margin:1px 0; font-size:11px; }
+.cur-table .detail-item::before { content:'-'; position:absolute; left:0; color:var(--text-light); }
+
+/* ═══ OVERVIEW (교육 개요) ═══ */
+.overview-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; flex:1; }
+.ov-left, .ov-right { display:flex; flex-direction:column; gap:0; }
+.ov-item { display:flex; border-bottom:1px solid #F0EFEC; padding:13px 0; }
+.ov-item:last-child { border-bottom:none; }
+.ov-label { width:100px; flex-shrink:0; font-size:12px; font-weight:700; color:var(--accent); }
+.ov-value { font-size:13px; color:var(--text); line-height:1.5; }
+.ov-note { margin-top:auto; background:var(--surface); border-radius:8px; padding:16px 20px; font-size:11.5px; color:var(--text-sub); line-height:1.55; }
+.ov-note strong { color:var(--text); font-weight:600; }
+
+/* ═══ QUOTE (견적) ═══ */
+.quote-table-wrap { flex:1; display:flex; flex-direction:column; }
+.quote-table { width:100%; border-collapse:collapse; font-size:12.5px; }
+.quote-table thead th { background:var(--primary); color:#FFF; font-weight:600; font-size:11.5px; padding:10px 14px; text-align:center; }
+.quote-table thead th:first-child { text-align:left; }
+.quote-table tbody td { padding:14px 14px; border-bottom:1px solid #EEEDEA; vertical-align:middle; }
+.quote-table tbody tr:last-child td { border-bottom:none; }
+.quote-table .qt-item { font-weight:600; }
+.quote-table .qt-desc { font-size:11px; color:var(--text-sub); }
+.quote-table .qt-num { text-align:center; }
+.quote-table .qt-price { text-align:right; font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; }
+.quote-total { display:flex; justify-content:flex-end; align-items:baseline; gap:12px; margin-top:20px; padding:16px 20px; background:var(--primary); border-radius:8px; }
+.quote-total .qt-label { font-size:14px; color:rgba(255,255,255,0.6); }
+.quote-total .qt-amount { font-family:'Plus Jakarta Sans',sans-serif; font-size:28px; font-weight:800; color:#FFF; }
+.quote-total .qt-vat { font-size:11px; color:rgba(255,255,255,0.4); }
+.quote-note { margin-top:12px; font-size:11px; color:var(--text-light); line-height:1.5; }
+
+/* ═══ TRAINER ═══ */
+.profile-layout { display:grid; grid-template-columns:280px 1fr; height:100%; }
+.profile-left { background:linear-gradient(180deg,#2E3142,#284A63); color:#FFF; padding:44px 32px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+.profile-avatar { width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-light)); display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:900; color:#FFF; margin-bottom:18px; font-family:'Plus Jakarta Sans',sans-serif; }
+.profile-left h3 { font-size:20px; font-weight:700; margin-bottom:4px; }
+.profile-left .role { font-size:13px; color:rgba(255,255,255,0.5); margin-bottom:20px; }
+.profile-tag { display:inline-block; background:rgba(60,109,113,0.15); color:var(--accent-light); font-size:11px; font-weight:600; padding:4px 12px; border-radius:20px; margin:3px; }
+.profile-right { padding:40px 36px; display:flex; flex-direction:column; justify-content:center; gap:16px; }
+.profile-section h4 { font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:8px; }
+.profile-section p, .profile-section li { font-size:13px; color:var(--text-sub); line-height:1.6; }
+.profile-section ul { list-style:none; padding:0; }
+.profile-section li { padding-left:14px; position:relative; margin-bottom:3px; }
+.profile-section li::before { content:''; position:absolute; left:0; top:9px; width:5px; height:5px; background:var(--accent); border-radius:50%; }
+
+/* ═══ CLOSING ═══ */
+.closing { background:linear-gradient(135deg,#2E3142,#284A63); color:#FFF; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:60px; position:relative; }
+.closing::before { content:''; position:absolute; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle, rgba(60,109,113,0.08), transparent 70%); top:50%; left:50%; transform:translate(-50%,-50%); }
+.closing h2 { font-size:30px; font-weight:900; line-height:1.35; margin-bottom:16px; position:relative; }
+.closing h2 em { font-style:normal; color:var(--accent-light); }
+.closing p { font-size:15px; color:rgba(255,255,255,0.55); margin-bottom:40px; position:relative; }
+.contact-row { display:flex; gap:40px; position:relative; }
+.contact-item { text-align:center; }
+.contact-item .cl { font-size:11px; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:4px; }
+.contact-item .cv { font-size:14px; font-weight:500; color:#FFF; }
+
+.nav-hint { text-align:center; padding:20px; color:var(--text-light); font-size:12px; }
+
+/* ═══ PRINT BUTTON ═══ */
+.print-page { width:960px; margin:40px auto; text-align:center; padding:40px; }
+.print-btn { background:var(--accent); color:#FFF; border:none; padding:14px 40px; border-radius:8px; font-size:15px; font-weight:600; cursor:pointer; font-family:'Noto Sans KR',sans-serif; }
+.print-btn:hover { background:var(--accent-light); }
+
+/* ════════════════════════════════
+   PRINT — A4 Landscape
+   ════════════════════════════════ */
+@media print {
+  @page { size: A4 landscape; margin: 0; }
+  body { background:#FFF; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  .nav-hint { display:none !important; }
+  .print-page { display:none !important; }
+  .slide { width:297mm; height:210mm; margin:0; border-radius:0; box-shadow:none; page-break-after:always; page-break-inside:avoid; }
+  .slide:last-child { page-break-after:auto; }
+
+  /* ── 인쇄 라이트 모드: 다크 배경 → 밝은 배경 ── */
+  .cover { background:#FFFFFF !important; color:var(--text) !important; }
+  .cover::before { background:radial-gradient(circle, rgba(60,109,113,0.06) 0%, transparent 70%) !important; }
+  .cover::after { background:linear-gradient(90deg, var(--accent), var(--accent-light), transparent) !important; }
+  .cover h1 { color:var(--text) !important; }
+  .cover-client { color:var(--text-light) !important; }
+  .cover-client strong { color:var(--text) !important; }
+  .cover h1 em { color:var(--accent) !important; }
+  .cover .subtitle { color:var(--text-sub) !important; }
+  .cover-meta { color:var(--text-light) !important; }
+  .cover-logo { color:var(--text-light) !important; }
+  .cover-badge { color:var(--accent) !important; }
+
+  .split-left .left-panel { background:var(--surface) !important; color:var(--text) !important; }
+  .split-left .left-panel::after { background:linear-gradient(180deg, var(--accent), transparent) !important; }
+  .slide-number { color:var(--accent) !important; }
+  .left-panel h2 { color:var(--text) !important; }
+  .left-panel p { color:var(--text-sub) !important; }
+
+  .sol-hero { background:var(--surface) !important; }
+  .sol-hero-text { color:var(--text) !important; }
+  .sol-hero-text h3 { color:var(--text) !important; }
+  .sol-hero-text p { color:var(--text-sub) !important; }
+
+  .vtl-item .vtl-dot { background:var(--surface) !important; color:var(--text) !important; border:2px solid var(--accent); }
+  .vtl-item:nth-child(3) .vtl-dot { background:var(--accent) !important; color:#FFF !important; border-color:var(--accent); }
+  .vtl-tag-out { background:var(--accent) !important; border-color:var(--accent) !important; }
+
+  .cur-table thead th { background:var(--text) !important; }
+
+  .quote-table thead th { background:var(--text) !important; }
+  .quote-total { background:var(--surface) !important; border:2px solid var(--accent); }
+  .quote-total .qt-label { color:var(--text-sub) !important; }
+  .quote-total .qt-amount { color:var(--accent) !important; }
+
+  .profile-left { background:var(--surface) !important; color:var(--text) !important; }
+  .profile-left h3 { color:var(--text) !important; }
+  .profile-left .role { color:var(--text-sub) !important; }
+  .profile-avatar { background:linear-gradient(135deg,var(--accent),var(--accent-light)) !important; }
+  .profile-tag { background:rgba(60,109,113,0.1) !important; color:var(--accent) !important; }
+
+  .closing { background:#FFFFFF !important; color:var(--text) !important; }
+  .closing::before { background:radial-gradient(circle, rgba(60,109,113,0.04), transparent 70%) !important; }
+  .closing h2 { color:var(--text) !important; }
+  .closing h2 em { color:var(--accent) !important; }
+  .closing p { color:var(--text-sub) !important; }
+  .contact-item .cl { color:var(--text-light) !important; }
+  .contact-item .cv { color:var(--text) !important; }
+
+  /* ── 인쇄 스케일업 ── */
+  .cover { padding:80px 100px; }
+  .cover-badge { font-size:13px; margin-bottom:36px; }
+  .cover-client { font-size:17px; margin-bottom:16px; }
+  .cover-client strong { font-size:38px; }
+  .cover h1 { font-size:48px; }
+  .cover .subtitle { font-size:20px; margin-bottom:60px; }
+  .cover-meta { font-size:16px; gap:40px; }
+  .cover-logo { font-size:17px; top:50px; right:80px; }
+
+  .split-left { grid-template-columns:42% 1fr; }
+  .split-left .left-panel { padding:60px 48px; }
+  .slide-number { font-size:13px; }
+  .left-panel h2 { font-size:28px; }
+  .left-panel p { font-size:16px; }
+  .right-panel { padding:56px 52px; gap:20px; }
+  .pain-card { padding:22px 28px; }
+  .pain-card .label { font-size:12px; }
+  .pain-card .desc { font-size:16px; }
+
+  .content-slide { padding:56px 72px; }
+  .section-head { margin-bottom:32px; }
+  .section-head .num { font-size:12px; }
+  .section-head h2 { font-size:28px; }
+
+  .sol-hero { padding:30px 40px; margin-bottom:28px; }
+  .sol-hero-icon { width:60px; height:60px; font-size:28px; }
+  .sol-hero-text h3 { font-size:20px; }
+  .sol-hero-text p { font-size:15px; }
+  .solution-grid { gap:24px; }
+  .sol-card { padding:28px 26px; }
+  .sol-icon { width:48px; height:48px; font-size:20px; margin-bottom:16px; }
+  .sol-card h3 { font-size:17px; margin-bottom:8px; }
+  .sol-card p { font-size:14px; }
+
+  .box-title { font-size:17px; margin-bottom:18px; padding-bottom:12px; }
+  .obj-card, .out-card { padding:18px 22px; margin-bottom:14px; }
+  .obj-num { font-size:26px; min-width:36px; }
+  .obj-card h4, .out-card h4 { font-size:16px; margin-bottom:3px; }
+  .obj-card p, .out-card p { font-size:14px; }
+  .out-icon { width:44px; height:44px; font-size:18px; }
+
+  .vtl-container { padding-left:48px; }
+  .vtl-line { left:72px; }
+  .vtl-dot { width:48px; height:48px; font-size:20px; }
+  .vtl-body h4 { font-size:18px; }
+  .vtl-time { font-size:13px; padding:3px 10px; }
+  .vtl-body .vtl-desc { font-size:15px; }
+  .vtl-tag { font-size:12px; padding:4px 12px; }
+  .vtl-list { gap:10px; }
+
+  .cur-table { font-size:14px; }
+  .cur-table thead th { padding:12px 16px; font-size:13px; }
+  .cur-table tbody td { padding:16px 16px; }
+  .cur-table .col-module { font-size:15px; width:150px; }
+  .cur-table .col-time { font-size:16px; width:70px; }
+  .cur-table .col-method { font-size:13px; width:110px; }
+  .cur-table .module-goal { font-size:15px; margin-bottom:8px; }
+  .cur-table .sub-section { font-size:14px; margin-top:7px; }
+  .cur-table .detail-item { font-size:13px; }
+
+  .ov-label { font-size:14px; width:120px; }
+  .ov-value { font-size:16px; }
+  .ov-note { font-size:14px; padding:20px 24px; }
+  .overview-grid { gap:40px; }
+
+  .quote-table { font-size:15px; }
+  .quote-table thead th { padding:14px 18px; font-size:14px; }
+  .quote-table tbody td { padding:18px 18px; }
+  .quote-total .qt-amount { font-size:36px; }
+  .quote-total .qt-label { font-size:17px; }
+  .quote-note { font-size:13px; }
+
+  .profile-layout { grid-template-columns:36% 1fr; }
+  .profile-left { padding:60px 44px; }
+  .profile-avatar { width:110px; height:110px; font-size:40px; margin-bottom:24px; }
+  .profile-left h3 { font-size:26px; }
+  .profile-left .role { font-size:16px; margin-bottom:24px; }
+  .profile-tag { font-size:13px; padding:6px 16px; }
+  .profile-right { padding:56px 48px; gap:22px; }
+  .profile-section h4 { font-size:14px; margin-bottom:10px; }
+  .profile-section p, .profile-section li { font-size:16px; }
+
+  .closing { padding:80px; }
+  .closing h2 { font-size:40px; }
+  .closing p { font-size:19px; margin-bottom:52px; }
+  .contact-item .cl { font-size:13px; }
+  .contact-item .cv { font-size:18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="nav-hint">스크롤하여 슬라이드를 확인하세요 · 인쇄 시 A4 가로(Landscape)로 설정해주세요</div>
+
+<!-- ═══ 1. COVER ═══ -->
+<div class="slide cover">
+  <div class="cover-logo">DEEPTACT LEARNING</div>
+  <div class="cover-badge">AI EDUCATION SERIES</div>
+  <h1>AI 활용 능력 레벨 기반<br><em>5단계 교육 시리즈</em></h1>
+  <p class="subtitle">탐색 → 활용 → 시스템화 → 재설계 → 자율화 | 각 과정 8시간, 총 40시간</p>
+  <div class="cover-meta">
+    <span><span class="dot"></span>딥택트러닝</span>
+    <span><span class="dot"></span>2026.04.14</span>
+  </div>
+</div>
+
+<!-- ═══ 2. FRAMEWORK OVERVIEW — 세로 타임라인 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">OVERVIEW</span>
+    <h2>AI 활용 능력 5단계 교육 로드맵</h2>
+  </div>
+  <div class="vtl-container">
+    <div class="vtl-line"></div>
+    <div class="vtl-list">
+      <div class="vtl-item">
+        <div class="vtl-dot">1</div>
+        <div class="vtl-body">
+          <div class="vtl-top">
+            <h4>탐색 — AI 탐색 입문 과정</h4>
+            <span class="vtl-time">8h</span>
+          </div>
+          <div class="vtl-tags">
+            <span class="vtl-tag">질문자(Questioner)</span>
+            <span class="vtl-tag">AI 리터러시</span>
+            <span class="vtl-tag">프롬프트 기초</span>
+            <span class="vtl-tag-out vtl-tag">전 직원</span>
+          </div>
+        </div>
+      </div>
+      <div class="vtl-item">
+        <div class="vtl-dot">2</div>
+        <div class="vtl-body">
+          <div class="vtl-top">
+            <h4>활용 — AI 활용 심화 과정</h4>
+            <span class="vtl-time">8h</span>
+          </div>
+          <div class="vtl-tags">
+            <span class="vtl-tag">지시자(Instructor)</span>
+            <span class="vtl-tag">고급 프롬프팅</span>
+            <span class="vtl-tag">업무 자동화</span>
+            <span class="vtl-tag-out vtl-tag">기초 수료자</span>
+          </div>
+        </div>
+      </div>
+      <div class="vtl-item">
+        <div class="vtl-dot">3</div>
+        <div class="vtl-body">
+          <div class="vtl-top">
+            <h4>시스템화 — AI 시스템화 과정</h4>
+            <span class="vtl-time">8h</span>
+          </div>
+          <div class="vtl-tags">
+            <span class="vtl-tag">설계자(Context Designer)</span>
+            <span class="vtl-tag">RAG · GPTs · Canvas</span>
+            <span class="vtl-tag-out vtl-tag">중급 실무자</span>
+          </div>
+        </div>
+      </div>
+      <div class="vtl-item">
+        <div class="vtl-dot">4</div>
+        <div class="vtl-body">
+          <div class="vtl-top">
+            <h4>재설계 — AI 재설계 과정</h4>
+            <span class="vtl-time">8h</span>
+          </div>
+          <div class="vtl-tags">
+            <span class="vtl-tag">창조자(Creator)</span>
+            <span class="vtl-tag">바이브코딩</span>
+            <span class="vtl-tag">웹앱 제작</span>
+            <span class="vtl-tag-out vtl-tag">도구 제작 희망자</span>
+          </div>
+        </div>
+      </div>
+      <div class="vtl-item">
+        <div class="vtl-dot">5</div>
+        <div class="vtl-body">
+          <div class="vtl-top">
+            <h4>자율화 — AI 자율화 과정</h4>
+            <span class="vtl-time">8h</span>
+          </div>
+          <div class="vtl-tags">
+            <span class="vtl-tag">오케스트레이터</span>
+            <span class="vtl-tag">에이전트 위임</span>
+            <span class="vtl-tag-out vtl-tag">고급 실무자</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 3. STAGE 1 — INTRO ═══ -->
+<div class="slide">
+  <div class="split-left">
+    <div class="left-panel">
+      <div class="slide-number">STAGE 1 — 탐색</div>
+      <h2>AI 탐색<br>입문 과정</h2>
+      <p>AI를 처음 접하는 직장인이 생성형 AI의 원리를 이해하고, 프롬프트 기초를 익혀 일상 업무에 즉시 활용할 수 있도록 설계된 입문 과정입니다.</p>
+    </div>
+    <div class="right-panel">
+      <div class="pain-card">
+        <div class="label">TIME</div>
+        <div class="desc">8시간 (1일)</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">WHO</div>
+        <div class="desc">전 직원 (AI 입문자)</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">HOW</div>
+        <div class="desc">강의 + 실습 + 토론</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">GOAL</div>
+        <div class="desc">AI 리터러시 확립 · 프롬프트 기초 역량 · 일상업무 즉시 적용</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 4. STAGE 1 — 커리큘럼 ① ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">STAGE 1 — 커리큘럼 ①</span>
+    <h2>AI 탐색 입문 과정 상세</h2>
+  </div>
+  <div class="cur-table-wrap">
+    <table class="cur-table">
+      <thead>
+        <tr><th>모듈</th><th>주요 내용</th><th>시간</th><th>방법</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-module">Module 1<br>AI와 함께<br>일하는 시대</td>
+          <td class="col-content">
+            <div class="module-goal">AI를 쓰는 사람과 쓰지 않는 사람의 업무 격차는 이미 벌어지고 있다</div>
+            <div class="sub-section">(1) AI 활용 자가진단</div>
+            <div class="detail-item">지금 나의 AI 활용 수준은 어느 단계인가</div>
+            <div class="detail-item">내가 AI를 쓰지 않는 진짜 이유 돌아보기</div>
+            <div class="sub-section">(2) 생성형 AI는 포털 검색과 무엇이 다른가</div>
+            <div class="detail-item">단순 검색 vs 대화형 AI, 직접 비교해보기</div>
+            <div class="detail-item">AI를 '찾는 도구'가 아닌 '함께 생각하는 파트너'로 관점 전환</div>
+            <div class="sub-section">(3) K·S·A 역량 프레임 정립</div>
+            <div class="detail-item">Knowledge: 알아야 할 것 / Skill: 익혀야 할 것 / Attitude: 갖춰야 할 것</div>
+          </td>
+          <td class="col-time">1h</td>
+          <td class="col-method">강의<br>자가진단<br>토론</td>
+        </tr>
+        <tr>
+          <td class="col-module">Module 2<br>생성형 AI<br>원리와 한계</td>
+          <td class="col-content">
+            <div class="module-goal">AI의 작동 원리를 알면, 쓰는 방법이 달라진다</div>
+            <div class="sub-section">(1) 생성형 AI의 핵심 구조 이해</div>
+            <div class="detail-item">인공지능→머신러닝→딥러닝→LLM으로 이어지는 흐름</div>
+            <div class="detail-item">생성형 AI가 '생각하는 것처럼 보이는' 이유</div>
+            <div class="sub-section">(2) LLM 핵심 작동 원리 3가지</div>
+            <div class="detail-item">Instruction Following / In-Context Learning / Step by Step</div>
+            <div class="detail-item">왜 같은 질문에도 결과가 달라지는지 직접 체감</div>
+            <div class="sub-section">(3) 생성형 AI의 한계와 현명한 활용</div>
+            <div class="detail-item">환각(Hallucination), 정보 신뢰성, 판단 한계 이해</div>
+            <div class="detail-item">검증이 필요한 업무와 맡겨도 되는 업무 구분 기준 수립</div>
+          </td>
+          <td class="col-time">2h</td>
+          <td class="col-method">강의<br>사례분석<br>질의응답</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 4-2. STAGE 1 — 커리큘럼 ② ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">STAGE 1 — 커리큘럼 ②</span>
+    <h2>AI 탐색 입문 과정 상세</h2>
+  </div>
+  <div class="cur-table-wrap">
+    <table class="cur-table">
+      <thead>
+        <tr><th>모듈</th><th>주요 내용</th><th>시간</th><th>방법</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-module">Module 3<br>프롬프트<br>기초 설계</td>
+          <td class="col-content">
+            <div class="module-goal">잘 묻는 사람이 AI를 제대로 활용한다</div>
+            <div class="sub-section">(1) 프롬프트, 결과를 결정하는 핵심 변수</div>
+            <div class="detail-item">나쁜 프롬프트 vs 좋은 프롬프트 비교 체험</div>
+            <div class="detail-item">같은 질문, 다른 결과가 나오는 이유</div>
+            <div class="sub-section">(2) 바로 쓰는 실무 프롬프트 기본 패턴 3가지</div>
+            <div class="detail-item">지시문장과 참고문장 구분하기</div>
+            <div class="detail-item">한꺼번에 묻지 않고 단계별로 질문하기</div>
+            <div class="detail-item">역할(Role)과 상황(Context) 부여하기</div>
+            <div class="sub-section">(3) 업무 유형별 프롬프트 기초 실습</div>
+            <div class="detail-item">자료 요약 / 아이디어 발산 / 텍스트 교정 상황별 실습</div>
+          </td>
+          <td class="col-time">2h</td>
+          <td class="col-method">강의<br>실습<br>피드백</td>
+        </tr>
+        <tr>
+          <td class="col-module">Module 4<br>일상 업무<br>즉시 적용</td>
+          <td class="col-content">
+            <div class="module-goal">직접 해봐야 내 것이 된다 — 내 업무에 AI를 바로 붙여라</div>
+            <div class="sub-section">(1) 아이디어 브레인스토밍에 AI 활용하기</div>
+            <div class="detail-item">신규 아이디어 발산, 경쟁사 분석 관점 도출</div>
+            <div class="detail-item">브레인스토밍을 대화로 대체하는 방법</div>
+            <div class="sub-section">(2) 자료 요약·정리에 AI 활용하기</div>
+            <div class="detail-item">긴 문서·기사·보고서 핵심 요약 프롬프트 실습</div>
+            <div class="detail-item">AI 결과를 검증하는 습관 형성</div>
+            <div class="sub-section">(3) 이메일·회의록 작성에 AI 활용하기</div>
+            <div class="detail-item">상황별 이메일 초안 작성</div>
+            <div class="detail-item">회의 내용을 핵심 요약 + 액션 아이템으로 정리</div>
+            <div class="sub-section">(4) 나의 AI 활용 액션 플랜 수립</div>
+            <div class="detail-item">내일 당장 실행할 AI 적용 업무 3가지 선정</div>
+            <div class="detail-item">2단계(활용)로 도약하기 위한 학습 방향 안내</div>
+          </td>
+          <td class="col-time">3h</td>
+          <td class="col-method">개인실습<br>짝꿍토의<br>발표</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 5. STAGE 2 — INTRO ═══ -->
+<div class="slide">
+  <div class="split-left">
+    <div class="left-panel">
+      <div class="slide-number">STAGE 2 — 활용</div>
+      <h2>AI 활용<br>심화 과정</h2>
+      <p>반복 업무를 자동화하고, 데이터 기반 업무 처리와 프로젝트 구조화까지 AI 활용 영역을 확장하는 심화 과정입니다.</p>
+    </div>
+    <div class="right-panel">
+      <div class="pain-card">
+        <div class="label">TIME</div>
+        <div class="desc">8시간 (1일)</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">WHO</div>
+        <div class="desc">AI 기초 수료 실무자</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">HOW</div>
+        <div class="desc">강의 + 실습 + 워크숍</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">GOAL</div>
+        <div class="desc">심화 프롬프팅 · AI 큐레이션 · 데이터 기반 의사결정</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 6. STAGE 2 — 커리큘럼 ① ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">STAGE 2 — 커리큘럼 ①</span>
+    <h2>AI 활용 심화 과정 상세</h2>
+  </div>
+  <div class="cur-table-wrap">
+    <table class="cur-table">
+      <thead>
+        <tr><th>모듈</th><th>주요 내용</th><th>시간</th><th>방법</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-module">Module 1<br>프롬프트<br>역량 심화</td>
+          <td class="col-content">
+            <div class="module-goal">잘 묻는 것을 넘어, AI를 전략적으로 설계하는 단계로</div>
+            <div class="sub-section">(1) 나의 현재 AI 활용 수준 진단</div>
+            <div class="detail-item">1단계(탐색)와 2단계(활용)의 결정적 차이 체감</div>
+            <div class="detail-item">내가 놓치고 있는 프롬프트 패턴 점검</div>
+            <div class="sub-section">(2) 프롬프트 엔지니어링 심화 4가지 기법</div>
+            <div class="detail-item">CounterView Prompt: 반론을 미리 예측하고 논리를 보완할 때</div>
+            <div class="detail-item">Meta Prompt: 어떤 정보를 넣어야 할지 모를 때</div>
+            <div class="detail-item">Step-back Prompt: 복잡하거나 막막한 문제를 구조화할 때</div>
+            <div class="detail-item">Framework Prompt: 검증된 프레임워크를 활용해 체계적으로 사고할 때</div>
+            <div class="sub-section">(3) 업무 유형별 심화 프롬프트 적용</div>
+            <div class="detail-item">보고·기획·설득·문제해결 상황별 실습</div>
+          </td>
+          <td class="col-time">2h</td>
+          <td class="col-method">강의<br>자가진단<br>짝꿍토의</td>
+        </tr>
+        <tr>
+          <td class="col-module">Module 2<br>AI 큐레이션<br>전략</td>
+          <td class="col-content">
+            <div class="module-goal">하나의 AI에 갇히지 마라 — 업무에 맞는 AI를 골라 쓰는 힘</div>
+            <div class="sub-section">(1) AI 서비스 생태계 파악</div>
+            <div class="detail-item">ChatGPT·Gemini·Claude·Copilot 등 주요 서비스의 강점과 한계 비교</div>
+            <div class="detail-item">검색 특화(Perplexity) · 이미지 생성 · 음성·영상 AI 등 목적별 도구 이해</div>
+            <div class="sub-section">(2) 업무 상황별 AI 큐레이션 전략</div>
+            <div class="detail-item">어떤 업무에 어떤 AI가 최적인지 판단하는 기준 수립</div>
+            <div class="detail-item">하나의 AI에 의존하지 않고, 업무 흐름에 따라 여러 AI를 조합하는 방법</div>
+            <div class="sub-section">(3) 실습: 나의 업무 AI 큐레이션 맵 만들기</div>
+            <div class="detail-item">내 주요 업무 5가지 × 최적 AI 서비스 매칭</div>
+            <div class="detail-item">동료와 공유·피드백</div>
+          </td>
+          <td class="col-time">2h</td>
+          <td class="col-method">강의<br>비교체험<br>워크숍</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 6-2. STAGE 2 — 커리큘럼 ② ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">STAGE 2 — 커리큘럼 ②</span>
+    <h2>AI 활용 심화 과정 상세</h2>
+  </div>
+  <div class="cur-table-wrap">
+    <table class="cur-table">
+      <thead>
+        <tr><th>모듈</th><th>주요 내용</th><th>시간</th><th>방법</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-module">Module 3<br>데이터 기반<br>업무 처리</td>
+          <td class="col-content">
+            <div class="module-goal">수치를 나열하는 것을 넘어, 인사이트를 도출하는 AI 활용</div>
+            <div class="sub-section">(1) 데이터 전처리 및 요약 자동화</div>
+            <div class="detail-item">엑셀·CSV 데이터 구조 이해 및 정리 자동화</div>
+            <div class="detail-item">AI가 바로 분석할 수 있는 형태로 데이터를 정리하는 방법</div>
+            <div class="sub-section">(2) 분석 관점 설계 프롬프트</div>
+            <div class="detail-item">'의미 있는 질문'을 먼저 만드는 방법</div>
+            <div class="detail-item">"이 데이터에서 의사결정자가 봐야 할 핵심 포인트는?"</div>
+            <div class="sub-section">(3) 인사이트 도출 및 시각화 활용</div>
+            <div class="detail-item">의사결정을 뒷받침하는 코멘트·시사점 자동 생성</div>
+            <div class="detail-item">현업 데이터 기반 분석 프롬프트 설계 실습</div>
+          </td>
+          <td class="col-time">2h</td>
+          <td class="col-method">강의<br>실습<br>피드백</td>
+        </tr>
+        <tr>
+          <td class="col-module">Module 4<br>기획·문제해결<br>AI 구조화</td>
+          <td class="col-content">
+            <div class="module-goal">고민하는 시간보다 구조화하는 속도를 높여라</div>
+            <div class="sub-section">(1) 프로젝트형 업무 AI 구조화</div>
+            <div class="detail-item">프로젝트 목표·범위 정의 프롬프트</div>
+            <div class="detail-item">WBS 자동 생성: 업무 분해, 역할·리스크·일정 정리</div>
+            <div class="sub-section">(2) 문제해결과 의사결정을 돕는 AI</div>
+            <div class="detail-item">문제 정의 및 원인 분석: 현상→원인→핵심 문제 구조화</div>
+            <div class="detail-item">대안 비교·평가: 장단점·리스크 정리</div>
+            <div class="detail-item">상사 보고용 논리 자동 정리</div>
+            <div class="sub-section">(3) 나의 AI 활용 레벨업 액션 플랜 수립</div>
+            <div class="detail-item">2단계 완성도 점검: 내가 자동화한 업무 리스트 정리</div>
+            <div class="detail-item">3단계(시스템화)로 도약하기 위한 준비 안내</div>
+          </td>
+          <td class="col-time">2h</td>
+          <td class="col-method">개인실습<br>조별토론<br>발표</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 7. STAGE 3 — INTRO ═══ -->
+<div class="slide">
+  <div class="split-left">
+    <div class="left-panel">
+      <div class="slide-number">STAGE 3 — 시스템화</div>
+      <h2>AI 시스템화<br>과정</h2>
+      <p>나만의 맥락이 담긴 AI 환경을 구축하고, RAG·GPTs·Canvas로 업무 시스템을 완성하는 전문 과정입니다.</p>
+    </div>
+    <div class="right-panel">
+      <div class="pain-card">
+        <div class="label">TIME</div>
+        <div class="desc">8시간 (1일)</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">WHO</div>
+        <div class="desc">AI 중급 실무자 · 팀 리더</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">HOW</div>
+        <div class="desc">강의 + 실습 + 설계 워크숍</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">GOAL</div>
+        <div class="desc">RAG 지식 베이스 · AI 비서 구축 · 산출물 고도화 체계</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 8. STAGE 3 — 커리큘럼 ① ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">STAGE 3 — 커리큘럼 ①</span>
+    <h2>AI 시스템화 과정 상세</h2>
+  </div>
+  <div class="cur-table-wrap">
+    <table class="cur-table">
+      <thead>
+        <tr><th>모듈</th><th>주요 내용</th><th>시간</th><th>방법</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-module">Module 1<br>AI 시스템화란<br>무엇인가</td>
+          <td class="col-content">
+            <div class="module-goal">매번 처음부터 설명하지 않아도 되는 AI 환경을 만들어라</div>
+            <div class="sub-section">(1) 2단계(활용)와 3단계(시스템화)의 결정적 차이</div>
+            <div class="detail-item">질문할 때마다 새로 설명하는 AI vs 나의 업무 맥락을 이미 아는 AI</div>
+            <div class="detail-item">인간과 AI가 맥락을 공유하며 한 몸처럼 협업하는 단계로의 전환</div>
+            <div class="sub-section">(2) 시스템화의 3가지 핵심 요소</div>
+            <div class="detail-item">내부 데이터·문서 연동(RAG)</div>
+            <div class="detail-item">나만의 AI 비서 구축(GPTs·Gems)</div>
+            <div class="detail-item">Canvas 모드를 통한 반복적 산출물 고도화</div>
+            <div class="sub-section">(3) 오늘 구축할 나만의 AI 환경 설계도 그리기</div>
+            <div class="detail-item">내 업무에서 시스템화가 가장 시급한 영역 진단 및 방향 설정</div>
+          </td>
+          <td class="col-time">1h</td>
+          <td class="col-method">강의<br>개인진단<br>짝꿍토의</td>
+        </tr>
+        <tr>
+          <td class="col-module">Module 2<br>RAG 기반<br>지식 베이스</td>
+          <td class="col-content">
+            <div class="module-goal">내 자료를 학습한 AI가 즉시 답해주는 환경을 만들어라</div>
+            <div class="sub-section">(1) RAG의 원리와 현업 활용 이점</div>
+            <div class="detail-item">환각(Hallucination)을 최소화한 근거(Citation) 기반 답변</div>
+            <div class="detail-item">사내 문서(PDF·보고서·규정집)를 보안을 유지하면서 AI와 연동하는 방법</div>
+            <div class="sub-section">(2) NotebookLM으로 나만의 AI 지식 저장소 구축</div>
+            <div class="detail-item">보고서·내부 자료 업로드 후 핵심 인사이트 추출</div>
+            <div class="detail-item">최대 50개 자료를 연동해 마인드맵으로 구조화</div>
+            <div class="detail-item">오디오 오버뷰: 문서를 팟캐스트 대화로 변환해 이동 중 청취</div>
+            <div class="sub-section">(3) 현업 적용 시나리오 실습</div>
+            <div class="detail-item">프로젝트 히스토리 관리: 과거 산출물 기반 분석 질문</div>
+            <div class="detail-item">내 업무에 맞는 지식 베이스 주제 선정 및 직접 구축</div>
+          </td>
+          <td class="col-time">2h</td>
+          <td class="col-method">강의<br>실습<br>설계</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 8-2. STAGE 3 — 커리큘럼 ② ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">STAGE 3 — 커리큘럼 ②</span>
+    <h2>AI 시스템화 과정 상세</h2>
+  </div>
+  <div class="cur-table-wrap">
+    <table class="cur-table">
+      <thead>
+        <tr><th>모듈</th><th>주요 내용</th><th>시간</th><th>방법</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-module">Module 3<br>나만의<br>AI 비서 설계</td>
+          <td class="col-content">
+            <div class="module-goal">질문하지 말고, 역할을 부여하라</div>
+            <div class="sub-section">(1) 내 반복 업무 패턴 식별</div>
+            <div class="detail-item">매번 똑같이 묻고, 고치고, 정리하는 업무 찾기 (보고서 초안·메일·기획 양식 등)</div>
+            <div class="detail-item">재사용 가능한 AI 비서 구조로 바꾸는 기준</div>
+            <div class="sub-section">(2) 나의 AI 비서 설계 핵심</div>
+            <div class="detail-item">구성 요소: 역할→목적→업무 범위→말투·기준</div>
+            <div class="detail-item">잘 작동하는 AI 비서와 실패하는 AI 비서의 차이</div>
+            <div class="detail-item">실제 사용 자료·업무 지침을 반영하는 방법</div>
+            <div class="sub-section">(3) 실습: 내 업무용 AI 비서 1개 완성하기</div>
+            <div class="detail-item">현업 반복 업무 기반 AI 비서 설계→테스트→수정→재사용 구조 완성</div>
+          </td>
+          <td class="col-time">2h</td>
+          <td class="col-method">강의<br>실습<br>피드백</td>
+        </tr>
+        <tr>
+          <td class="col-module">Module 4<br>Canvas &<br>프로젝트 기능</td>
+          <td class="col-content">
+            <div class="module-goal">한 번 만들고 끝이 아니라, AI와 함께 계속 발전시켜라</div>
+            <div class="sub-section">(1) Canvas 모드 활용</div>
+            <div class="detail-item">대화형 인터페이스의 한계를 넘는 듀얼 스크린 워크플로우</div>
+            <div class="detail-item">보고서 초안→길이 조정·톤 변경·문법 교정·번역을 버튼 하나로</div>
+            <div class="detail-item">파트별로 AI와 핑퐁하며 실시간 문서 고도화 실습</div>
+            <div class="sub-section">(2) 프로젝트 기능으로 업무 맥락 통째로 관리</div>
+            <div class="detail-item">프로젝트 vs 내 GPT의 차이: 단일 역할 AI vs 맥락·자료·히스토리가 누적되는 작업 공간</div>
+            <div class="detail-item">자료 업로드→질문→수정→누적 관리 흐름 설계</div>
+            <div class="sub-section">(3) 나만의 AI 시스템 통합 설계 & 실행 선언</div>
+            <div class="detail-item">지식 베이스 + AI 비서 + 프로젝트 기능 연결 방법</div>
+            <div class="detail-item">시스템화 완성도 자가 점검 / 4단계(재설계) 미리보기</div>
+          </td>
+          <td class="col-time">3h</td>
+          <td class="col-method">강의<br>개인실습<br>발표</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 9. STAGE 4 — INTRO ═══ -->
+<div class="slide">
+  <div class="split-left">
+    <div class="left-panel">
+      <div class="slide-number">STAGE 4 — 재설계</div>
+      <h2>AI 재설계<br>과정</h2>
+      <p>코딩 없이 자연어로 업무 도구를 직접 만드는 바이브코딩의 세계. 도구를 쓰는 사람에서 만드는 사람으로 전환합니다.</p>
+    </div>
+    <div class="right-panel">
+      <div class="pain-card">
+        <div class="label">TIME</div>
+        <div class="desc">8시간 (1일)</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">WHO</div>
+        <div class="desc">현업 도구 제작 희망자</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">HOW</div>
+        <div class="desc">강의 + 핸즈온 실습</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">GOAL</div>
+        <div class="desc">바이브코딩 Level 1~3 실전 · 업무 도구 프로토타입 완성</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 10. STAGE 4 — 커리큘럼 ① ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">STAGE 4 — 커리큘럼 ①</span>
+    <h2>AI 재설계 과정 상세</h2>
+  </div>
+  <div class="cur-table-wrap">
+    <table class="cur-table">
+      <thead>
+        <tr><th>모듈</th><th>주요 내용</th><th>시간</th><th>방법</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-module">Module 1<br>바이브코딩<br>관점 전환</td>
+          <td class="col-content">
+            <div class="module-goal">필요한 것은 문법 암기가 아니라, AI와 협업해 빠르게 구현하는 실행 감각이다</div>
+            <div class="sub-section">(1) 바이브코딩이란</div>
+            <div class="detail-item">자연어로 요구를 설명하고 AI와 반복 대화하며 결과물을 직접 구현</div>
+            <div class="detail-item">3단계(시스템화) vs 4단계(재설계)의 결정적 차이</div>
+            <div class="sub-section">(2) AI에 대한 인식 전환</div>
+            <div class="detail-item">'정답 생성기'가 아닌 '초안 작성자·구현 파트너·디버깅 조력자'로 인식</div>
+            <div class="sub-section">(3) 실무 바이브코딩 장면</div>
+            <div class="detail-item">사내 랜딩페이지 / 정보 조회 도구 / 데이터 수집·자동화</div>
+            <div class="detail-item">내가 만들 도구 아이디어 1개 선정</div>
+          </td>
+          <td class="col-time">1.5h</td>
+          <td class="col-method">강의<br>데모시연<br>질의응답</td>
+        </tr>
+        <tr>
+          <td class="col-module">Module 2<br>필수 구조<br>이해</td>
+          <td class="col-content">
+            <div class="module-goal">바이브코딩의 성패는 문법이 아니라 구조를 얼마나 이해하느냐에 달려 있다</div>
+            <div class="sub-section">(1) 자연어 코딩이 가능한 이유</div>
+            <div class="detail-item">LLM의 코드 생성 원리 / 잘하는 일과 한계</div>
+            <div class="detail-item">안전하고 효과적인 활용 원칙</div>
+            <div class="sub-section">(2) 핵심 개념 이해</div>
+            <div class="detail-item">프론트엔드·백엔드·DB 역할</div>
+            <div class="detail-item">HTML·CSS·JS 각각의 역할</div>
+            <div class="detail-item">API·CLI·IDE·터미널 쓰임</div>
+            <div class="sub-section">(3) 바이브코딩 Level 1~5 구조</div>
+            <div class="detail-item">L1: 정적 웹 / L2: API 연결 / L3: 구글시트+GAS</div>
+            <div class="detail-item">L4: 전문 DB / L5: 소규모 웹서비스</div>
+          </td>
+          <td class="col-time">1.5h</td>
+          <td class="col-method">강의<br>미니퀴즈<br>개인실습</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 10-2. STAGE 4 — 커리큘럼 ② ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">STAGE 4 — 커리큘럼 ②</span>
+    <h2>AI 재설계 과정 상세</h2>
+  </div>
+  <div class="cur-table-wrap">
+    <table class="cur-table">
+      <thead>
+        <tr><th>모듈</th><th>주요 내용</th><th>시간</th><th>방법</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-module">Module 3<br>바이브코딩<br>실습 L1~3</td>
+          <td class="col-content">
+            <div class="module-goal">직접 만들어봐야 진짜 내 것이 된다</div>
+            <div class="sub-section">(1) Level 1 실습 — 정적 웹</div>
+            <div class="detail-item">점심메뉴 앱(랜덤 추천·카테고리 필터)</div>
+            <div class="detail-item">랜딩페이지(소개·서비스·문의폼)</div>
+            <div class="detail-item">AI에게 단계별 자연어 지시하는 방법</div>
+            <div class="sub-section">(2) Level 2 실습 — API 연결</div>
+            <div class="detail-item">API 개념·호출 흐름 이해</div>
+            <div class="detail-item">공개 API 활용 정보 조회형 앱 제작</div>
+            <div class="sub-section">(3) Level 3 실습 — 구글시트 DB 활용</div>
+            <div class="detail-item">구글시트를 데이터베이스로 활용하는 원리</div>
+            <div class="detail-item">설문 수집·정리 앱 / 메일 자동 발송(저장→조건 발송→로그 확인)</div>
+            <div class="sub-section">(4) 실습 피드백</div>
+            <div class="detail-item">수정 요청법 / 오류 메시지 AI 활용 / 기능 단위로 쪼개서 만드는 법</div>
+          </td>
+          <td class="col-time">3h</td>
+          <td class="col-method">데모시연<br>개인실습<br>피드백</td>
+        </tr>
+        <tr>
+          <td class="col-module">Module 4<br>심화 확장 &<br>현장 적용</td>
+          <td class="col-content">
+            <div class="module-goal">개발 환경을 맛보고, 내 업무에 맞는 작은 서비스 기획까지 연결한다</div>
+            <div class="sub-section">(1) Level 4·5 개발 환경 맛보기</div>
+            <div class="detail-item">IDE·Git의 필요성 / 기본 흐름 소개</div>
+            <div class="detail-item">로컬 개발 vs 배포의 차이</div>
+            <div class="sub-section">(2) IDE 앱 개발 체험</div>
+            <div class="detail-item">IDE 화면 구조 파악 / AI와 파일 단위 수정 체험</div>
+            <div class="detail-item">프론트엔드·API·DB 연동 구조 이해</div>
+            <div class="sub-section">(3) 현업 적용 워크숍</div>
+            <div class="detail-item">내 업무에서 '작은 도구' 발굴 / Level 1~5 분류 / 우선순위 설정</div>
+            <div class="sub-section">(4) 최종 발표</div>
+            <div class="detail-item">업무 도구 기획안(무엇을·왜·어떤 레벨로)</div>
+            <div class="detail-item">교육 직후 바로 시도할 1개 과제 발표</div>
+          </td>
+          <td class="col-time">2h</td>
+          <td class="col-method">강의<br>조별토의<br>결과발표</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 11. STAGE 5 — INTRO ═══ -->
+<div class="slide">
+  <div class="split-left">
+    <div class="left-panel">
+      <div class="slide-number">STAGE 5 — 자율화</div>
+      <h2>AI 자율화<br>과정</h2>
+      <p>AI 에이전트에게 목표를 위임하고 결과를 감독하는 오케스트레이터로 진화하는 최고급 과정입니다.</p>
+    </div>
+    <div class="right-panel">
+      <div class="pain-card">
+        <div class="label">TIME</div>
+        <div class="desc">8시간 (1일)</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">WHO</div>
+        <div class="desc">AI 고급 실무자 · AI 리더</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">HOW</div>
+        <div class="desc">강의 + 에이전트 실습</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">GOAL</div>
+        <div class="desc">에이전트 오케스트레이션 · 목표 위임 · 감독 역량</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 12. STAGE 5 — 커리큘럼 ① ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">STAGE 5 — 커리큘럼 ①</span>
+    <h2>AI 자율화 과정 상세</h2>
+  </div>
+  <div class="cur-table-wrap">
+    <table class="cur-table">
+      <thead>
+        <tr><th>모듈</th><th>주요 내용</th><th>시간</th><th>방법</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-module">Module 1<br>에이전트<br>패러다임</td>
+          <td class="col-content">
+            <div class="module-goal">도구를 만드는 것을 넘어, 이제는 AI에게 목표를 통째로 맡기는 단계로</div>
+            <div class="sub-section">(1) 4단계 vs 5단계의 결정적 차이</div>
+            <div class="detail-item">창조자(직접 만들기) vs 오케스트레이터(목표 위임·감독)</div>
+            <div class="detail-item">'어떻게 할지' 지시하는 것에서 '무엇을 달성할지' 위임하는 것으로</div>
+            <div class="sub-section">(2) AI 에이전트란</div>
+            <div class="detail-item">목표를 받고 스스로 계획하고 도구를 사용해 자율 실행하는 AI</div>
+            <div class="detail-item">에이전트에게 맡길 업무 vs 사람이 직접 판단할 업무 구분</div>
+            <div class="sub-section">(3) 오케스트레이터 3대 역할</div>
+            <div class="detail-item">목표 정의력: 명확한 목표를 설계하는 능력</div>
+            <div class="detail-item">감독 능력: 중간 결과를 점검하고 방향을 조정하는 능력</div>
+            <div class="detail-item">도구 선택력: 업무에 맞는 에이전트를 골라 조합하는 능력</div>
+          </td>
+          <td class="col-time">1.5h</td>
+          <td class="col-method">강의<br>데모시연<br>미니토론</td>
+        </tr>
+        <tr>
+          <td class="col-module">Module 2<br>젠스파크·코멧<br>클로드 코워크</td>
+          <td class="col-content">
+            <div class="module-goal">도구마다 잘하는 일이 다르다 — 에이전트를 선택하는 안목을 길러라</div>
+            <div class="sub-section">(1) 젠스파크 (Genspark)</div>
+            <div class="detail-item">멀티소스 자율 검색→정보 합성→Sparkpage 리포트 자동 생성</div>
+            <div class="detail-item">시장 조사, 경쟁사 분석, 기술 동향, 인사이트 리포트</div>
+            <div class="sub-section">(2) 코멧 (Comet)</div>
+            <div class="detail-item">브라우저를 직접 제어해 탐색·클릭·입력·데이터 추출 자율 실행</div>
+            <div class="detail-item">반복 웹 업무 자동화, 다수 사이트 순차 처리</div>
+            <div class="sub-section">(3) 클로드 코워크 (Claude Cowork)</div>
+            <div class="detail-item">코드 실행·파일 관리·웹 검색·문서 생성을 자율 조합</div>
+            <div class="detail-item">멀티스텝 복합 업무, 데이터 처리, 리포트 자동 생성</div>
+          </td>
+          <td class="col-time">2h</td>
+          <td class="col-method">강의<br>데모시연<br>비교체험</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 12-2. STAGE 5 — 커리큘럼 ② ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">STAGE 5 — 커리큘럼 ②</span>
+    <h2>AI 자율화 과정 상세</h2>
+  </div>
+  <div class="cur-table-wrap">
+    <table class="cur-table">
+      <thead>
+        <tr><th>모듈</th><th>주요 내용</th><th>시간</th><th>방법</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-module">Module 3<br>에이전트 실습<br>목표 위임</td>
+          <td class="col-content">
+            <div class="module-goal">직접 위임해봐야 에이전트의 진짜 능력을 알 수 있다</div>
+            <div class="sub-section">(1) 젠스파크 실습</div>
+            <div class="detail-item">단순 검색 vs 에이전트 위임 비교 체험</div>
+            <div class="detail-item">'생성형 AI 산업 동향 인사이트 리포트 작성' 실습</div>
+            <div class="detail-item">Sparkpage 결과물 검토·활용 / 검증 체크리스트</div>
+            <div class="sub-section">(2) 코멧 실습</div>
+            <div class="detail-item">웹 작업 목표 위임 / 브라우저 자율 조작 과정 관찰</div>
+            <div class="detail-item">예외 상황 발생 시 개입하는 법 / 현업 반복 웹 업무 적용 시나리오</div>
+            <div class="sub-section">(3) 클로드 코워크 실습</div>
+            <div class="detail-item">멀티스텝 복합 업무 목표 위임 / 자율 실행 과정 실시간 관찰</div>
+            <div class="detail-item">중간 결과 점검·방향 수정 / 최종 결과물 품질 검증</div>
+          </td>
+          <td class="col-time">3h</td>
+          <td class="col-method">데모시연<br>개인실습<br>조별공유</td>
+        </tr>
+        <tr>
+          <td class="col-module">Module 4<br>에이전트<br>통합 활용</td>
+          <td class="col-content">
+            <div class="module-goal">여러 에이전트를 조합하는 오케스트레이터가 될 때, 비로소 5단계가 완성된다</div>
+            <div class="sub-section">(1) 에이전트 통합 활용 전략</div>
+            <div class="detail-item">젠스파크(심층 조사)→코멧(추가 수집)→클로드 코워크(정리·보고서 완성) 조합 시나리오</div>
+            <div class="detail-item">업무 목적에 따라 에이전트를 연결하는 파이프라인 설계 실습</div>
+            <div class="sub-section">(2) 에이전트 활용의 책임과 감독</div>
+            <div class="detail-item">결과물 정확성·신뢰성 검증 기준</div>
+            <div class="detail-item">반드시 감독해야 하는 영역 / 오남용 리스크와 조직 내 활용 가이드라인</div>
+            <div class="sub-section">(3) 현업 에이전트 로드맵 수립</div>
+            <div class="detail-item">위임 가능 업무 목록 작성 / 우선순위(빈도 높은 것·시간 소모 큰 것·반복 업무)</div>
+            <div class="detail-item">교육 직후 바로 시도할 1개 과제 발표</div>
+          </td>
+          <td class="col-time">1.5h</td>
+          <td class="col-method">강의<br>워크숍<br>발표</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 13. TRAINER PROFILE ═══ -->
+<div class="slide">
+  <div class="profile-layout">
+    <div class="profile-left">
+      <div class="profile-avatar">JH</div>
+      <h3>박재현</h3>
+      <div class="role">CCO / Learning Facilitator</div>
+      <div>
+        <span class="profile-tag">AI 리터러시</span>
+        <span class="profile-tag">프롬프트 엔지니어링</span>
+        <span class="profile-tag">바이브코딩</span>
+        <span class="profile-tag">리더십</span>
+      </div>
+    </div>
+    <div class="profile-right">
+      <div class="profile-section">
+        <h4>CAREER</h4>
+        <ul>
+          <li>현) Deeptact Learning CCO / 컨텐츠 연구소 소장</li>
+          <li>전) 이음컨설팅그룹 상무</li>
+          <li>전) 라이나생명 교육기획 · 포스코강판 인사/교육</li>
+          <li>서강대학교 경제학 / 수학</li>
+        </ul>
+      </div>
+      <div class="profile-section">
+        <h4>RECENT AI EDUCATION</h4>
+        <ul>
+          <li>풀무원 임원·리더 AI 활용법 (16차수)</li>
+          <li>SK플래닛 임원·리더 AI 활용법</li>
+          <li>LG화학 기획 및 문제해결 AI 활용법</li>
+          <li>노벨리스·다나허·머크·램리서치 등 글로벌 기업</li>
+          <li>삼성전자·LGU+·SK증권·NH투자증권 등 국내 대기업</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 14. CLOSING ═══ -->
+<div class="slide closing">
+  <h2>AI 활용 능력의<br><em>체계적 성장</em>을 위한<br>최적의 교육 파트너</h2>
+  <p>탐색부터 자율화까지, 조직의 AI 역량을 단계별로 완성합니다.</p>
+  <div class="contact-row">
+    <div class="contact-item">
+      <div class="cl">EMAIL</div>
+      <div class="cv">matt@deeptactlearning.com</div>
+    </div>
+    <div class="contact-item">
+      <div class="cl">PHONE</div>
+      <div class="cv">010-6651-6268</div>
+    </div>
+    <div class="contact-item">
+      <div class="cl">COMPANY</div>
+      <div class="cv">딥택트러닝</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PRINT BUTTON ═══ -->
+<div class="print-page">
+  <button class="print-btn" onclick="window.print()">PDF로 인쇄하기</button>
+</div>
+
+</body>
+</html>

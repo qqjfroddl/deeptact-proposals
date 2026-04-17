@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232E3142'/><text x='16' y='22' font-size='18' font-weight='bold' text-anchor='middle' fill='%234A8A8F' font-family='sans-serif'>D</text></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>딥택트러닝 · 제안서 관리 대시보드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  /* ============ DARK THEME (default) ============ */
+  :root,
+  [data-theme="dark"] {
+    --primary: #2E3142;
+    --primary-deep: #1F212D;
+    --accent: #3C6D71;
+    --accent-light: #4A8A8F;
+    --accent-bright: #5BA8AD;
+    --slate: #515C78;
+    --charcoal: #45494C;
+    --surface: #F2F1EF;
+    --text: #E8E8EC;
+    --text-dim: #9BA0AE;
+    --text-muted: #6B7080;
+    --border: rgba(255,255,255,0.08);
+    --card-bg: rgba(255,255,255,0.04);
+    --card-hover: rgba(255,255,255,0.07);
+    --url-bg: rgba(0,0,0,0.25);
+    --body-bg: linear-gradient(135deg, #1F212D 0%, #2E3142 100%);
+    --shadow: 0 10px 30px rgba(0,0,0,0.3);
+    --status-draft: #B8863B;
+    --status-sent: #3C6D71;
+    --status-approved: #4CAF50;
+    --status-pending: #8E8E93;
+  }
+
+  /* ============ LIGHT THEME ============ */
+  [data-theme="light"] {
+    --primary: #FFFFFF;
+    --primary-deep: #F5F7FA;
+    --accent: #3C6D71;
+    --accent-light: #4A8A8F;
+    --accent-bright: #2B5A5E;
+    --slate: #5B6888;
+    --charcoal: #45494C;
+    --surface: #FFFFFF;
+    --text: #1A1D2E;
+    --text-dim: #5B6275;
+    --text-muted: #8A92A6;
+    --border: rgba(0,0,0,0.08);
+    --card-bg: #FFFFFF;
+    --card-hover: #F8FAFC;
+    --url-bg: #F5F7FA;
+    --body-bg: linear-gradient(135deg, #F5F7FA 0%, #E8ECF1 100%);
+    --shadow: 0 4px 16px rgba(0,0,0,0.06);
+    --status-draft: #B8863B;
+    --status-sent: #3C6D71;
+    --status-approved: #4CAF50;
+    --status-pending: #8E8E93;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans KR', 'Plus Jakarta Sans', sans-serif;
+    background: var(--body-bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 40px 24px 80px;
+    letter-spacing: -0.01em;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  /* ============ HEADER ============ */
+  .header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .brand {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .brand-tag {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: var(--accent-bright);
+    text-transform: uppercase;
+  }
+
+  .brand-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  /* ============ THEME TOGGLE ============ */
+  .theme-toggle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s;
+    padding: 0;
+  }
+
+  .theme-toggle:hover {
+    background: var(--card-hover);
+    border-color: var(--accent);
+    transform: rotate(15deg);
+  }
+
+  .theme-toggle svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  [data-theme="dark"] .icon-sun,
+  [data-theme="light"] .icon-moon {
+    display: block;
+  }
+
+  [data-theme="dark"] .icon-moon,
+  [data-theme="light"] .icon-sun {
+    display: none;
+  }
+
+  .brand-sub {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .stat {
+    text-align: right;
+  }
+
+  .stat-num {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent-bright);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+
+  /* ============ CONTROLS ============ */
+  .controls {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .search-wrap {
+    flex: 1;
+    min-width: 280px;
+    position: relative;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 14px 20px 14px 48px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--card-hover);
+  }
+
+  .search-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+
+  .filter-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .filter-tag {
+    padding: 10px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-dim);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .filter-tag:hover {
+    background: var(--card-hover);
+    color: var(--text);
+  }
+
+  .filter-tag.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  /* ============ GRID ============ */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    transition: all 0.25s;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    box-shadow: var(--shadow);
+  }
+
+  .card:hover {
+    background: var(--card-hover);
+    border-color: rgba(60, 109, 113, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.12);
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .card-client {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent-bright);
+    letter-spacing: 0.04em;
+  }
+
+  .card-client-icon {
+    min-width: 24px;
+    height: 22px;
+    padding: 0 7px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, var(--accent), var(--slate));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+
+  .status-badge {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .status-draft { background: rgba(184, 134, 59, 0.15); color: #D4A056; border: 1px solid rgba(184, 134, 59, 0.3); }
+  .status-sent { background: rgba(60, 109, 113, 0.2); color: var(--accent-bright); border: 1px solid rgba(60, 109, 113, 0.4); }
+  .status-approved { background: rgba(76, 175, 80, 0.15); color: #7BC47E; border: 1px solid rgba(76, 175, 80, 0.3); }
+  .status-pending { background: rgba(142, 142, 147, 0.15); color: #AAAEB8; border: 1px solid rgba(142, 142, 147, 0.3); }
+
+  /* Light mode: status badges use darker text for contrast */
+  [data-theme="light"] .status-draft { color: #8B5A1E; background: rgba(184, 134, 59, 0.12); }
+  [data-theme="light"] .status-approved { color: #2D7030; background: rgba(76, 175, 80, 0.12); }
+  [data-theme="light"] .status-pending { color: #5B6275; background: rgba(142, 142, 147, 0.1); }
+
+  .card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+  }
+
+  .card-date {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .card-url {
+    background: var(--url-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-family: 'Plus Jakarta Sans', 'Menlo', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    word-break: break-all;
+    line-height: 1.5;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-decoration: none;
+  }
+
+  .btn:hover {
+    background: var(--card-hover);
+    border-color: var(--accent);
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-light);
+    border-color: var(--accent-light);
+  }
+
+  .btn-icon {
+    width: 40px;
+    flex: 0 0 40px;
+    padding: 10px 0;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--accent);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 1000;
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  /* ============ QR MODAL ============ */
+  .modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    padding: 20px;
+  }
+
+  .modal.show {
+    display: flex;
+  }
+
+  .modal-content {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.05);
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+  }
+
+  .modal-title {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .modal-subtitle {
+    font-size: 18px;
+    color: #1a1a1a;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+
+  #qrcode {
+    display: inline-block;
+    padding: 16px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #eee;
+  }
+
+  #qrcode img, #qrcode canvas {
+    display: block;
+  }
+
+  .modal-url {
+    margin-top: 16px;
+    font-family: 'Plus Jakarta Sans', monospace;
+    font-size: 12px;
+    color: #666;
+    word-break: break-all;
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 8px;
+  }
+
+  .modal-download {
+    margin-top: 16px;
+    padding: 10px 20px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .modal-download:hover {
+    background: var(--accent-light);
+  }
+
+  .empty {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  .footer {
+    margin-top: 60px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 16px 60px; }
+    .brand-title { font-size: 24px; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="brand">
+        <div class="brand-tag">Deeptact Learning · Proposals</div>
+        <div class="brand-title">제안서 관리 대시보드</div>
+        <div class="brand-sub">딥택트러닝에서 발송한 교육 제안서 모음 · 박재현</div>
+      </div>
+      <div class="header-meta">
+        <div class="stat">
+          <div class="stat-num" id="statTotal">0</div>
+          <div class="stat-label">Total</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" id="statSent">0</div>
+          <div class="stat-label">Sent</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" id="statDraft">0</div>
+          <div class="stat-label">Draft</div>
+        </div>
+        <button class="theme-toggle" id="themeToggle" aria-label="테마 변경" title="다크/라이트 모드 전환">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+      <div class="search-wrap">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" class="search-input" id="searchInput" placeholder="고객명, 과정명, 날짜로 검색...">
+      </div>
+      <div class="filter-tags" id="filterTags">
+        <button class="filter-tag active" data-filter="all">전체</button>
+        <button class="filter-tag" data-filter="sent">발송완료</button>
+        <button class="filter-tag" data-filter="approved">승인</button>
+        <button class="filter-tag" data-filter="draft">초안</button>
+        <button class="filter-tag" data-filter="pending">보류</button>
+        <button class="filter-tag" data-filter="standard">표준</button>
+        <button class="filter-tag" data-filter="profile">프로필</button>
+      </div>
+    </div>
+
+    <!-- GRID -->
+    <div class="grid" id="grid"></div>
+
+    <div class="footer">
+      © 딥택트러닝 · matt@deeptactlearning.com · 010-6651-6268
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">URL이 복사되었습니다</div>
+
+  <!-- QR Modal -->
+  <div class="modal" id="qrModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeQR()">✕</button>
+      <div class="modal-title">QR 코드로 바로 공유</div>
+      <div class="modal-subtitle" id="qrTitle"></div>
+      <div id="qrcode"></div>
+      <div class="modal-url" id="qrUrl"></div>
+      <button class="modal-download" onclick="downloadQR()">QR 이미지 다운로드</button>
+    </div>
+  </div>
+
+<script>
+/* ============================================
+   제안서 데이터
+   새 제안서 추가 시 이 배열에만 객체 추가하면 됩니다.
+   ============================================ */
+const BASE_URL = 'https://deeptact.netlify.app';
+
+const proposals = [
+  {
+    client: '박재현 소장',
+    clientTag: 'JH',
+    title: '강사 프로필',
+    path: '/profile',
+    date: '2026.04.17',
+    status: 'standard',
+    category: 'profile'
+  },
+  {
+    client: '표준 제안서',
+    clientTag: '표준',
+    title: 'AI 활용 5단계 교육 시리즈',
+    path: '/standard/ai-5stage-roadmap',
+    date: '2026.04.16',
+    status: 'standard',
+    category: 'standard'
+  },
+  {
+    client: 'SK플래닛',
+    clientTag: 'SK',
+    title: '2026 리더 바이브 코딩 교육',
+    path: '/skplanet/2026leader-vibe-coding',
+    date: '2026.03.28',
+    status: 'sent',
+    category: 'client'
+  }
+  /* 새 제안서 추가 예시:
+  ,{
+    client: '한화',
+    clientTag: '한화',
+    title: '전략적 사고와 1Page 보고서',
+    path: '/hanwha/strategy-2026',
+    date: '2026.04.20',
+    status: 'draft',
+    category: 'client'
+  }
+  */
+];
+
+/* ============================================
+   상태 라벨 매핑
+   ============================================ */
+const statusLabels = {
+  standard: '표준',
+  sent: '발송완료',
+  approved: '승인',
+  draft: '초안',
+  pending: '보류'
+};
+
+const statusClass = {
+  standard: 'status-sent',
+  sent: 'status-sent',
+  approved: 'status-approved',
+  draft: 'status-draft',
+  pending: 'status-pending'
+};
+
+/* ============================================
+   렌더링
+   ============================================ */
+let currentFilter = 'all';
+let currentSearch = '';
+
+function render() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+
+  const filtered = proposals.filter(p => {
+    // 필터
+    if (currentFilter !== 'all') {
+      if (currentFilter === 'standard' && p.category !== 'standard') return false;
+      if (currentFilter === 'profile' && p.category !== 'profile') return false;
+      if (currentFilter !== 'standard' && currentFilter !== 'profile' && p.status !== currentFilter) return false;
+    }
+    // 검색
+    if (currentSearch) {
+      const q = currentSearch.toLowerCase();
+      const hay = `${p.client} ${p.title} ${p.date}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="empty" style="grid-column: 1/-1;">검색 결과가 없습니다</div>';
+    updateStats();
+    return;
+  }
+
+  filtered.forEach((p, i) => {
+    const fullUrl = BASE_URL + p.path;   // 표시/복사/QR용 (항상 Netlify 주소)
+    const openHref = '.' + p.path + '/index.html';  // 실제 열기용 (상대 경로: 로컬+Netlify 모두 작동)
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="card-top">
+        <div class="card-client">
+          <div class="card-client-icon">${p.clientTag}</div>
+          ${p.client}
+        </div>
+        <div class="status-badge ${statusClass[p.status]}">${statusLabels[p.status]}</div>
+      </div>
+      <div>
+        <div class="card-title">${p.title}</div>
+        <div class="card-date" style="margin-top: 6px;">${p.date}</div>
+      </div>
+      <div class="card-url">${fullUrl}</div>
+      <div class="card-actions">
+        <a href="${openHref}" target="_blank" class="btn btn-primary">제안서 열기</a>
+        <button class="btn btn-icon" onclick="copyUrl('${fullUrl}')" title="URL 복사">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </button>
+        <button class="btn btn-icon" onclick="showQR('${fullUrl}', '${p.client} · ${p.title}')" title="QR 코드">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"/>
+            <rect x="14" y="3" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/>
+            <path d="M14 14h3M14 17h3M17 14v3M20 14v7M14 20h3"/>
+          </svg>
+        </button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  updateStats();
+}
+
+function updateStats() {
+  document.getElementById('statTotal').textContent = proposals.length;
+  document.getElementById('statSent').textContent = proposals.filter(p => p.status === 'sent' || p.status === 'approved').length;
+  document.getElementById('statDraft').textContent = proposals.filter(p => p.status === 'draft' || p.status === 'pending').length;
+}
+
+/* ============================================
+   URL 복사
+   ============================================ */
+function copyUrl(url) {
+  navigator.clipboard.writeText(url).then(() => {
+    const toast = document.getElementById('toast');
+    toast.textContent = 'URL이 복사되었습니다';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  }).catch(() => {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = url;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const toast = document.getElementById('toast');
+    toast.textContent = 'URL이 복사되었습니다';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  });
+}
+
+/* ============================================
+   QR 코드
+   ============================================ */
+let qrInstance = null;
+let currentQRUrl = '';
+let currentQRTitle = '';
+
+function showQR(url, title) {
+  currentQRUrl = url;
+  currentQRTitle = title;
+  document.getElementById('qrTitle').textContent = title;
+  document.getElementById('qrUrl').textContent = url;
+
+  const qrDiv = document.getElementById('qrcode');
+  qrDiv.innerHTML = '';
+  qrInstance = new QRCode(qrDiv, {
+    text: url,
+    width: 240,
+    height: 240,
+    colorDark: '#2E3142',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
+  document.getElementById('qrModal').classList.add('show');
+}
+
+function closeQR() {
+  document.getElementById('qrModal').classList.remove('show');
+}
+
+function downloadQR() {
+  const canvas = document.querySelector('#qrcode canvas');
+  const img = document.querySelector('#qrcode img');
+  let dataUrl;
+  if (canvas) {
+    dataUrl = canvas.toDataURL('image/png');
+  } else if (img) {
+    dataUrl = img.src;
+  } else {
+    return;
+  }
+  const a = document.createElement('a');
+  a.href = dataUrl;
+  a.download = `qr_${currentQRTitle.replace(/[^\w가-힣]/g, '_')}.png`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+/* ============================================
+   이벤트 바인딩
+   ============================================ */
+document.getElementById('searchInput').addEventListener('input', (e) => {
+  currentSearch = e.target.value;
+  render();
+});
+
+document.querySelectorAll('.filter-tag').forEach(tag => {
+  tag.addEventListener('click', () => {
+    document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+    tag.classList.add('active');
+    currentFilter = tag.dataset.filter;
+    render();
+  });
+});
+
+document.getElementById('qrModal').addEventListener('click', (e) => {
+  if (e.target.id === 'qrModal') closeQR();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeQR();
+});
+
+/* ============================================
+   테마 토글 (다크 / 라이트)
+   - localStorage에 저장하여 새로고침 후에도 유지
+   - OS 설정도 기본값으로 반영
+   ============================================ */
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  try { localStorage.setItem('deeptact-theme', theme); } catch(e) {}
+
+  // QR 코드 색상도 테마에 맞춰 갱신
+  if (document.getElementById('qrModal').classList.contains('show')) {
+    const qrDiv = document.getElementById('qrcode');
+    qrDiv.innerHTML = '';
+    qrInstance = new QRCode(qrDiv, {
+      text: currentQRUrl,
+      width: 240,
+      height: 240,
+      colorDark: theme === 'light' ? '#1A1D2E' : '#2E3142',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  }
+}
+
+function initTheme() {
+  let saved = null;
+  try { saved = localStorage.getItem('deeptact-theme'); } catch(e) {}
+  if (saved === 'light' || saved === 'dark') {
+    applyTheme(saved);
+  } else {
+    // OS 기본값 따르기
+    const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    applyTheme(prefersLight ? 'light' : 'dark');
+  }
+}
+
+document.getElementById('themeToggle').addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme') || 'dark';
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+});
+
+// 초기 테마 & 렌더
+initTheme();
+render();
+</script>
+</body>
+</html>
