@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<!-- cache-bust: 2026-04-20 -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>딥택트러닝 | 리더를 위한 AI 활용법 — 기초·응용</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Korean semantic line breaks — apply globally */
+* {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-break: strict;
+}
+:root {
+  --primary: #2E3142;
+  --accent: #3C6D71;
+  --accent-light: #4A8A8F;
+  --surface: #F2F1EF;
+  --text: #1A1A1A;
+  --text-sub: #555;
+  --text-light: #999;
+  --border: #D9D9D9;
+  --white: #FFFFFF;
+  --dark-alt: #284A63;
+  --slate: #515C78;
+  --charcoal: #45494C;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #E8E6E1;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.65;
+  letter-spacing: -0.02em;
+}
+
+/* ═══ SLIDE SYSTEM ═══ */
+.slide {
+  width: 960px; height: 540px;
+  margin: 40px auto;
+  background: var(--white);
+  border-radius: 6px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
+  overflow: hidden;
+  position: relative;
+}
+.section-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; }
+.section-head .num { font-family:'Plus Jakarta Sans',sans-serif; font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); }
+.section-head h2 { font-size:22px; font-weight:700; letter-spacing:-0.3px; }
+.content-slide { padding: 40px 52px; display: flex; flex-direction: column; height:100%; }
+
+/* ═══ COVER ═══ */
+.cover {
+  background: linear-gradient(135deg, #2E3142 0%, #284A63 60%, #3C6D71 100%);
+  color:#FFF; display:flex; flex-direction:column; justify-content:center;
+  padding:60px 70px; position:relative;
+}
+.cover::before { content:''; position:absolute; top:-120px; right:-120px; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle, rgba(60,109,113,0.15) 0%, transparent 70%); }
+.cover::after { content:''; position:absolute; bottom:0; left:0; right:0; height:4px; background:linear-gradient(90deg, var(--accent), var(--accent-light), transparent); }
+.cover-badge { font-family:'Plus Jakarta Sans',sans-serif; font-size:11px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--accent-light); margin-bottom:28px; }
+.cover-client { font-size:14px; font-weight:500; color:rgba(255,255,255,0.45); letter-spacing:1px; margin-bottom:12px; }
+.cover-client strong { font-size:28px; font-weight:900; color:rgba(255,255,255,0.85); letter-spacing:-0.5px; display:block; margin-top:4px; }
+.cover h1 { font-size:36px; font-weight:900; line-height:1.25; margin-bottom:12px; letter-spacing:-0.5px; }
+.cover h1 em { font-style:normal; color:var(--accent-light); }
+.cover .subtitle { font-size:16px; font-weight:300; color:rgba(255,255,255,0.65); margin-bottom:48px; }
+.cover-meta { display:flex; gap:32px; font-size:13px; color:rgba(255,255,255,0.5); }
+.cover-meta span { display:flex; align-items:center; gap:6px; }
+.cover-meta .dot { width:6px; height:6px; background:var(--accent); border-radius:50%; display:inline-block; }
+.cover-logo { position:absolute; top:40px; right:60px; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:14px; letter-spacing:-0.3px; color:rgba(255,255,255,0.35); }
+
+/* ═══ PROBLEM ═══ */
+.split-left { display:grid; grid-template-columns:340px 1fr; height:100%; }
+.split-left .left-panel { background:var(--primary); color:#FFF; padding:48px 36px; display:flex; flex-direction:column; justify-content:center; position:relative; }
+.split-left .left-panel::after { content:''; position:absolute; top:0;right:0;bottom:0; width:3px; background:linear-gradient(180deg, var(--accent), transparent); }
+.slide-number { font-family:'Plus Jakarta Sans',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; color:var(--accent-light); margin-bottom:16px; }
+.left-panel h2 { font-size:22px; font-weight:700; line-height:1.35; margin-bottom:14px; }
+.left-panel p { font-size:13px; color:rgba(255,255,255,0.55); line-height:1.7; }
+.right-panel { padding:44px 40px; display:flex; flex-direction:column; justify-content:center; gap:16px; }
+.pain-card { background:var(--surface); border-radius:8px; padding:18px 22px; border-left:3px solid var(--accent); }
+.pain-card .label { font-size:11px; font-weight:600; color:var(--accent); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
+.pain-card .desc { font-size:13.5px; color:var(--text); font-weight:400; line-height:1.55; }
+
+/* ═══ SOLUTION — 2단 ═══ */
+.sol-hero { background:var(--primary); border-radius:10px; padding:24px 32px; margin-bottom:20px; display:flex; align-items:center; gap:20px; }
+.sol-hero-icon { width:48px; height:48px; border-radius:50%; flex-shrink:0; background:linear-gradient(135deg,var(--accent),var(--accent-light)); display:flex; align-items:center; justify-content:center; font-size:22px; color:#FFF; }
+.sol-hero-text { color:#FFF; }
+.sol-hero-text h3 { font-size:16px; font-weight:700; margin-bottom:4px; }
+.sol-hero-text p { font-size:12.5px; color:rgba(255,255,255,0.6); line-height:1.5; }
+.solution-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; flex:1; }
+.sol-card { background:var(--surface); border-radius:10px; padding:22px 20px; display:flex; flex-direction:column; position:relative; overflow:hidden; }
+.sol-icon { width:36px; height:36px; background:linear-gradient(135deg,var(--accent),var(--accent-light)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; margin-bottom:12px; color:#FFF; }
+.sol-card h3 { font-size:14px; font-weight:700; margin-bottom:6px; }
+.sol-card p { font-size:12px; color:var(--text-sub); line-height:1.55; }
+.sol-ba { margin-top:auto; padding-top:12px; border-top:1px dashed var(--border); font-size:11px; line-height:1.5; }
+.sol-ba .ba-row { display:flex; align-items:flex-start; gap:6px; margin-bottom:3px; }
+.sol-ba .ba-label { font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:9px; letter-spacing:0.5px; padding:2px 6px; border-radius:3px; flex-shrink:0; margin-top:1px; }
+.sol-ba .ba-before .ba-label { background:#EEE; color:var(--text-light); }
+.sol-ba .ba-after .ba-label { background:var(--accent); color:#FFF; }
+.sol-ba .ba-text { color:var(--text-sub); }
+.sol-ba .ba-after .ba-text { color:var(--text); font-weight:500; }
+
+/* ═══ OBJECTIVES + OUTCOMES ═══ */
+.obj-out-layout { display:grid; grid-template-columns:1fr 1fr; gap:36px; flex:1; }
+.obj-box, .out-box { display:flex; flex-direction:column; }
+.box-title { font-size:14px; font-weight:700; color:var(--accent); letter-spacing:0.5px; margin-bottom:14px; padding-bottom:10px; border-bottom:2px solid var(--accent); }
+.obj-card { background:var(--surface); border-radius:8px; padding:14px 18px; margin-bottom:10px; display:flex; align-items:flex-start; gap:14px; flex:1; }
+.obj-card:last-child { margin-bottom:0; }
+.obj-num { font-family:'Plus Jakarta Sans',sans-serif; font-size:20px; font-weight:800; color:var(--accent); opacity:0.3; min-width:28px; line-height:1.2; flex-shrink:0; }
+.obj-card h4 { font-size:13px; font-weight:700; margin-bottom:2px; }
+.obj-card p { font-size:11.5px; color:var(--text-sub); line-height:1.45; }
+.out-card { background:var(--surface); border-radius:8px; padding:14px 18px; margin-bottom:10px; display:flex; align-items:center; gap:14px; flex:1; }
+.out-card:last-child { margin-bottom:0; }
+.out-icon { width:36px; height:36px; border-radius:8px; flex-shrink:0; background:linear-gradient(135deg,var(--accent),var(--accent-light)); display:flex; align-items:center; justify-content:center; font-size:15px; color:#FFF; }
+.out-card h4 { font-size:13px; font-weight:700; margin-bottom:2px; }
+.out-card p { font-size:11.5px; color:var(--text-sub); line-height:1.45; }
+
+/* ═══ ROADMAP (2과정 체계) ═══ */
+.roadmap-layout { display:grid; grid-template-columns:1fr 1fr; gap:24px; flex:1; }
+.roadmap-card { background:var(--surface); border-radius:12px; padding:28px 26px; display:flex; flex-direction:column; position:relative; overflow:hidden; }
+.roadmap-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; }
+.roadmap-card.basic::before { background:linear-gradient(90deg, var(--accent), var(--accent-light)); }
+.roadmap-card.advanced::before { background:linear-gradient(90deg, var(--dark-alt), var(--slate)); }
+.roadmap-badge { font-family:'Plus Jakarta Sans',sans-serif; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; }
+.roadmap-card.basic .roadmap-badge { color:var(--accent); }
+.roadmap-card.advanced .roadmap-badge { color:var(--dark-alt); }
+.roadmap-card h3 { font-size:17px; font-weight:700; margin-bottom:6px; }
+.roadmap-card .roadmap-sub { font-size:12px; color:var(--text-sub); margin-bottom:16px; line-height:1.5; }
+.roadmap-modules { list-style:none; padding:0; flex:1; }
+.roadmap-modules li { font-size:12px; color:var(--text); padding:6px 0; border-bottom:1px solid var(--border); display:flex; align-items:flex-start; gap:8px; line-height:1.45; }
+.roadmap-modules li:last-child { border-bottom:none; }
+.roadmap-modules .mod-num { font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:10px; color:var(--accent); min-width:22px; flex-shrink:0; margin-top:1px; }
+.roadmap-card.advanced .roadmap-modules .mod-num { color:var(--dark-alt); }
+.roadmap-time { margin-top:12px; font-family:'Plus Jakarta Sans',sans-serif; font-size:12px; font-weight:700; color:var(--accent); text-align:right; }
+.roadmap-card.advanced .roadmap-time { color:var(--dark-alt); }
+.roadmap-arrow { display:flex; align-items:center; justify-content:center; font-size:24px; color:var(--text-light); align-self:center; }
+
+/* ═══ FLOW — 세로 타임라인 ═══ */
+.vtl-container { display:flex; flex:1; gap:0; position:relative; padding-left:36px; }
+.vtl-line { position:absolute; left:54px; top:0; bottom:0; width:2px; background:linear-gradient(180deg, var(--accent), var(--border)); }
+.vtl-list { display:flex; flex-direction:column; justify-content:space-between; flex:1; gap:6px; }
+.vtl-item { display:flex; align-items:flex-start; gap:18px; position:relative; }
+.vtl-dot { width:38px; height:38px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:16px; z-index:2; position:relative; }
+.vtl-item:nth-child(1) .vtl-dot { background:linear-gradient(135deg,#2E3142,#45494C); color:#FFF; }
+.vtl-item:nth-child(2) .vtl-dot { background:linear-gradient(135deg,#284A63,#515C78); color:#FFF; }
+.vtl-item:nth-child(3) .vtl-dot { background:linear-gradient(135deg,var(--accent),var(--accent-light)); color:#FFF; }
+.vtl-item:nth-child(4) .vtl-dot { background:linear-gradient(135deg,#2E3142,#45494C); color:#FFF; }
+.vtl-item:nth-child(5) .vtl-dot { background:linear-gradient(135deg,#284A63,#515C78); color:#FFF; }
+.vtl-body { flex:1; padding-bottom:8px; }
+.vtl-top { display:flex; align-items:baseline; gap:10px; margin-bottom:4px; }
+.vtl-body h4 { font-size:14px; font-weight:700; }
+.vtl-time { font-family:'Plus Jakarta Sans',sans-serif; font-size:11px; font-weight:700; color:var(--accent); background:rgba(60,109,113,0.08); padding:2px 8px; border-radius:3px; }
+.vtl-body .vtl-desc { font-size:12px; color:var(--text-sub); line-height:1.5; margin-bottom:6px; }
+.vtl-tags { display:flex; gap:6px; flex-wrap:wrap; }
+.vtl-tag { display:inline-flex; align-items:center; gap:4px; background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:3px 10px; font-size:10.5px; font-weight:600; color:var(--accent); }
+.vtl-tag-out { background:var(--primary); border-color:var(--primary); color:#FFF; }
+
+/* ═══ CURRICULUM TABLE ═══ */
+.cur-table-wrap { flex:1; display:flex; flex-direction:column; }
+.cur-table { width:100%; border-collapse:collapse; font-size:11.5px; }
+.cur-table thead th { background:var(--primary); color:#FFF; font-weight:600; font-size:11px; padding:8px 10px; text-align:center; letter-spacing:0.5px; }
+.cur-table thead th:nth-child(2) { text-align:left; }
+.cur-table tbody td { padding:10px 12px; border-bottom:1px solid #EEEDEA; vertical-align:top; }
+.cur-table tbody tr:last-child td { border-bottom:none; }
+.cur-table .col-module { text-align:center; font-weight:700; font-size:12px; background:var(--surface); width:110px; line-height:1.4; }
+.cur-table .col-content { line-height:1.5; }
+.cur-table .col-time { text-align:center; font-weight:600; width:50px; font-size:12.5px; color:var(--accent); }
+.cur-table .col-method { text-align:center; width:85px; font-size:11px; color:var(--text-sub); line-height:1.45; }
+.cur-table .module-goal { font-weight:700; font-size:12px; margin-bottom:5px; color:var(--text); }
+.cur-table .sub-section { font-weight:600; margin-top:4px; margin-bottom:1px; color:var(--text); font-size:11.5px; }
+.cur-table .detail-item { padding-left:10px; position:relative; color:var(--text-sub); line-height:1.4; margin:1px 0; font-size:11px; }
+.cur-table .detail-item::before { content:'-'; position:absolute; left:0; color:var(--text-light); }
+.course-label { display:inline-block; font-family:'Plus Jakarta Sans',sans-serif; font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:3px 10px; border-radius:3px; margin-bottom:8px; }
+.course-label.basic { background:var(--accent); color:#FFF; }
+.course-label.advanced { background:var(--dark-alt); color:#FFF; }
+
+/* ═══ OVERVIEW (교육 개요) ═══ */
+.overview-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; flex:1; }
+.ov-left, .ov-right { display:flex; flex-direction:column; gap:0; }
+.ov-item { display:flex; border-bottom:1px solid #F0EFEC; padding:13px 0; }
+.ov-item:last-child { border-bottom:none; }
+.ov-label { width:100px; flex-shrink:0; font-size:12px; font-weight:700; color:var(--accent); }
+.ov-value { font-size:13px; color:var(--text); line-height:1.5; }
+.ov-note { margin-top:auto; background:var(--surface); border-radius:8px; padding:16px 20px; font-size:11.5px; color:var(--text-sub); line-height:1.55; }
+.ov-note strong { color:var(--text); font-weight:600; }
+
+/* ═══ QUOTE (견적) ═══ */
+.quote-table-wrap { flex:1; display:flex; flex-direction:column; }
+.quote-table { width:100%; border-collapse:collapse; font-size:12.5px; }
+.quote-table thead th { background:var(--primary); color:#FFF; font-weight:600; font-size:11.5px; padding:10px 14px; text-align:center; }
+.quote-table thead th:first-child { text-align:left; }
+.quote-table tbody td { padding:14px 14px; border-bottom:1px solid #EEEDEA; vertical-align:middle; }
+.quote-table tbody tr:last-child td { border-bottom:none; }
+.quote-table .qt-item { font-weight:600; }
+.quote-table .qt-desc { font-size:11px; color:var(--text-sub); }
+.quote-table .qt-num { text-align:center; }
+.quote-table .qt-price { text-align:right; font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; }
+.quote-total { display:flex; justify-content:flex-end; align-items:baseline; gap:12px; margin-top:20px; padding:16px 20px; background:var(--primary); border-radius:8px; }
+.quote-total .qt-label { font-size:14px; color:rgba(255,255,255,0.6); }
+.quote-total .qt-amount { font-family:'Plus Jakarta Sans',sans-serif; font-size:28px; font-weight:800; color:#FFF; }
+.quote-total .qt-vat { font-size:11px; color:rgba(255,255,255,0.4); }
+.quote-note { margin-top:12px; font-size:11px; color:var(--text-light); line-height:1.5; }
+
+/* ═══ TRAINER ═══ */
+.profile-layout { display:grid; grid-template-columns:280px 1fr; height:100%; }
+.profile-left { background:linear-gradient(180deg,#2E3142,#284A63); color:#FFF; padding:44px 32px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+.profile-avatar { width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-light)); display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:900; color:#FFF; margin-bottom:18px; font-family:'Plus Jakarta Sans',sans-serif; }
+.profile-left h3 { font-size:20px; font-weight:700; margin-bottom:4px; }
+.profile-left .role { font-size:13px; color:rgba(255,255,255,0.5); margin-bottom:20px; }
+.profile-tag { display:inline-block; background:rgba(60,109,113,0.15); color:var(--accent-light); font-size:11px; font-weight:600; padding:4px 12px; border-radius:20px; margin:3px; }
+.profile-right { padding:40px 36px; display:flex; flex-direction:column; justify-content:center; gap:16px; }
+.profile-section h4 { font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:8px; }
+.profile-section p, .profile-section li { font-size:13px; color:var(--text-sub); line-height:1.6; }
+.profile-section ul { list-style:none; padding:0; }
+.profile-section li { padding-left:14px; position:relative; margin-bottom:3px; }
+.profile-section li::before { content:''; position:absolute; left:0; top:9px; width:5px; height:5px; background:var(--accent); border-radius:50%; }
+
+/* ═══ REFERENCES ═══ */
+.ref-table { width:100%; border-collapse:collapse; font-size:12px; }
+.ref-table thead th { background:var(--primary); color:#FFF; font-weight:600; font-size:11px; padding:10px 14px; text-align:left; letter-spacing:0.5px; }
+.ref-table tbody td { padding:14px 14px; border-bottom:1px solid #EEEDEA; vertical-align:middle; font-size:12.5px; }
+.ref-table tbody tr:last-child td { border-bottom:none; }
+.ref-table .ref-company { font-weight:700; }
+.ref-table .ref-highlight { font-size:11px; color:var(--text-sub); line-height:1.45; }
+
+/* ═══ COMPANY ═══ */
+.company-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; flex:1; }
+.company-card { background:var(--surface); border-radius:10px; padding:24px 22px; }
+.company-card h4 { font-size:13px; font-weight:700; color:var(--accent); margin-bottom:8px; }
+.company-card p { font-size:12px; color:var(--text-sub); line-height:1.6; }
+.company-card .stat { font-family:'Plus Jakarta Sans',sans-serif; font-size:24px; font-weight:800; color:var(--primary); margin-bottom:4px; }
+
+/* ═══ CLOSING ═══ */
+.closing { background:linear-gradient(135deg,#2E3142,#284A63); color:#FFF; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:60px; position:relative; }
+.closing::before { content:''; position:absolute; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle, rgba(60,109,113,0.08), transparent 70%); top:50%; left:50%; transform:translate(-50%,-50%); }
+.closing h2 { font-size:30px; font-weight:900; line-height:1.35; margin-bottom:16px; position:relative; }
+.closing h2 em { font-style:normal; color:var(--accent-light); }
+.closing p { font-size:15px; color:rgba(255,255,255,0.55); margin-bottom:40px; position:relative; }
+.contact-row { display:flex; gap:40px; position:relative; }
+.contact-item { text-align:center; }
+.contact-item .cl { font-size:11px; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:4px; }
+.contact-item .cv { font-size:14px; font-weight:500; color:#FFF; }
+
+.nav-hint { text-align:center; padding:20px; color:var(--text-light); font-size:12px; }
+
+/* ════════════════════════════════
+   PRINT — A4 Landscape
+   ════════════════════════════════ */
+@media print {
+  @page { size: A4 landscape; margin: 0; }
+  body { background:#FFF; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  .nav-hint { display:none !important; }
+  .slide { width:297mm; height:210mm; margin:0; border-radius:0; box-shadow:none; page-break-after:always; page-break-inside:avoid; }
+  .slide:last-child { page-break-after:auto; }
+
+  /* ── 인쇄 라이트 모드 ── */
+  .cover { background:#FFFFFF !important; color:var(--text) !important; }
+  .cover::before { background:radial-gradient(circle, rgba(60,109,113,0.06) 0%, transparent 70%) !important; }
+  .cover::after { background:linear-gradient(90deg, var(--accent), var(--accent-light), transparent) !important; }
+  .cover h1 { color:var(--text) !important; }
+  .cover-client { color:var(--text-light) !important; }
+  .cover-client strong { color:var(--text) !important; }
+  .cover h1 em { color:var(--accent) !important; }
+  .cover .subtitle { color:var(--text-sub) !important; }
+  .cover-meta { color:var(--text-light) !important; }
+  .cover-logo { color:var(--text-light) !important; }
+  .cover-badge { color:var(--accent) !important; }
+
+  .split-left .left-panel { background:var(--surface) !important; color:var(--text) !important; }
+  .split-left .left-panel::after { background:linear-gradient(180deg, var(--accent), transparent) !important; }
+  .slide-number { color:var(--accent) !important; }
+  .left-panel h2 { color:var(--text) !important; }
+  .left-panel p { color:var(--text-sub) !important; }
+
+  .sol-hero { background:var(--surface) !important; }
+  .sol-hero-text { color:var(--text) !important; }
+  .sol-hero-text h3 { color:var(--text) !important; }
+  .sol-hero-text p { color:var(--text-sub) !important; }
+
+  .vtl-item .vtl-dot { background:var(--surface) !important; color:var(--text) !important; border:2px solid var(--accent); }
+  .vtl-item:nth-child(3) .vtl-dot { background:var(--accent) !important; color:#FFF !important; border-color:var(--accent); }
+  .vtl-tag-out { background:var(--accent) !important; border-color:var(--accent) !important; }
+
+  .cur-table thead th { background:var(--text) !important; }
+
+  .quote-table thead th { background:var(--text) !important; }
+  .quote-total { background:var(--surface) !important; border:2px solid var(--accent); }
+  .quote-total .qt-label { color:var(--text-sub) !important; }
+  .quote-total .qt-amount { color:var(--accent) !important; }
+
+  .profile-left { background:var(--surface) !important; color:var(--text) !important; }
+  .profile-left h3 { color:var(--text) !important; }
+  .profile-left .role { color:var(--text-sub) !important; }
+  .profile-avatar { background:linear-gradient(135deg,var(--accent),var(--accent-light)) !important; }
+  .profile-tag { background:rgba(60,109,113,0.1) !important; color:var(--accent) !important; }
+
+  .closing { background:#FFFFFF !important; color:var(--text) !important; }
+  .closing::before { background:radial-gradient(circle, rgba(60,109,113,0.04), transparent 70%) !important; }
+  .closing h2 { color:var(--text) !important; }
+  .closing h2 em { color:var(--accent) !important; }
+  .closing p { color:var(--text-sub) !important; }
+  .contact-item .cl { color:var(--text-light) !important; }
+  .contact-item .cv { color:var(--text) !important; }
+
+  .ref-table thead th { background:var(--text) !important; }
+
+  /* ── 인쇄 스케일업 ── */
+  .cover { padding:80px 100px; }
+  .cover-badge { font-size:13px; margin-bottom:36px; }
+  .cover-client { font-size:17px; margin-bottom:16px; }
+  .cover-client strong { font-size:38px; }
+  .cover h1 { font-size:48px; }
+  .cover .subtitle { font-size:20px; margin-bottom:60px; }
+  .cover-meta { font-size:16px; gap:40px; }
+  .cover-logo { font-size:17px; top:50px; right:80px; }
+
+  .split-left { grid-template-columns:42% 1fr; }
+  .split-left .left-panel { padding:60px 48px; }
+  .slide-number { font-size:13px; }
+  .left-panel h2 { font-size:28px; }
+  .left-panel p { font-size:16px; }
+  .right-panel { padding:56px 52px; gap:20px; }
+  .pain-card { padding:22px 28px; }
+  .pain-card .label { font-size:12px; }
+  .pain-card .desc { font-size:16px; }
+
+  .content-slide { padding:56px 72px; }
+  .section-head { margin-bottom:32px; }
+  .section-head .num { font-size:12px; }
+  .section-head h2 { font-size:28px; }
+
+  .sol-hero { padding:30px 40px; margin-bottom:28px; }
+  .sol-hero-icon { width:60px; height:60px; font-size:28px; }
+  .sol-hero-text h3 { font-size:20px; }
+  .sol-hero-text p { font-size:15px; }
+  .solution-grid { gap:24px; }
+  .sol-card { padding:28px 26px; }
+  .sol-icon { width:48px; height:48px; font-size:20px; margin-bottom:16px; }
+  .sol-card h3 { font-size:17px; margin-bottom:8px; }
+  .sol-card p { font-size:14px; }
+  .sol-ba { padding-top:16px; }
+  .sol-ba .ba-label { font-size:10px; padding:3px 8px; }
+  .sol-ba .ba-text { font-size:13px; }
+
+  .box-title { font-size:17px; margin-bottom:18px; padding-bottom:12px; }
+  .obj-card, .out-card { padding:18px 22px; margin-bottom:14px; }
+  .obj-num { font-size:26px; min-width:36px; }
+  .obj-card h4, .out-card h4 { font-size:16px; margin-bottom:3px; }
+  .obj-card p, .out-card p { font-size:14px; }
+  .out-icon { width:44px; height:44px; font-size:18px; }
+
+  .roadmap-card { padding:36px 32px; }
+  .roadmap-card h3 { font-size:22px; }
+  .roadmap-card .roadmap-sub { font-size:15px; }
+  .roadmap-modules li { font-size:15px; padding:8px 0; }
+  .roadmap-modules .mod-num { font-size:12px; }
+  .roadmap-time { font-size:15px; }
+
+  .vtl-container { padding-left:48px; }
+  .vtl-line { left:72px; }
+  .vtl-dot { width:48px; height:48px; font-size:20px; }
+  .vtl-body h4 { font-size:18px; }
+  .vtl-time { font-size:13px; padding:3px 10px; }
+  .vtl-body .vtl-desc { font-size:15px; }
+  .vtl-tag { font-size:12px; padding:4px 12px; }
+  .vtl-list { gap:10px; }
+
+  .cur-table { font-size:14px; }
+  .cur-table thead th { padding:12px 16px; font-size:13px; }
+  .cur-table tbody td { padding:14px 16px; }
+  .cur-table .col-module { font-size:14px; width:140px; }
+  .cur-table .col-time { font-size:15px; width:65px; }
+  .cur-table .col-method { font-size:12px; width:100px; }
+  .cur-table .module-goal { font-size:14px; margin-bottom:6px; }
+  .cur-table .sub-section { font-size:13px; margin-top:5px; }
+  .cur-table .detail-item { font-size:12px; }
+  .course-label { font-size:12px; padding:4px 14px; }
+
+  .ov-label { font-size:14px; width:120px; }
+  .ov-value { font-size:16px; }
+  .ov-note { font-size:14px; padding:20px 24px; }
+  .overview-grid { gap:40px; }
+
+  .ref-table { font-size:14px; }
+  .ref-table thead th { padding:12px 16px; font-size:13px; }
+  .ref-table tbody td { padding:16px 16px; font-size:15px; }
+
+  .company-card { padding:30px 28px; }
+  .company-card h4 { font-size:16px; }
+  .company-card p { font-size:14px; }
+  .company-card .stat { font-size:30px; }
+
+  .quote-table { font-size:15px; }
+  .quote-table thead th { padding:14px 18px; font-size:14px; }
+  .quote-table tbody td { padding:18px 18px; }
+  .quote-total .qt-amount { font-size:36px; }
+  .quote-total .qt-label { font-size:17px; }
+  .quote-note { font-size:13px; }
+
+  .profile-layout { grid-template-columns:36% 1fr; }
+  .profile-left { padding:60px 44px; }
+  .profile-avatar { width:110px; height:110px; font-size:40px; margin-bottom:24px; }
+  .profile-left h3 { font-size:26px; }
+  .profile-left .role { font-size:16px; margin-bottom:24px; }
+  .profile-tag { font-size:13px; padding:6px 16px; }
+  .profile-right { padding:56px 48px; gap:22px; }
+  .profile-section h4 { font-size:14px; margin-bottom:10px; }
+  .profile-section p, .profile-section li { font-size:16px; }
+
+  .closing { padding:80px; }
+  .closing h2 { font-size:40px; }
+  .closing p { font-size:19px; margin-bottom:52px; }
+  .contact-item .cl { font-size:13px; }
+  .contact-item .cv { font-size:18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="nav-hint">스크롤하여 슬라이드를 확인하세요 · 인쇄 시 A4 가로(Landscape)로 설정해주세요</div>
+
+<!-- ═══ 1. COVER ═══ -->
+<div class="slide cover">
+  <div class="cover-logo">DEEPTACT LEARNING</div>
+  <div class="cover-badge">Standard Program</div>
+  <h1>리더를 위한<br><em>AI 활용법</em></h1>
+  <p class="subtitle">기초 과정 · 응용 과정 — 각 7시간, 리더의 일상업무부터 조직 운영까지</p>
+  <div class="cover-meta">
+    <span><span class="dot"></span>딥택트러닝</span>
+    <span><span class="dot"></span>2026.04.18</span>
+  </div>
+</div>
+
+<!-- ═══ 2. 현재 과제 ═══ -->
+<div class="slide">
+  <div class="split-left">
+    <div class="left-panel">
+      <div class="slide-number">01 — 현재 과제</div>
+      <h2>리더가 AI 시대에<br>직면한 현실</h2>
+      <p>AI 도구는 이미 조직에 들어왔지만, 리더의 업무 방식은 아직 바뀌지 않았습니다. 팀원은 AI로 초안을 쓰는데, 리더는 여전히 경험에만 의존해 판단합니다.</p>
+    </div>
+    <div class="right-panel">
+      <div class="pain-card">
+        <div class="label">Pain Point 01</div>
+        <div class="desc">AI 도구를 설치했지만 검색·요약 수준에서 활용이 멈춰 있음</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">Pain Point 02</div>
+        <div class="desc">팀원의 AI 활용 수준을 판단하고 코칭할 기준이 없음</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">Pain Point 03</div>
+        <div class="desc">보고서·데이터가 쏟아지지만, AI로 검토·분석하는 방법을 모름</div>
+      </div>
+      <div class="pain-card">
+        <div class="label">Pain Point 04</div>
+        <div class="desc">AI를 조직 운영과 의사결정에 연결하는 구체적 시나리오가 부재</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 3. 솔루션 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">02 — 솔루션</span>
+    <h2>리더 맞춤형 AI 활용 2단계 프로그램</h2>
+  </div>
+  <div class="sol-hero">
+    <div class="sol-hero-icon">⚡</div>
+    <div class="sol-hero-text">
+      <h3>"리더에게 필요한 AI는 기술이 아니라, 일하는 방식의 전환입니다."</h3>
+      <p>기초 과정에서 AI를 업무 도구로 체득하고, 응용 과정에서 조직 운영의 무기로 확장합니다.</p>
+    </div>
+  </div>
+  <div class="solution-grid">
+    <div class="sol-card">
+      <div class="sol-icon">🎯</div>
+      <h3>리더 업무 맥락 중심</h3>
+      <p>일반 직원용 AI 교육이 아닌, 리더의 판단·소통·관리 업무에 직접 연결되는 실습을 설계했습니다.</p>
+      <div class="sol-ba">
+        <div class="ba-row ba-before"><span class="ba-label">BEFORE</span><span class="ba-text">AI = 모든 직급 동일한 교육</span></div>
+        <div class="ba-row ba-after"><span class="ba-label">AFTER</span><span class="ba-text">리더 역할별 맞춤 시나리오</span></div>
+      </div>
+    </div>
+    <div class="sol-card">
+      <div class="sol-icon">📐</div>
+      <h3>기초 → 응용 단계 설계</h3>
+      <p>AI 리터러시부터 조직 운영 적용까지, 2단계로 나눠 각각 독립 수강도 가능하도록 구성했습니다.</p>
+      <div class="sol-ba">
+        <div class="ba-row ba-before"><span class="ba-label">BEFORE</span><span class="ba-text">1일 속성 과정으로 소화 불량</span></div>
+        <div class="ba-row ba-after"><span class="ba-label">AFTER</span><span class="ba-text">단계별 심화로 체득 → 적용</span></div>
+      </div>
+    </div>
+    <div class="sol-card">
+      <div class="sol-icon">🔨</div>
+      <h3>실습 60% 이상</h3>
+      <p>강의 비중을 최소화하고, 리더 본인의 실제 업무 데이터와 상황으로 실습합니다.</p>
+      <div class="sol-ba">
+        <div class="ba-row ba-before"><span class="ba-label">BEFORE</span><span class="ba-text">이론 위주 → 현업 복귀 시 망각</span></div>
+        <div class="ba-row ba-after"><span class="ba-label">AFTER</span><span class="ba-text">실습 산출물 → 다음 날 바로 활용</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 4. 과정 체계 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">03 — 과정 체계</span>
+    <h2>기초 · 응용 2과정 로드맵</h2>
+  </div>
+  <div class="roadmap-layout">
+    <div class="roadmap-card basic">
+      <div class="roadmap-badge">Course A — 기초</div>
+      <h3>리더를 위한 AI 활용법 기초</h3>
+      <p class="roadmap-sub">AI를 이해하고, 리더의 일상업무에 바로 적용한다</p>
+      <ul class="roadmap-modules">
+        <li><span class="mod-num">M1</span>AI 시대, 리더의 역할이 바뀐다</li>
+        <li><span class="mod-num">M2</span>생성형 AI, 제대로 알아야 제대로 쓴다</li>
+        <li><span class="mod-num">M3</span>프롬프트 설계: 질문이 결과를 결정한다</li>
+        <li><span class="mod-num">M4</span>리더의 일상업무에 AI 적용 실습</li>
+        <li><span class="mod-num">M5</span>AI로 만드는 나만의 업무 도구</li>
+      </ul>
+      <div class="roadmap-time">7시간 (1일)</div>
+    </div>
+    <div class="roadmap-card advanced">
+      <div class="roadmap-badge">Course B — 응용</div>
+      <h3>리더를 위한 AI 활용법 응용</h3>
+      <p class="roadmap-sub">AI를 조직 운영과 의사결정의 무기로 확장한다</p>
+      <ul class="roadmap-modules">
+        <li><span class="mod-num">M1</span>AI 시대 리더의 역할 재정의</li>
+        <li><span class="mod-num">M2</span>구성원 관리와 코칭에 AI 활용</li>
+        <li><span class="mod-num">M3</span>보고서 검토와 피드백에 AI 활용</li>
+        <li><span class="mod-num">M4</span>데이터 기반 의사결정에 AI 활용</li>
+        <li><span class="mod-num">M5</span>바이브코딩: 리더의 도구를 직접 만든다</li>
+      </ul>
+      <div class="roadmap-time">7시간 (1일)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 5. 기초 과정 교육 흐름 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">04 — 교육 흐름</span>
+    <h2>기초 과정의 흐름</h2>
+  </div>
+  <div class="vtl-container">
+    <div class="vtl-line"></div>
+    <div class="vtl-list">
+      <div class="vtl-item">
+        <div class="vtl-dot">🧭</div>
+        <div class="vtl-body">
+          <div class="vtl-top"><h4>M1. AI 시대, 리더의 역할이 바뀐다</h4><span class="vtl-time">1h</span></div>
+          <p class="vtl-desc">AI가 바꾸는 업무 환경을 이해하고, 리더로서 AI를 어떻게 바라봐야 하는지 관점을 전환합니다.</p>
+          <div class="vtl-tags">
+            <span class="vtl-tag">강의</span>
+            <span class="vtl-tag">사례 토론</span>
+          </div>
+        </div>
+      </div>
+      <div class="vtl-item">
+        <div class="vtl-dot">🔍</div>
+        <div class="vtl-body">
+          <div class="vtl-top"><h4>M2. 생성형 AI, 제대로 알아야 제대로 쓴다</h4><span class="vtl-time">1h</span></div>
+          <p class="vtl-desc">생성형 AI의 작동 원리, 강점과 한계를 파악하고 주요 도구를 직접 비교·체험합니다.</p>
+          <div class="vtl-tags">
+            <span class="vtl-tag">강의</span>
+            <span class="vtl-tag">도구 체험</span>
+          </div>
+        </div>
+      </div>
+      <div class="vtl-item">
+        <div class="vtl-dot">💬</div>
+        <div class="vtl-body">
+          <div class="vtl-top"><h4>M3. 프롬프트 설계</h4><span class="vtl-time">1.5h</span></div>
+          <p class="vtl-desc">좋은 프롬프트의 구조를 배우고, 리더 업무 맥락에 맞는 프롬프트를 직접 설계·실습합니다.</p>
+          <div class="vtl-tags">
+            <span class="vtl-tag">강의</span>
+            <span class="vtl-tag">개인실습</span>
+            <span class="vtl-tag vtl-tag-out">📄 나만의 프롬프트 템플릿</span>
+          </div>
+        </div>
+      </div>
+      <div class="vtl-item">
+        <div class="vtl-dot">⚡</div>
+        <div class="vtl-body">
+          <div class="vtl-top"><h4>M4. 리더의 일상업무에 AI 적용</h4><span class="vtl-time">2h</span></div>
+          <p class="vtl-desc">메일·회의록·보고서 초안·일정 관리 등 리더가 매일 하는 업무에 AI를 바로 적용합니다.</p>
+          <div class="vtl-tags">
+            <span class="vtl-tag">실습</span>
+            <span class="vtl-tag">강사 코칭</span>
+            <span class="vtl-tag vtl-tag-out">🖥️ 업무별 AI 활용 결과물</span>
+          </div>
+        </div>
+      </div>
+      <div class="vtl-item">
+        <div class="vtl-dot">🔨</div>
+        <div class="vtl-body">
+          <div class="vtl-top"><h4>M5. AI로 만드는 나만의 업무 도구</h4><span class="vtl-time">1.5h</span></div>
+          <p class="vtl-desc">바이브코딩 맛보기 — AI와 대화하며 간단한 업무 도구를 직접 만들고, 현업 적용 계획을 수립합니다.</p>
+          <div class="vtl-tags">
+            <span class="vtl-tag">실습</span>
+            <span class="vtl-tag">발표</span>
+            <span class="vtl-tag vtl-tag-out">🚀 나만의 업무 도구 프로토타입</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 6. 기초 커리큘럼 1/2 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">05 — 커리큘럼</span>
+    <h2>기초 과정 세부 내용 (1/2)</h2>
+  </div>
+  <span class="course-label basic">COURSE A — 기초</span>
+  <div class="cur-table-wrap">
+    <table class="cur-table">
+      <thead><tr><th>모듈</th><th>주요 내용</th><th>시간</th><th>방법</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="col-module">M1.<br>AI 시대,<br>리더의 역할이<br>바뀐다</td>
+          <td class="col-content">
+            <div class="module-goal">AI 시대의 업무 변화를 이해하고 리더로서의 관점을 전환한다</div>
+            <div class="sub-section">(1) AI가 바꾸는 일의 방식</div>
+            <div class="detail-item">AI 도입 전후 업무 프로세스 변화 사례</div>
+            <div class="detail-item">리더의 역할 변화: 실행자 → 설계자·판단자</div>
+            <div class="sub-section">(2) 우리 조직의 AI 현주소</div>
+            <div class="detail-item">AI 활용 자가 진단 및 팀 내 AI 활용 수준 점검</div>
+            <div class="detail-item">사례 토론: 리더가 AI를 써야 하는 진짜 이유</div>
+          </td>
+          <td class="col-time">1h</td>
+          <td class="col-method">강의<br>자가진단<br>토론</td>
+        </tr>
+        <tr>
+          <td class="col-module">M2.<br>생성형 AI,<br>제대로 알아야<br>제대로 쓴다</td>
+          <td class="col-content">
+            <div class="module-goal">생성형 AI의 원리·강점·한계를 정확히 파악한다</div>
+            <div class="sub-section">(1) 생성형 AI의 작동 원리</div>
+            <div class="detail-item">LLM의 핵심 개념을 비전공자 눈높이로 이해</div>
+            <div class="detail-item">할루시네이션, 편향, 보안 — 리더가 알아야 할 위험 요소</div>
+            <div class="sub-section">(2) 주요 AI 도구 비교 체험</div>
+            <div class="detail-item">ChatGPT, Claude, Copilot, Gemini 특성 비교</div>
+            <div class="detail-item">업무 유형별 최적 도구 선택 기준</div>
+          </td>
+          <td class="col-time">1h</td>
+          <td class="col-method">강의<br>도구 체험</td>
+        </tr>
+        <tr>
+          <td class="col-module">M3.<br>프롬프트 설계:<br>질문이 결과를<br>결정한다</td>
+          <td class="col-content">
+            <div class="module-goal">리더 업무에 최적화된 프롬프트를 설계하고 활용한다</div>
+            <div class="sub-section">(1) 프롬프트 설계의 기본 구조</div>
+            <div class="detail-item">역할·맥락·형식·제약 — 4요소 프롬프트 프레임워크</div>
+            <div class="detail-item">좋은 프롬프트 vs 나쁜 프롬프트 비교 실습</div>
+            <div class="sub-section">(2) 리더 업무 맞춤 프롬프트 실습</div>
+            <div class="detail-item">회의 안건 정리, 업무 지시, 이해관계자 설득 프롬프트</div>
+            <div class="detail-item">나만의 반복 업무 프롬프트 템플릿 만들기</div>
+          </td>
+          <td class="col-time">1.5h</td>
+          <td class="col-method">강의<br>개인실습<br>동료 리뷰</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 7. 기초 커리큘럼 2/2 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">05 — 커리큘럼</span>
+    <h2>기초 과정 세부 내용 (2/2)</h2>
+  </div>
+  <span class="course-label basic">COURSE A — 기초</span>
+  <div class="cur-table-wrap">
+    <table class="cur-table">
+      <thead><tr><th>모듈</th><th>주요 내용</th><th>시간</th><th>방법</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="col-module">M4.<br>리더의<br>일상업무에<br>AI 적용</td>
+          <td class="col-content">
+            <div class="module-goal">리더가 매일 수행하는 업무에 AI를 실전 적용한다</div>
+            <div class="sub-section">(1) 이메일·메시지 작성의 AI 활용</div>
+            <div class="detail-item">상황별 이메일 초안 생성 및 톤 조절 실습</div>
+            <div class="detail-item">다국어 커뮤니케이션 지원 활용</div>
+            <div class="sub-section">(2) 회의·보고 업무의 AI 활용</div>
+            <div class="detail-item">회의록 요약 및 액션 아이템 자동 추출</div>
+            <div class="detail-item">주간/월간 보고서 초안 작성 실습</div>
+            <div class="sub-section">(3) 정보 수집·정리의 AI 활용</div>
+            <div class="detail-item">시장 동향·경쟁사 정보 리서치 자동화</div>
+            <div class="detail-item">딥리서치(Deep Research) 기능 활용</div>
+          </td>
+          <td class="col-time">2h</td>
+          <td class="col-method">실습<br>강사 코칭<br>사례 공유</td>
+        </tr>
+        <tr>
+          <td class="col-module">M5.<br>AI로 만드는<br>나만의<br>업무 도구</td>
+          <td class="col-content">
+            <div class="module-goal">바이브코딩으로 간단한 업무 도구를 직접 만들어본다</div>
+            <div class="sub-section">(1) 바이브코딩 개념과 데모</div>
+            <div class="detail-item">코딩 없이 AI와 대화로 도구 만드는 원리</div>
+            <div class="detail-item">리더용 업무 도구 제작 데모 시연</div>
+            <div class="sub-section">(2) 나만의 도구 만들기 실습</div>
+            <div class="detail-item">팀 업무 현황판, 체크리스트 앱 등 간이 도구 제작</div>
+            <div class="detail-item">결과물 공유 및 현업 적용 계획 수립</div>
+          </td>
+          <td class="col-time">1.5h</td>
+          <td class="col-method">데모<br>개인실습<br>발표</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 8. 응용 과정 교육 흐름 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">06 — 교육 흐름</span>
+    <h2>응용 과정의 흐름</h2>
+  </div>
+  <div class="vtl-container">
+    <div class="vtl-line"></div>
+    <div class="vtl-list">
+      <div class="vtl-item">
+        <div class="vtl-dot">🧭</div>
+        <div class="vtl-body">
+          <div class="vtl-top"><h4>M1. AI 시대 리더의 역할 재정의</h4><span class="vtl-time">1h</span></div>
+          <p class="vtl-desc">기초 과정 복습과 함께, 리더 고유 역할(관리·코칭·판단)에 AI를 연결하는 프레임을 정립합니다.</p>
+          <div class="vtl-tags">
+            <span class="vtl-tag">강의</span>
+            <span class="vtl-tag">토론</span>
+          </div>
+        </div>
+      </div>
+      <div class="vtl-item">
+        <div class="vtl-dot">👥</div>
+        <div class="vtl-body">
+          <div class="vtl-top"><h4>M2. 구성원 관리와 코칭에 AI 활용</h4><span class="vtl-time">1.5h</span></div>
+          <p class="vtl-desc">1:1 면담 준비, 성과 피드백 설계, 구성원 성장 계획 수립 등에 AI를 실전 적용합니다.</p>
+          <div class="vtl-tags">
+            <span class="vtl-tag">실습</span>
+            <span class="vtl-tag">역할극</span>
+            <span class="vtl-tag vtl-tag-out">📄 코칭 시나리오 산출물</span>
+          </div>
+        </div>
+      </div>
+      <div class="vtl-item">
+        <div class="vtl-dot">📋</div>
+        <div class="vtl-body">
+          <div class="vtl-top"><h4>M3. 보고서 검토와 피드백에 AI 활용</h4><span class="vtl-time">1.5h</span></div>
+          <p class="vtl-desc">팀원이 올린 보고서를 AI로 빠르게 검토하고, 구조화된 피드백을 제공하는 방법을 실습합니다.</p>
+          <div class="vtl-tags">
+            <span class="vtl-tag">실습</span>
+            <span class="vtl-tag">강사 코칭</span>
+            <span class="vtl-tag vtl-tag-out">📝 검토 프롬프트 + 피드백 템플릿</span>
+          </div>
+        </div>
+      </div>
+      <div class="vtl-item">
+        <div class="vtl-dot">📊</div>
+        <div class="vtl-body">
+          <div class="vtl-top"><h4>M4. 데이터 기반 의사결정에 AI 활용</h4><span class="vtl-time">1.5h</span></div>
+          <p class="vtl-desc">엑셀·CSV 데이터를 AI에 올려 분석하고, 의사결정을 위한 인사이트를 추출하는 방법을 배웁니다.</p>
+          <div class="vtl-tags">
+            <span class="vtl-tag">실습</span>
+            <span class="vtl-tag">사례 분석</span>
+            <span class="vtl-tag vtl-tag-out">📊 데이터 분석 보고서</span>
+          </div>
+        </div>
+      </div>
+      <div class="vtl-item">
+        <div class="vtl-dot">🔨</div>
+        <div class="vtl-body">
+          <div class="vtl-top"><h4>M5. 바이브코딩: 리더의 도구를 직접 만든다</h4><span class="vtl-time">1.5h</span></div>
+          <p class="vtl-desc">기초에서 맛본 바이브코딩을 심화하여, 팀 관리용 대시보드를 직접 설계·제작합니다.</p>
+          <div class="vtl-tags">
+            <span class="vtl-tag">실습</span>
+            <span class="vtl-tag">발표</span>
+            <span class="vtl-tag vtl-tag-out">🖥️ 팀 관리 대시보드</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 9. 응용 커리큘럼 1/2 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">07 — 커리큘럼</span>
+    <h2>응용 과정 세부 내용 (1/2)</h2>
+  </div>
+  <span class="course-label advanced">COURSE B — 응용</span>
+  <div class="cur-table-wrap">
+    <table class="cur-table">
+      <thead><tr><th>모듈</th><th>주요 내용</th><th>시간</th><th>방법</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="col-module">M1.<br>AI 시대<br>리더의 역할<br>재정의</td>
+          <td class="col-content">
+            <div class="module-goal">리더 고유 역할에 AI를 연결하는 프레임을 정립한다</div>
+            <div class="sub-section">(1) 기초 과정 핵심 복습</div>
+            <div class="detail-item">프롬프트 설계 핵심 리마인드 및 활용 사례 공유</div>
+            <div class="detail-item">기초 → 응용 연결 포인트 정리</div>
+            <div class="sub-section">(2) 리더 역할 × AI 활용 매트릭스</div>
+            <div class="detail-item">관리·코칭·판단·소통 — 4대 역할별 AI 적용 영역 설계</div>
+            <div class="detail-item">나의 역할에서 AI 활용 우선순위 도출</div>
+          </td>
+          <td class="col-time">1h</td>
+          <td class="col-method">강의<br>토론<br>워크시트</td>
+        </tr>
+        <tr>
+          <td class="col-module">M2.<br>구성원 관리와<br>코칭에<br>AI 활용</td>
+          <td class="col-content">
+            <div class="module-goal">1:1 면담, 성과 피드백, 성장 계획에 AI를 실전 적용한다</div>
+            <div class="sub-section">(1) AI 기반 코칭 대화 설계</div>
+            <div class="detail-item">구성원 유형별 면담 시나리오 생성 (성과 부진, 동기 저하, 갈등 등)</div>
+            <div class="detail-item">코칭 질문 프롬프트 설계 및 역할극 실습</div>
+            <div class="sub-section">(2) 성과 피드백과 성장 계획</div>
+            <div class="detail-item">성과 데이터 기반 피드백 초안 생성 실습</div>
+            <div class="detail-item">IDP(개인개발계획) 작성 지원에 AI 활용</div>
+          </td>
+          <td class="col-time">1.5h</td>
+          <td class="col-method">강의<br>실습<br>역할극</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 10. 응용 커리큘럼 2/2 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">07 — 커리큘럼</span>
+    <h2>응용 과정 세부 내용 (2/2)</h2>
+  </div>
+  <span class="course-label advanced">COURSE B — 응용</span>
+  <div class="cur-table-wrap">
+    <table class="cur-table">
+      <thead><tr><th>모듈</th><th>주요 내용</th><th>시간</th><th>방법</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="col-module">M3.<br>보고서 검토와<br>피드백에<br>AI 활용</td>
+          <td class="col-content">
+            <div class="module-goal">팀원 보고서를 AI로 검토하고 구조화된 피드백을 제공한다</div>
+            <div class="sub-section">(1) AI 기반 보고서 검토 프로세스</div>
+            <div class="detail-item">논리 구조 점검, 근거 데이터 검증, 누락 항목 체크 프롬프트</div>
+            <div class="detail-item">실제 보고서 샘플로 검토 실습</div>
+            <div class="sub-section">(2) 피드백 작성의 AI 활용</div>
+            <div class="detail-item">건설적 피드백 프레임워크 + AI 초안 생성</div>
+            <div class="detail-item">검토 → 피드백 → 코칭 연계 워크플로 설계</div>
+          </td>
+          <td class="col-time">1.5h</td>
+          <td class="col-method">실습<br>강사 코칭<br>동료 리뷰</td>
+        </tr>
+        <tr>
+          <td class="col-module">M4.<br>데이터 기반<br>의사결정에<br>AI 활용</td>
+          <td class="col-content">
+            <div class="module-goal">업무 데이터를 AI로 분석하고 의사결정에 활용한다</div>
+            <div class="sub-section">(1) AI 데이터 분석 실습</div>
+            <div class="detail-item">엑셀·CSV 데이터를 AI에 업로드하여 트렌드 분석</div>
+            <div class="detail-item">차트·그래프 자동 생성 및 해석</div>
+            <div class="sub-section">(2) 의사결정 시나리오 실습</div>
+            <div class="detail-item">다기준 의사결정 매트릭스 AI 활용</div>
+            <div class="detail-item">리스크 분석 및 시나리오 플래닝에 AI 적용</div>
+          </td>
+          <td class="col-time">1.5h</td>
+          <td class="col-method">실습<br>사례 분석<br>토론</td>
+        </tr>
+        <tr>
+          <td class="col-module">M5.<br>바이브코딩:<br>리더의 도구를<br>직접 만든다</td>
+          <td class="col-content">
+            <div class="module-goal">팀 관리용 대시보드를 바이브코딩으로 직접 만든다</div>
+            <div class="sub-section">(1) PRD 작성 및 대시보드 설계</div>
+            <div class="detail-item">팀 현황 데이터 기반 요구사항 정의</div>
+            <div class="detail-item">대시보드 구성 요소 설계 (KPI, 진행률, 리스크 지표)</div>
+            <div class="sub-section">(2) 대시보드 제작 및 발표</div>
+            <div class="detail-item">AI와 대화하며 대시보드 직접 제작</div>
+            <div class="detail-item">결과물 공유 및 현업 적용 계획 수립</div>
+          </td>
+          <td class="col-time">1.5h</td>
+          <td class="col-method">실습<br>강사 코칭<br>발표</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 11. 학습 목표 & 기대 효과 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">08 — 목표 및 효과</span>
+    <h2>학습 목표 및 기대 효과</h2>
+  </div>
+  <div class="obj-out-layout">
+    <div class="obj-box">
+      <div class="box-title">학습 목표</div>
+      <div class="obj-card">
+        <span class="obj-num">01</span>
+        <div>
+          <h4>AI 리터러시 확보</h4>
+          <p>생성형 AI의 원리·강점·한계를 정확히 이해하고 팀 내 AI 활용을 주도할 수 있다</p>
+        </div>
+      </div>
+      <div class="obj-card">
+        <span class="obj-num">02</span>
+        <div>
+          <h4>리더 업무 AI 적용</h4>
+          <p>일상업무(메일, 회의, 보고)부터 조직 운영(코칭, 검토, 의사결정)까지 AI를 실전 적용할 수 있다</p>
+        </div>
+      </div>
+      <div class="obj-card">
+        <span class="obj-num">03</span>
+        <div>
+          <h4>구성원 AI 코칭 역량</h4>
+          <p>팀원의 AI 활용을 관찰·평가하고, 성장 방향을 코칭할 수 있다</p>
+        </div>
+      </div>
+      <div class="obj-card">
+        <span class="obj-num">04</span>
+        <div>
+          <h4>업무 도구 자체 제작</h4>
+          <p>바이브코딩으로 팀 관리 도구를 직접 설계·제작하여 현업에 적용할 수 있다</p>
+        </div>
+      </div>
+    </div>
+    <div class="out-box">
+      <div class="box-title">기대 효과</div>
+      <div class="out-card">
+        <div class="out-icon">⚡</div>
+        <div>
+          <h4>의사결정 속도 향상</h4>
+          <p>데이터 수집·분석에 걸리던 시간을 AI로 단축하여 판단에 집중</p>
+        </div>
+      </div>
+      <div class="out-card">
+        <div class="out-icon">👥</div>
+        <div>
+          <h4>코칭 품질 강화</h4>
+          <p>AI 기반 면담 준비와 피드백 설계로 구성원 소통의 질적 향상</p>
+        </div>
+      </div>
+      <div class="out-card">
+        <div class="out-icon">📈</div>
+        <div>
+          <h4>조직 AI 내재화 촉진</h4>
+          <p>리더가 먼저 AI를 체득함으로써 팀 전체 AI 활용 문화 확산</p>
+        </div>
+      </div>
+      <div class="out-card">
+        <div class="out-icon">🔧</div>
+        <div>
+          <h4>개발팀 의존 탈피</h4>
+          <p>필요한 관리 도구를 리더 스스로 만들어 운영 민첩성 확보</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 12. 유사 프로젝트 실적 1/2 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">09 — 유사 프로젝트 실적</span>
+    <h2>리더 대상 AI 교육 납품 실적 (1/2)</h2>
+  </div>
+  <div class="cur-table-wrap">
+    <table class="ref-table">
+      <thead><tr><th>고객사</th><th>과정명</th><th>대상</th><th>차수</th><th>핵심 내용</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="ref-company">풀무원그룹</td>
+          <td>팀장을 위한 AI 활용법</td>
+          <td>리더·팀장</td>
+          <td>13차수</td>
+          <td class="ref-highlight">프롬프트 + 리더 업무관리 + 구성원 관리·코칭</td>
+        </tr>
+        <tr>
+          <td class="ref-company">풀무원그룹</td>
+          <td>경영간부(임원)을 위한 AI 활용법</td>
+          <td>임원</td>
+          <td>4차수</td>
+          <td class="ref-highlight">프롬프트 + 전략적 의사결정 + 문제해결</td>
+        </tr>
+        <tr>
+          <td class="ref-company">SK플래닛</td>
+          <td>리더를 위한 AI 활용법</td>
+          <td>리더·팀장</td>
+          <td>—</td>
+          <td class="ref-highlight">프롬프트 + 리더 업무관리 + 구성원 관리·코칭</td>
+        </tr>
+        <tr>
+          <td class="ref-company">SK플래닛</td>
+          <td>임원을 위한 AI 활용법</td>
+          <td>임원</td>
+          <td>—</td>
+          <td class="ref-highlight">프롬프트 + 전략적 의사결정 + 문제해결·기획</td>
+        </tr>
+        <tr>
+          <td class="ref-company">SK플래닛</td>
+          <td>팀장을 위한 AI 활용법 심화</td>
+          <td>리더·팀장</td>
+          <td>—</td>
+          <td class="ref-highlight">심화 프롬프트 + 챗봇 만들기 + 바이브코딩</td>
+        </tr>
+        <tr>
+          <td class="ref-company">대상(주)</td>
+          <td>리더를 위한 AI 과정</td>
+          <td>리더·팀장</td>
+          <td>—</td>
+          <td class="ref-highlight">프롬프트 + 리더 업무관리 + 구성원 관리·코칭</td>
+        </tr>
+        <tr>
+          <td class="ref-company">SPC GFS</td>
+          <td>팀장을 위한 AI 활용법</td>
+          <td>리더·팀장</td>
+          <td>2차수</td>
+          <td class="ref-highlight">프롬프트 + 리더 업무관리 + 구성원 관리·코칭</td>
+        </tr>
+        <tr>
+          <td class="ref-company">SPC</td>
+          <td>예비리더를 위한 AI 활용법</td>
+          <td>리더·팀장</td>
+          <td>3차수</td>
+          <td class="ref-highlight">프롬프트 + 리더 업무관리 + 구성원 관리·코칭</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 12-2. 유사 프로젝트 실적 2/2 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">09 — 유사 프로젝트 실적</span>
+    <h2>리더 대상 AI 교육 납품 실적 (2/2)</h2>
+  </div>
+  <div class="cur-table-wrap">
+    <table class="ref-table">
+      <thead><tr><th>고객사</th><th>과정명</th><th>대상</th><th>차수</th><th>핵심 내용</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="ref-company">LGU+</td>
+          <td>리더를 위한 AI 활용법</td>
+          <td>리더·팀장</td>
+          <td>2차수</td>
+          <td class="ref-highlight">리더십 + 생성형 AI 활용법</td>
+        </tr>
+        <tr>
+          <td class="ref-company">CJ프레시안</td>
+          <td>리더 후보자 AI 활용법</td>
+          <td>리더·팀장</td>
+          <td>2차수</td>
+          <td class="ref-highlight">프롬프트 + 리더십 + 조직관리에 AI 적용</td>
+        </tr>
+        <tr>
+          <td class="ref-company">에스원</td>
+          <td>리더를 위한 AI 활용법</td>
+          <td>리더·팀장</td>
+          <td>—</td>
+          <td class="ref-highlight">프롬프트 + 리더 업무관리 + 구성원 관리·코칭</td>
+        </tr>
+        <tr>
+          <td class="ref-company">한국은행</td>
+          <td>팀장의 전략적 커뮤니케이션 with AI</td>
+          <td>리더·팀장</td>
+          <td>—</td>
+          <td class="ref-highlight">프롬프트 + 구성원 관리·코칭 + 전략적 커뮤니케이션</td>
+        </tr>
+        <tr>
+          <td class="ref-company">한국알콘</td>
+          <td>임원을 위한 AI 활용법</td>
+          <td>임원</td>
+          <td>—</td>
+          <td class="ref-highlight">프롬프트 + 리더 업무관리 + 구성원 관리·코칭</td>
+        </tr>
+        <tr>
+          <td class="ref-company">노벨리스코리아</td>
+          <td>임원을 위한 AI 활용법</td>
+          <td>임원</td>
+          <td>—</td>
+          <td class="ref-highlight">프롬프트 + 리더 업무관리 + 구성원 관리·코칭</td>
+        </tr>
+        <tr>
+          <td class="ref-company">Merz Aesthetics</td>
+          <td>임원 AI 활용법</td>
+          <td>임원</td>
+          <td>—</td>
+          <td class="ref-highlight">프롬프트 + 리더 업무관리 + 전략적 의사결정</td>
+        </tr>
+        <tr>
+          <td class="ref-company">다나허 코리아</td>
+          <td>팀리더를 위한 AI 활용법</td>
+          <td>리더·팀장</td>
+          <td>—</td>
+          <td class="ref-highlight">프롬프트 + 리더 업무관리 + 구성원 관리·코칭</td>
+        </tr>
+        <tr>
+          <td class="ref-company">서울시복지재단</td>
+          <td>임원 및 리더를 위한 AI 활용법</td>
+          <td>임원</td>
+          <td>—</td>
+          <td class="ref-highlight">프롬프트 + 리더 업무관리 + 구성원 관리·코칭</td>
+        </tr>
+        <tr>
+          <td class="ref-company">라이나생명</td>
+          <td>영업팀장을 위한 AI 활용법</td>
+          <td>리더·팀장</td>
+          <td>—</td>
+          <td class="ref-highlight">프롬프트 + 상품교육 + 콜코칭·면담</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="quote-note" style="margin-top:12px;">이 외 Kistler Korea, 램리서치, 팀스파르타, 이노핏파트너스, 한국외식정보, 배민아카데미, AIA 등 다수 리더·임원 AI 교육 납품 실적 보유</p>
+  </div>
+</div>
+
+<!-- ═══ 13. 강사 소개 ═══ -->
+<div class="slide">
+  <div class="profile-layout">
+    <div class="profile-left">
+      <div class="profile-avatar">JH</div>
+      <h3>박재현</h3>
+      <p class="role">딥택트러닝 CCO · 컨텐츠 연구소장</p>
+      <div>
+        <span class="profile-tag">리더십 × AI</span>
+        <span class="profile-tag">프롬프트 설계</span>
+        <span class="profile-tag">바이브코딩</span>
+        <span class="profile-tag">HRD 컨설팅</span>
+      </div>
+    </div>
+    <div class="profile-right">
+      <div class="profile-section">
+        <h4>전문 분야</h4>
+        <p>기업 리더십 개발과 AI 활용 교육을 결합한 프로그램 설계. 리더 대상 AI 교육 57건 이상 납품, 풀무원 13차수 운영 등 대규모 반복 프로젝트 경험 보유.</p>
+      </div>
+      <div class="profile-section">
+        <h4>리더 AI 교육 주요 이력</h4>
+        <ul>
+          <li>풀무원그룹 — 팀장을 위한 AI 활용법 (13차수, 연간 프로그램)</li>
+          <li>대상(주) — 리더를 위한 AI 과정</li>
+          <li>SK플래닛 — 팀장 AI 활용법 심화 (바이브코딩)</li>
+          <li>Merz Aesthetics Korea — 임원 AI 활용법</li>
+          <li>CJ프레시안 — 리더 후보자 AI 활용법 (2차수)</li>
+        </ul>
+      </div>
+      <div class="profile-section">
+        <h4>교육 철학</h4>
+        <p>"리더가 AI를 체득하면 팀 전체가 바뀝니다. 기술을 가르치는 것이 아니라, 리더의 판단에 AI를 연결하는 경험을 설계합니다."</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 14. 회사 소개 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">10 — 회사 소개</span>
+    <h2>딥택트러닝</h2>
+  </div>
+  <div class="company-grid">
+    <div class="company-card">
+      <h4>누적 교육 실적</h4>
+      <div class="stat">872개 과정 · 464개 고객사</div>
+      <p>대기업, 공공기관, 외국계 기업 등 다양한 산업군에서 리더십, AI 활용, 보고력, 문제해결 교육을 수행해왔습니다.</p>
+    </div>
+    <div class="company-card">
+      <h4>AI 교육 전문성</h4>
+      <div class="stat">AI 활용 교육 57건+</div>
+      <p>2024년부터 리더·임원 대상 AI 활용 교육에 집중. 프롬프트 엔지니어링, 바이브코딩, AI 기반 의사결정 등 실전 중심 커리큘럼을 운영합니다.</p>
+    </div>
+    <div class="company-card">
+      <h4>교육 방법론</h4>
+      <h4 style="color:var(--text); font-size:14px; margin-top:4px;">체험 → 체득 → 적용</h4>
+      <p>성인학습 원리에 기반하여 강의 비중을 최소화하고, 참가자의 실제 업무 데이터와 상황으로 실습합니다. 교육 당일 산출물을 다음 날 현업에 바로 적용할 수 있는 것이 원칙입니다.</p>
+    </div>
+    <div class="company-card">
+      <h4>리더십 교육 전문</h4>
+      <div class="stat">리더십 과정 134건</div>
+      <p>신임 팀장부터 임원까지, 직급별 리더십 과제에 맞춘 교육을 설계합니다. AI와 리더십을 결합한 과정은 딥택트러닝의 핵심 강점입니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 15. 견적 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">11 — 견적</span>
+    <h2>교육 비용 안내</h2>
+  </div>
+  <div class="quote-table-wrap">
+    <table class="quote-table">
+      <thead>
+        <tr><th>항목</th><th>내용</th><th>수량</th><th>단가</th><th>금액</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="qt-item">강사비 (기초 과정)</span><br><span class="qt-desc">교육 설계 · 강의 · 실습 코칭</span></td>
+          <td>7시간 × 1회차</td>
+          <td class="qt-num">1</td>
+          <td class="qt-price">3,500,000원</td>
+          <td class="qt-price">3,500,000원</td>
+        </tr>
+        <tr>
+          <td><span class="qt-item">강사비 (응용 과정)</span><br><span class="qt-desc">교육 설계 · 강의 · 실습 코칭</span></td>
+          <td>7시간 × 1회차</td>
+          <td class="qt-num">1</td>
+          <td class="qt-price">3,500,000원</td>
+          <td class="qt-price">3,500,000원</td>
+        </tr>
+        <tr>
+          <td><span class="qt-item">교재 개발비</span><br><span class="qt-desc">실습 가이드 · 프롬프트 템플릿 · 샘플 데이터</span></td>
+          <td>기초 + 응용 2과정</td>
+          <td class="qt-num">1식</td>
+          <td class="qt-price">별도 협의</td>
+          <td class="qt-price">별도 협의</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="quote-total">
+      <span class="qt-label">강사비 합계 (VAT 별도)</span>
+      <span class="qt-amount">7,000,000원</span>
+    </div>
+    <p class="quote-note">* 출장비/교통비 별도 · 견적 유효기간: 발행일로부터 30일</p>
+  </div>
+</div>
+
+<!-- ═══ 16. CLOSING ═══ -->
+<div class="slide closing">
+  <h2>리더가 <em>AI를 체득</em>하면<br>조직 전체가 바뀝니다</h2>
+  <p>리더의 판단에 AI를 연결하는 경험을 함께 설계하겠습니다.</p>
+  <div class="contact-row">
+    <div class="contact-item">
+      <div class="cl">Contact</div>
+      <div class="cv">박재현 소장</div>
+    </div>
+    <div class="contact-item">
+      <div class="cl">Company</div>
+      <div class="cv">딥택트러닝</div>
+    </div>
+    <div class="contact-item">
+      <div class="cl">Email</div>
+      <div class="cv">matt@deeptactlearning.com</div>
+    </div>
+    <div class="contact-item">
+      <div class="cl">Tel</div>
+      <div class="cv">010-6651-6268</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PRINT BUTTON ═══ -->
+<div class="print-page">
+  <div class="print-inner">
+    <p class="print-msg">제안서를 PDF로 저장하거나 인쇄하세요</p>
+    <button class="print-btn" onclick="window.print()">🖨️ 출력하기</button>
+    <p class="print-tip">인쇄 설정에서 <strong>가로(Landscape)</strong> · <strong>여백 없음</strong>을 선택해주세요</p>
+  </div>
+</div>
+
+<style>
+.print-page {
+  width:960px; margin:40px auto; padding:100px 0;
+  display:flex; align-items:center; justify-content:center;
+}
+.print-inner { text-align:center; }
+.print-msg { font-size:16px; color:var(--text-sub); margin-bottom:24px; }
+.print-btn {
+  display:inline-block; padding:16px 48px; font-size:18px; font-weight:700;
+  font-family:'Noto Sans KR',sans-serif;
+  background:linear-gradient(135deg, var(--accent), var(--accent-light));
+  color:#FFF; border:none; border-radius:10px; cursor:pointer;
+  box-shadow:0 4px 16px rgba(60,109,113,0.3);
+  transition:transform 0.2s, box-shadow 0.2s;
+}
+.print-btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(60,109,113,0.4); }
+.print-btn:active { transform:translateY(0); }
+.print-tip { font-size:13px; color:var(--text-light); margin-top:16px; }
+.print-tip strong { color:var(--text-sub); }
+
+@media print {
+  .print-page { display:none !important; }
+}
+</style>
+
+<div class="nav-hint">© 2026 딥택트러닝. All rights reserved.</div>
+
+</body>
+</html>
