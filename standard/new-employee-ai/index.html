@@ -129,6 +129,7 @@ body {
 .vtl-item:nth-child(2) .vtl-dot { background:linear-gradient(135deg,#284A63,#515C78); color:#FFF; }
 .vtl-item:nth-child(3) .vtl-dot { background:linear-gradient(135deg,var(--accent),var(--accent-light)); color:#FFF; }
 .vtl-item:nth-child(4) .vtl-dot { background:linear-gradient(135deg,#2E3142,#45494C); color:#FFF; }
+.vtl-item:nth-child(5) .vtl-dot { background:linear-gradient(135deg,#284A63,#515C78); color:#FFF; }
 .vtl-body { flex:1; padding-bottom:8px; }
 .vtl-top { display:flex; align-items:baseline; gap:10px; margin-bottom:4px; }
 .vtl-body h4 { font-size:14px; font-weight:700; }
@@ -143,15 +144,15 @@ body {
 .cur-table { width:100%; border-collapse:collapse; font-size:11.5px; }
 .cur-table thead th { background:var(--primary); color:#FFF; font-weight:600; font-size:11px; padding:8px 10px; text-align:center; letter-spacing:0.5px; }
 .cur-table thead th:nth-child(2) { text-align:left; }
-.cur-table tbody td { padding:12px 12px; border-bottom:1px solid #EEEDEA; vertical-align:top; }
+.cur-table tbody td { padding:10px 12px; border-bottom:1px solid #EEEDEA; vertical-align:top; }
 .cur-table tbody tr:last-child td { border-bottom:none; }
-.cur-table .col-module { text-align:center; font-weight:700; font-size:12px; background:var(--surface); width:115px; line-height:1.4; }
+.cur-table .col-module { text-align:center; font-weight:700; font-size:12px; background:var(--surface); width:110px; line-height:1.4; }
 .cur-table .col-content { line-height:1.5; }
 .cur-table .col-time { text-align:center; font-weight:600; width:50px; font-size:12.5px; color:var(--accent); }
 .cur-table .col-method { text-align:center; width:85px; font-size:11px; color:var(--text-sub); line-height:1.45; }
-.cur-table .module-goal { font-weight:700; font-size:12px; margin-bottom:6px; color:var(--text); }
-.cur-table .sub-section { font-weight:600; margin-top:5px; margin-bottom:1px; color:var(--text); font-size:11.5px; }
-.cur-table .detail-item { padding-left:10px; position:relative; color:var(--text-sub); line-height:1.45; margin:1px 0; font-size:11px; }
+.cur-table .module-goal { font-weight:700; font-size:12px; margin-bottom:5px; color:var(--text); }
+.cur-table .sub-section { font-weight:600; margin-top:4px; margin-bottom:1px; color:var(--text); font-size:11.5px; }
+.cur-table .detail-item { padding-left:10px; position:relative; color:var(--text-sub); line-height:1.4; margin:1px 0; font-size:11px; }
 .cur-table .detail-item::before { content:'-'; position:absolute; left:0; color:var(--text-light); }
 
 /* ═══ OVERVIEW (교육 개요) ═══ */
@@ -194,6 +195,21 @@ body {
 .profile-section ul { list-style:none; padding:0; }
 .profile-section li { padding-left:14px; position:relative; margin-bottom:3px; }
 .profile-section li::before { content:''; position:absolute; left:0; top:9px; width:5px; height:5px; background:var(--accent); border-radius:50%; }
+
+/* ═══ REFERENCES ═══ */
+.ref-table { width:100%; border-collapse:collapse; font-size:12px; }
+.ref-table thead th { background:var(--primary); color:#FFF; font-weight:600; font-size:11px; padding:10px 14px; text-align:left; letter-spacing:0.5px; }
+.ref-table tbody td { padding:14px 14px; border-bottom:1px solid #EEEDEA; vertical-align:middle; font-size:12.5px; }
+.ref-table tbody tr:last-child td { border-bottom:none; }
+.ref-table .ref-company { font-weight:700; }
+.ref-table .ref-highlight { font-size:11px; color:var(--text-sub); line-height:1.45; }
+
+/* ═══ COMPANY ═══ */
+.company-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; flex:1; }
+.company-card { background:var(--surface); border-radius:10px; padding:24px 22px; }
+.company-card h4 { font-size:13px; font-weight:700; color:var(--accent); margin-bottom:8px; }
+.company-card p { font-size:12px; color:var(--text-sub); line-height:1.6; }
+.company-card .stat { font-family:'Plus Jakarta Sans',sans-serif; font-size:24px; font-weight:800; color:var(--primary); margin-bottom:4px; }
 
 /* ═══ CLOSING ═══ */
 .closing { background:linear-gradient(135deg,#2E3142,#284A63); color:#FFF; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:60px; position:relative; }
@@ -267,6 +283,8 @@ body {
   .contact-item .cl { color:var(--text-light) !important; }
   .contact-item .cv { color:var(--text) !important; }
 
+  .ref-table thead th { background:var(--text) !important; }
+
   /* ── 인쇄 스케일업 ── */
   .cover { padding:80px 100px; }
   .cover-badge { font-size:13px; margin-bottom:36px; }
@@ -336,6 +354,15 @@ body {
   .ov-note { font-size:14px; padding:20px 24px; }
   .overview-grid { gap:40px; }
 
+  .ref-table { font-size:14px; }
+  .ref-table thead th { padding:12px 16px; font-size:13px; }
+  .ref-table tbody td { padding:16px 16px; font-size:15px; }
+
+  .company-card { padding:30px 28px; }
+  .company-card h4 { font-size:16px; }
+  .company-card p { font-size:14px; }
+  .company-card .stat { font-size:30px; }
+
   .quote-table { font-size:15px; }
   .quote-table thead th { padding:14px 18px; font-size:14px; }
   .quote-table tbody td { padding:18px 18px; }
@@ -368,12 +395,12 @@ body {
 <!-- ═══ 1. COVER ═══ -->
 <div class="slide cover">
   <div class="cover-logo">DEEPTACT LEARNING</div>
-  <div class="cover-badge">Training Proposal</div>
+  <div class="cover-badge">Standard Program</div>
   <h1>신입사원을 위한<br><em>AI 활용법</em> 마스터 과정</h1>
   <p class="subtitle">생성형 AI를 업무 파트너로 만드는 하루, 8시간의 실전 여정</p>
   <div class="cover-meta">
     <span><span class="dot"></span>딥택트러닝</span>
-    <span><span class="dot"></span>2026.04.18</span>
+    <span><span class="dot"></span>2026.04.21</span>
     <span><span class="dot"></span>1일 · 8시간</span>
   </div>
 </div>
@@ -721,10 +748,10 @@ body {
       <div class="profile-section">
         <h4>최근 프로젝트</h4>
         <ul>
-          <li>대상주식회사 — 팀장급 리더십 & AI 활용 교육 (11개 차수, 200명+)</li>
-          <li>한화시스템즈 — 전략적 사고 & 1장 보고서 작성 과정</li>
-          <li>클린팩토메이션 — 임원급 AI 활용 리더십 과정</li>
-          <li>KIRD 연구기관 — AI 활용 업무혁신 교육</li>
+          <li>한국농어촌공사 — 신입사원을 위한 AI활용법</li>
+          <li>코닝정밀소재 — 신입사원 AI리터러시 (Copilot 중심)</li>
+          <li>BGF — 신입사원 AI를 활용한 콘텐츠 제작</li>
+          <li>비씨카드 — 신입사원 기획서작성 with AI</li>
         </ul>
       </div>
       <div class="profile-section">
@@ -735,10 +762,155 @@ body {
   </div>
 </div>
 
-<!-- ═══ 9. 교육 개요 ═══ -->
+<!-- ═══ 9. 유사 프로젝트 실적 1/2 ═══ -->
 <div class="slide content-slide">
   <div class="section-head">
-    <span class="num">06 — 교육 개요</span>
+    <span class="num">07 — 유사 프로젝트 실적</span>
+    <h2>신입사원 AI 교육 납품 실적 (1/2)</h2>
+  </div>
+  <div class="cur-table-wrap">
+    <table class="ref-table">
+      <thead><tr><th>고객사</th><th>과정명</th><th>대상</th><th>시기</th><th>핵심 내용</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="ref-company">BGF</td>
+          <td>신입사원 AI를 활용한 콘텐츠 제작</td>
+          <td>신입사원</td>
+          <td>2026.04</td>
+          <td class="ref-highlight">프롬프트 + 웹툰·인포그래픽·숏폼영상 제작 with AI</td>
+        </tr>
+        <tr>
+          <td class="ref-company">DAS</td>
+          <td>신규입사자를 위한 바이브코딩</td>
+          <td>신입사원</td>
+          <td>2026.03</td>
+          <td class="ref-highlight">AI활용 기획 + 프롬프트 + 바이브코딩 + 랜딩페이지 개발</td>
+        </tr>
+        <tr>
+          <td class="ref-company">고려신용</td>
+          <td>신입사원 AI활용 보고서</td>
+          <td>신입사원</td>
+          <td>2026.03</td>
+          <td class="ref-highlight">보고서 작성 이론 + 프롬프트 + 데이터분석</td>
+        </tr>
+        <tr>
+          <td class="ref-company">코닝정밀소재</td>
+          <td>신입사원 AI리터러시 (Copilot 중심)</td>
+          <td>신입사원</td>
+          <td>2026.03</td>
+          <td class="ref-highlight">프롬프트 + 문서작성 + 데이터분석 · M365 Copilot</td>
+        </tr>
+        <tr>
+          <td class="ref-company">한국농어촌공사</td>
+          <td>신입사원을 위한 AI활용법</td>
+          <td>신입사원</td>
+          <td>2026.01</td>
+          <td class="ref-highlight">프롬프트 + 일상업무 + 회의록 + 문서작성</td>
+        </tr>
+        <tr>
+          <td class="ref-company">다이닝브랜즈그룹</td>
+          <td>신입사원 시간관리 with AI</td>
+          <td>신입사원</td>
+          <td>2026.01</td>
+          <td class="ref-highlight">업무우선순위 + 일정관리에 AI활용법</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 9-2. 유사 프로젝트 실적 2/2 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">07 — 유사 프로젝트 실적</span>
+    <h2>신입사원 AI 교육 납품 실적 (2/2)</h2>
+  </div>
+  <div class="cur-table-wrap">
+    <table class="ref-table">
+      <thead><tr><th>고객사</th><th>과정명</th><th>대상</th><th>시기</th><th>핵심 내용</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="ref-company">서울특별시농수산식품공사</td>
+          <td>신입사원 업무내공 with AI</td>
+          <td>신입사원</td>
+          <td>2026.01</td>
+          <td class="ref-highlight">기획 + 보고서 작성 시 AI활용법</td>
+        </tr>
+        <tr>
+          <td class="ref-company">한화에너지</td>
+          <td>신입사원 문제해결 및 시간관리 with AI</td>
+          <td>신입사원</td>
+          <td>2026.01</td>
+          <td class="ref-highlight">문제해결 with AI + 업무우선순위 + 일정관리</td>
+        </tr>
+        <tr>
+          <td class="ref-company">한솔제지</td>
+          <td>신입사원 시간관리&실행력 with AI</td>
+          <td>신입사원</td>
+          <td>2025.12</td>
+          <td class="ref-highlight">업무우선순위 + 일정관리 + 보고스킬 with AI</td>
+        </tr>
+        <tr>
+          <td class="ref-company">비씨카드</td>
+          <td>신입사원 기획서작성 with AI</td>
+          <td>신입사원</td>
+          <td>2025.11</td>
+          <td class="ref-highlight">프롬프트 + 문제해결 프로세스 + 기획서 작성</td>
+        </tr>
+        <tr>
+          <td class="ref-company">여천NCC</td>
+          <td>신입사원 프롬프트 엔지니어링</td>
+          <td>신입사원</td>
+          <td>2025.01</td>
+          <td class="ref-highlight">프롬프트 + 일상업무·프로젝트에 AI활용법</td>
+        </tr>
+        <tr>
+          <td class="ref-company">NH투자증권</td>
+          <td>신입사원 AI보고서 작성법</td>
+          <td>신입사원</td>
+          <td>2024.09</td>
+          <td class="ref-highlight">보고서 작성 이론 + 프롬프트 + 데이터분석</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="quote-note" style="margin-top:12px;">이 외 코오롱베니트, 포스코, 현대제철, E1, 대상, 인카금융서비스, 한국투자신탁운용, DB손해보험 등 다수 신입사원 교육 납품 실적 보유</p>
+  </div>
+</div>
+
+<!-- ═══ 10. 회사 소개 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">08 — 회사 소개</span>
+    <h2>딥택트러닝</h2>
+  </div>
+  <div class="company-grid">
+    <div class="company-card">
+      <h4>누적 교육 실적</h4>
+      <div class="stat">872개 과정 · 464개 고객사</div>
+      <p>대기업, 공공기관, 외국계 기업 등 다양한 산업군에서 리더십, AI 활용, 보고력, 문제해결 교육을 수행해왔습니다.</p>
+    </div>
+    <div class="company-card">
+      <h4>AI 교육 전문성</h4>
+      <div class="stat">AI 활용 교육 57건+</div>
+      <p>2024년부터 신입사원·실무자·리더 전 직급 대상 AI 활용 교육을 운영. 프롬프트 엔지니어링, 바이브코딩, AI 기반 문서작성 등 실전 중심 커리큘럼을 제공합니다.</p>
+    </div>
+    <div class="company-card">
+      <h4>교육 방법론</h4>
+      <h4 style="color:var(--text); font-size:14px; margin-top:4px;">체험 → 체득 → 적용</h4>
+      <p>성인학습 원리에 기반하여 강의 비중을 최소화하고, 참가자의 실제 업무 데이터와 상황으로 실습합니다. 교육 당일 산출물을 다음 날 현업에 바로 적용할 수 있는 것이 원칙입니다.</p>
+    </div>
+    <div class="company-card">
+      <h4>신입사원 교육 전문</h4>
+      <div class="stat">신입·주니어 과정 114건</div>
+      <p>신입사원 대상 보고서 작성, 시간관리, 기획력, AI활용법 등 다양한 주제의 과정을 운영하며, 2025년부터 AI 결합 과정이 급증하고 있습니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 11. 교육 개요 ═══ -->
+<div class="slide content-slide">
+  <div class="section-head">
+    <span class="num">09 — 교육 개요</span>
     <h2>교육 운영 정보</h2>
   </div>
   <div class="overview-grid">
@@ -767,7 +939,7 @@ body {
 <!-- ═══ 10. 견적 ═══ -->
 <div class="slide content-slide">
   <div class="section-head">
-    <span class="num">07 — 견적</span>
+    <span class="num">10 — 견적</span>
     <h2>교육 비용 안내</h2>
   </div>
   <div class="quote-table-wrap">
