@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git check-ignore *)",
+      "Bash(curl -s -o /dev/null -w \"no-cache leader-ai: %{http_code}\\\\n\" -H \"Cache-Control: no-cache\" -H \"Pragma: no-cache\" \"https://deeptact.netlify.app/standard/leader-ai/index.html?v=$\\(date +%s\\)\")",
+      "Bash(curl -s -o /dev/null -w \"no-cache new-employee: %{http_code}\\\\n\" -H \"Cache-Control: no-cache\" \"https://deeptact.netlify.app/standard/new-employee-ai/index.html?v=$\\(date +%s\\)\")",
+      "Bash(curl -sI \"https://deeptact.netlify.app/standard/leader-ai/index.html\")",
+      "Bash(curl -sI \"https://deeptact.netlify.app/standard/ai-5stage-roadmap/index.html\")",
+      "Bash(curl -sI \"https://deeptact.netlify.app/_redirects\")",
+      "Bash(git commit -m ' *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://deeptact.netlify.app/standard/leader-ai/index.html\")",
+      "Bash(curl -s -o /dev/null -w \"leader-ai pretty: %{http_code}\\\\n\" -L \"https://deeptact.netlify.app/standard/leader-ai\")",
+      "Bash(curl -s -o /dev/null -w \"new-employee-ai pretty: %{http_code}\\\\n\" -L \"https://deeptact.netlify.app/standard/new-employee-ai\")",
+      "Bash(curl -s -o /dev/null -w \"leader-ai: %{http_code}\\\\n\" \"https://deeptact.netlify.app/standard/leader-ai/index.html\")",
+      "Bash(curl -s -o /dev/null -w \"new-employee-ai: %{http_code}\\\\n\" \"https://deeptact.netlify.app/standard/new-employee-ai/index.html\")",
+      "Bash(curl -s -o /dev/null -w \"deploy-specific URL: %{http_code}\\\\n\" \"https://48c0686--deeptact.netlify.app/standard/leader-ai/index.html\")",
+      "Bash(curl -s -o /dev/null -w \"trailing slash: %{http_code}\\\\n\" \"https://deeptact.netlify.app/standard/leader-ai/\")",
+      "Bash(curl -s -o /dev/null -w \"no-slash: %{http_code}\\\\n\" \"https://deeptact.netlify.app/standard/leader-ai\")",
+      "Bash(curl -sI \"https://48c0686--deeptact.netlify.app/standard/leader-ai/index.html\")",
+      "Bash(curl -s \"https://deeptact.netlify.app/standard/\")",
+      "Bash(curl -s -o /dev/null -w \"skplanet working: %{http_code}\\\\n\" \"https://deeptact.netlify.app/skplanet/2026leader-vibe-coding/index.html\")",
+      "Bash(curl -sI \"https://deeptact.netlify.app/\")",
+      "Bash(curl -s -o /dev/null -w \"index: %{http_code}\\\\n\" \"https://deeptact.netlify.app/?v=$\\(date +%s\\)\")",
+      "Bash(curl -sI \"https://deeptact.netlify.app/?v=$\\(date +%s\\)\")",
+      "Bash(cp standard/leader-ai/index.html /tmp/leader-ai-backup.html)",
+      "Bash(cp standard/new-employee-ai/index.html /tmp/new-employee-ai-backup.html)",
+      "Read(//tmp/**)",
+      "Bash(git rm *)",
+      "Bash(mkdir -p standard/leader-ai standard/new-employee-ai)",
+      "Bash(cp /tmp/leader-ai-backup.html standard/leader-ai/index.html)",
+      "Bash(cp /tmp/new-employee-ai-backup.html standard/new-employee-ai/index.html)"
+    ]
+  }
+}
