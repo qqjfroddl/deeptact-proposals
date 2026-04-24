@@ -635,7 +635,7 @@
    제안서 데이터
    새 제안서 추가 시 이 배열에만 객체 추가하면 됩니다.
    ============================================ */
-const BASE_URL = 'https://deeptact-proposals.netlify.app';
+const BASE_URL = window.location.origin;
 
 const proposals = [
   {
@@ -746,8 +746,8 @@ function render() {
   }
 
   filtered.forEach((p, i) => {
-    const fullUrl = BASE_URL + p.path;   // 표시/복사/QR용 (항상 Netlify 주소)
-    const openHref = '.' + p.path + '/index.html';  // 실제 열기용 (상대 경로: 로컬+Netlify 모두 작동)
+    const fullUrl = BASE_URL + p.path;   // 표시/복사/QR용 (항상 Vercel 주소)
+    const openHref = '.' + p.path + '/index.html';  // 실제 열기용 (상대 경로: 로컬+Vercel 모두 작동)
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
