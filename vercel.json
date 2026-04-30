@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/proposals.js": {
+      "includeFiles": "**/index.html"
+    }
+  }
+}

@@ -637,7 +637,7 @@
    ============================================ */
 const BASE_URL = window.location.origin;
 
-const proposals = [
+let proposals = [
   {
     client: 'SK\uD3EC\uB808\uC2A4\uD2B8',
     clientTag: 'SK',
@@ -711,6 +711,24 @@ const proposals = [
     category: 'standard'
   }
 ];
+
+const fallbackProposals = proposals.slice();
+
+async function loadProposals() {
+  try {
+    const response = await fetch('/api/proposals', { cache: 'no-store' });
+    if (!response.ok) throw new Error('Failed to load proposals');
+
+    const data = await response.json();
+    if (Array.isArray(data.proposals) && data.proposals.length > 0) {
+      proposals = data.proposals;
+    }
+  } catch (error) {
+    proposals = fallbackProposals;
+  }
+
+  render();
+}
 
 /* ============================================
    상태 라벨 매핑
@@ -953,7 +971,7 @@ document.getElementById('themeToggle').addEventListener('click', () => {
 
 // 초기 테마 & 렌더
 initTheme();
-render();
+loadProposals();
 </script>
 </body>
 </html>
